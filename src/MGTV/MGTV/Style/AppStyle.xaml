@@ -17,7 +17,7 @@
         </Setter>
     </Style>
 
-    <!--ItemTile-->
+    <!--Controls && Pages -->
     <Style x:Key="ItemTile_Title_Text" TargetType="TextBlock" BasedOn="{StaticResource textBlockBase}">
         <Setter Property="VerticalAlignment" Value="Bottom"/>
         <Setter Property="FontSize" Value="18"/>
@@ -34,6 +34,11 @@
         <Setter Property="TextTrimming" Value="CharacterEllipsis"/>
         <Setter Property="TextWrapping" Value="NoWrap"/>
         <Setter Property="Margin" Value="0, 0, 0, 3"/>
+    </Style>
+
+    <Style x:Key="MainPage_Header_Text" TargetType="TextBlock" BasedOn="{StaticResource textBlockBase}">
+        <Setter Property="FontSize" Value="42"/>
+        <Setter Property="Foreground" Value="White"/>
     </Style>
 
 </ResourceDictionary>

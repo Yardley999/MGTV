@@ -14,7 +14,7 @@
             <RowDefinition Height="22*"/>
             <RowDefinition Height="125*"/>
         </Grid.RowDefinitions>
-        <TextBlock Text="热门推荐" Grid.Row="0" Foreground="White" FontSize="42" VerticalAlignment="Bottom" Margin="10, 0, 0, 15"/>
+        <TextBlock Text="热门推荐" Grid.Row="0" Style="{StaticResource MainPage_Header_Text}" VerticalAlignment="Bottom" Margin="10, 0, 0, 15"/>
         <Grid Grid.Row="1">
             <Grid.RowDefinitions>
                 <RowDefinition Height="*"/>

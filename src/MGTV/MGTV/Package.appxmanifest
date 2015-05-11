@@ -8,14 +8,14 @@
 
   <Identity
     Name="8f29093c-8b1b-4da0-8f16-47a9697c49eb"
-    Publisher="CN=v-rockyl"
+    Publisher="CN=alias"
     Version="1.0.0.0" />
 
   <mp:PhoneIdentity PhoneProductId="8f29093c-8b1b-4da0-8f16-47a9697c49eb" PhonePublisherId="00000000-0000-0000-0000-000000000000"/>
 
   <Properties>
     <DisplayName>MGTV</DisplayName>
-    <PublisherDisplayName>v-rockyl</PublisherDisplayName>
+    <PublisherDisplayName>alias</PublisherDisplayName>
     <Logo>Assets\StoreLogo.png</Logo>
   </Properties>
 
@@ -32,7 +32,7 @@
       Executable="$targetnametoken$.exe"
       EntryPoint="MGTV.App">
       <uap:VisualElements
-        DisplayName="MGTV"
+        DisplayName="芒果 TV"
         Square150x150Logo="Assets\Logo.png"
         Square44x44Logo="Assets\SmallLogo.png"
         Description="MGTV"

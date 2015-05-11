@@ -39,7 +39,18 @@ namespace MGTV
 
             this.InitializeComponent();
             this.Suspending += OnSuspending;
+            this.UnhandledException += App_UnhandledException;
         }
+
+        private void App_UnhandledException(object sender, UnhandledExceptionEventArgs e)
+        {
+            e.Handled = true;
+
+#if DEBUG
+            throw new NotImplementedException();
+#endif
+        }
+
 
         /// <summary>
         /// Invoked when the application is launched normally by the end user.  Other entry points

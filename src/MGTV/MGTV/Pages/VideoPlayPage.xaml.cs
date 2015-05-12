@@ -1,9 +1,17 @@
 ﻿using MGTV.Common;
+using MGTV.ViewModels;
 using System;
+using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using Windows.Media.Streaming.Adaptive;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
+using Windows.UI.Xaml.Controls.Primitives;
+using Windows.UI.Xaml.Input;
 using Windows.UI.Xaml.Navigation;
+using System.Linq;
+using SharedFx.Extensions;
+using Windows.UI.Xaml.Media.Imaging;
 
 // The Blank Page item template is documented at http://go.microsoft.com/fwlink/?LinkId=234238
 
@@ -18,11 +26,14 @@ namespace MGTV.Pages
 
         public class PageParams
         {
-            public string Url { get; set; }
+            public int PlayIndex { get; set; }
+
+            public List<PlayListItem> PlayList { get; set; }
 
             public PageParams()
             {
-                Url = string.Empty;
+                PlayIndex = 0;
+                PlayList = new List<PlayListItem>();
             }
         }
 
@@ -30,8 +41,12 @@ namespace MGTV.Pages
 
         #region Field && Property
 
+        public ObservableCollection<PlayListItem> PlayLists { get; set; }
+
         private PageParams pageParams;
         private DispatcherTimer progressTimer;
+        private bool isPlaying = false;
+        private bool isFullScreenMode = false;
 
         #endregion
 
@@ -40,6 +55,7 @@ namespace MGTV.Pages
         public VideoPlayPage()
         {
             this.InitializeComponent();
+            Init();
         }
 
         protected override void OnNavigatedTo(NavigationEventArgs e)
@@ -47,33 +63,75 @@ namespace MGTV.Pages
             base.OnNavigatedTo(e);
 
             pageParams = e.Parameter as PageParams;
+            PlayListSetup();
+            PlayerSetup();
             SetUrlAndTryPlay();
         }
 
         #endregion
 
-        private async void SetUrlAndTryPlay()
-        {
-            if(pageParams != null && !string.IsNullOrEmpty(pageParams.Url))
-            {
-                var hlslUrl = new Uri(pageParams.Url, UriKind.RelativeOrAbsolute);
-                var hlsSource = await AdaptiveMediaSource.CreateFromUriAsync(hlslUrl);
+        #region Init
 
-                if (hlsSource.Status == AdaptiveMediaSourceCreationStatus.Success)
+        private void Init()
+        {
+            PlayLists = new ObservableCollection<PlayListItem>();
+            playListBox.ItemsSource = PlayLists;
+
+            this.player.MediaOpened += Player_MediaOpened;
+            this.progress.ValueChanged += Progress_ValueChanged;
+            this.progress.ThumbToolTipValueConverter = new PlayerTimeSliderTooltipValueConverter();
+        }
+
+        #endregion
+
+        #region  Setup
+
+        private void PlayListSetup()
+        {
+            if (pageParams != null)
+            {
+                PlayLists.Clear();
+                foreach (var item in pageParams.PlayList)
                 {
-                    player.SetMediaStreamSource(hlsSource.MediaSource);
-                    ProgressBarSetup();
-                    Play();
+                    PlayLists.Add(new PlayListItem()
+                    {
+                        IsPlaying = item.IsPlaying,
+                        Name = item.Name,
+                        Url = item.Url
+                    });
                 }
             }
         }
-        
+
+        private void PlayerSetup()
+        {
+            ResetVideoText();
+        }
+
+        private void ResetVideoText()
+        {
+            this.currentPosition.Text = TimeSpan.Zero.ToShortFromatString();
+            this.duration.Text = TimeSpan.Zero.ToShortFromatString();
+        }
+
+        #endregion
+
+        #region Progress Bar
+
+        private void Player_MediaOpened(object sender, RoutedEventArgs e)
+        {
+            ProgressBarSetup();
+            progressTimer.Start();
+        }
+
         private void ProgressBarSetup()
         {
             this.progress.Maximum = player.NaturalDuration.TimeSpan.TotalSeconds;
             this.progress.Minimum = 0;
 
-            if(progressTimer == null)
+            this.duration.Text = player.NaturalDuration.TimeSpan.ToShortFromatString();
+
+            if (progressTimer == null)
             {
                 progressTimer = new DispatcherTimer();
                 progressTimer.Interval = TimeSpan.FromSeconds(1);
@@ -84,35 +142,151 @@ namespace MGTV.Pages
         private void ProgressTimer_Tick(object sender, object e)
         {
             progress.Value = player.Position.TotalSeconds;
-            currentPosition.Text = player.Position.ToShortFromatString(); ;
+            currentPosition.Text = player.Position.ToShortFromatString();
+        }
+
+        private void Progress_ValueChanged(object sender, RangeBaseValueChangedEventArgs e)
+        {
+            this.player.Position = TimeSpan.FromSeconds(e.NewValue);
+        }
+
+        #endregion
+
+        #region Player Function
+
+        private async void SetUrlAndTryPlay()
+        {
+            if (pageParams != null)
+            {
+                string playUrl = GetPlayingUrl();
+                
+                if (string.IsNullOrEmpty(playUrl))
+                {
+                    return;
+                }
+
+                var hlslUrl = new Uri(playUrl, UriKind.RelativeOrAbsolute);
+                var hlsSource = await AdaptiveMediaSource.CreateFromUriAsync(hlslUrl);
+
+                if (hlsSource.Status == AdaptiveMediaSourceCreationStatus.Success)
+                {
+                    player.SetMediaStreamSource(hlsSource.MediaSource);
+                    Play();
+                }
+            }
+        }
+
+        private void Next()
+        {
+            int index = -1;
+
+            var playingItem = PlayLists.FirstOrDefault(p => p.IsPlaying);
+            if (playingItem != null)
+            {
+                index = PlayLists.IndexOf(playingItem);
+            }
+
+            if (index >= 0 && index < PlayLists.Count - 1)
+            {
+                PlayLists[index].IsPlaying = false;
+                PlayLists[index + 1].IsPlaying = true;
+                SetUrlAndTryPlay();
+            }
         }
 
         private void Play()
         {
             this.player.Play();
-            progressTimer.Start();
+            isPlaying = true;
+            this.playButton.Visibility = Visibility.Collapsed;
+            this.PauseButton.Visibility = Visibility.Visible;
         }
 
         private void Stop()
         {
             this.player.Stop();
-            progressTimer.Stop();
+            this.player.Position = TimeSpan.Zero;
+
+            if (progressTimer != null)
+            {
+                progressTimer.Stop();
+            }
+            isPlaying = false;
+            ResetVideoText();
         }
 
         private void Pause()
         {
             this.player.Pause();
-            progressTimer.Stop();
+            isPlaying = false;
+            this.playButton.Visibility = Visibility.Visible;
+            this.PauseButton.Visibility = Visibility.Collapsed;
         }
 
         private void SetFullScreen(bool isFullScreen)
         {
-            this.player.IsFullWindow = isFullScreen;
+            isFullScreenMode = isFullScreen;
+            this.player.Margin = new Thickness(0, 0, 0, isFullScreenMode ? 0 : this.StatusBar.ActualHeight);
+            this.StatusBar.Visibility =  isFullScreenMode ?  Visibility.Collapsed : Visibility.Visible;
         }
 
-        private void fullScreenSwitch_Click(object sender, RoutedEventArgs e)
+        #endregion
+
+        #region Play List
+
+        private string GetPlayingUrl()
         {
-            SetFullScreen(!player.IsFullWindow);
+            var item = PlayLists.FirstOrDefault(p => p.IsPlaying);
+            if (item != null)
+            {
+                return item.Url;
+            }
+            return string.Empty;
         }
+
+        #endregion
+
+        #region Event
+
+        private void playControl_Tapped(object sender, TappedRoutedEventArgs e)
+        {
+            if (isPlaying)
+            {
+                Pause();
+            }
+            else
+            {
+                Play();
+            }
+        }
+
+        private void next_tapped(object sender, TappedRoutedEventArgs e)
+        {
+            Next();
+        }
+
+        private void fullscreenSwitch_tapped(object sender, TappedRoutedEventArgs e)
+        {
+            SetFullScreen(!isFullScreenMode);
+        }
+
+        private void PlayListItem_Tapped(object sender, TappedRoutedEventArgs e)
+        {
+            Stop();
+
+            var dataContext = sender.GetDataContext<PlayListItem>();
+            foreach (var item in PlayLists)
+            {
+                if(item.IsPlaying )
+                {
+                   item.IsPlaying = false;
+                }
+            }
+
+            dataContext.IsPlaying = true;
+            SetUrlAndTryPlay();
+        }
+
+        #endregion
     }
 }

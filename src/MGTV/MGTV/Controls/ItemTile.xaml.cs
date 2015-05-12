@@ -51,7 +51,17 @@ namespace MGTV.Controls
         private void ItemTile_Tapped(object sender, Windows.UI.Xaml.Input.TappedRoutedEventArgs e)
         {
             VideoPlayPage.PageParams param = new VideoPlayPage.PageParams();
-            param.Url = "http://pchlsws1.imgo.tv/jiankong.fhv/playlist.m3u8";
+            param.PlayList.Add(new ViewModels.PlayListItem() {
+                IsPlaying = true,
+                Name = "第一集",
+                Url = "http://pchlsws1.imgo.tv/jiankong.fhv/playlist.m3u8"
+            });
+
+            param.PlayList.Add(new ViewModels.PlayListItem() {
+                IsPlaying = false,
+                Name = "第二集",
+                Url = "http://wpc.866f.edgecastcdn.net/03866F/greyback/yourtrinity/130929-webword_,2500,1500,580,265,.mp4.m3u8"
+            });
 
             App.Instance.Frame.Navigate(typeof(VideoPlayPage), param);
         }

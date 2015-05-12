@@ -95,6 +95,7 @@
       <DependentUpon>App.xaml</DependentUpon>
     </Compile>
     <Compile Include="Common\Extensions.cs" />
+    <Compile Include="Common\PlayerTimeSliderTooltipValueConverter.cs" />
     <Compile Include="Controls\Category.xaml.cs">
       <DependentUpon>Category.xaml</DependentUpon>
     </Compile>
@@ -114,6 +115,17 @@
       <DependentUpon>VideoPlayPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="SharedFx.10\Data\AnythingToVisibilityConverter.cs" />
+    <Compile Include="SharedFx.10\Data\BindableBase.cs" />
+    <Compile Include="SharedFx.10\Data\JsonSerializer.cs" />
+    <Compile Include="SharedFx.10\Data\MD5.cs" />
+    <Compile Include="SharedFx.10\Data\XmlHelper.cs" />
+    <Compile Include="SharedFx.10\Extensions\DataContextExtensions.cs" />
+    <Compile Include="SharedFx.10\Extensions\DateTimeExtension.cs" />
+    <Compile Include="SharedFx.10\Network\HttpExecuter.cs" />
+    <Compile Include="SharedFx.10\Network\HttpExtensions.cs" />
+    <Compile Include="SharedFx.10\Network\Interface.cs" />
+    <Compile Include="ViewModels\PlayListItem.cs" />
   </ItemGroup>
   <ItemGroup>
     <AppxManifest Include="Package.appxmanifest">
@@ -125,10 +137,15 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Assets\background.png" />
+    <Content Include="Assets\fullScreen.png" />
     <Content Include="Assets\history.png" />
+    <Content Include="Assets\pause.png" />
+    <Content Include="Assets\next.png" />
+    <Content Include="Assets\play.png" />
     <Content Include="Assets\test.jpg" />
     <Content Include="Assets\tvlogo.png" />
     <Content Include="Assets\search.png" />
+    <Content Include="Assets\volume.png" />
     <Content Include="Properties\Default.rd.xml" />
     <Content Include="Assets\Logo.scale-100.png" />
     <Content Include="Assets\SmallLogo.scale-100.png" />
@@ -193,9 +210,7 @@
       <Private>True</Private>
     </Reference>
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="ViewModels\" />
-  </ItemGroup>
+  <ItemGroup />
   <PropertyGroup Condition=" '$(VisualStudioVersion)' == '' or '$(VisualStudioVersion)' &lt; '14.0' ">
     <VisualStudioVersion>14.0</VisualStudioVersion>
   </PropertyGroup>

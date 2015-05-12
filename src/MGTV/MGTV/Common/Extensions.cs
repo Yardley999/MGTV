@@ -11,7 +11,8 @@ namespace MGTV.Common
         /// <returns></returns>
         public static string ToShortFromatString(this TimeSpan timeSpan)
         {
-            return timeSpan.ToString(@"hh\:mm\:ss");
+            int mins = 24 * 60 * timeSpan.Days + 60 * timeSpan.Hours + timeSpan.Minutes;
+            return string.Format("{0:d2}:{1:d2}", mins, timeSpan.Seconds);
         }
     }
 }

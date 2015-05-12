@@ -24,6 +24,17 @@ namespace MGTV
     /// </summary>
     sealed partial class App : Application
     {
+
+        public Frame Frame {
+            get;
+            private set;
+        }
+
+        public static App Instance {
+            get;
+            private set;
+        }
+
         /// <summary>
         /// Allows tracking page views, exceptions and other telemetry through the Microsoft Application Insights service.
         /// </summary>
@@ -40,6 +51,11 @@ namespace MGTV
             this.InitializeComponent();
             this.Suspending += OnSuspending;
             this.UnhandledException += App_UnhandledException;
+
+            if(Instance == null)
+            {
+                Instance = this;
+            }
         }
 
         private void App_UnhandledException(object sender, UnhandledExceptionEventArgs e)
@@ -86,6 +102,8 @@ namespace MGTV
                 // Place the frame in the current Window
                 Window.Current.Content = rootFrame;
             }
+
+            Frame = rootFrame;
 
             if (rootFrame.Content == null)
             {

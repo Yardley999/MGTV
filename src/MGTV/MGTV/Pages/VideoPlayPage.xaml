@@ -7,7 +7,29 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     mc:Ignorable="d">
 
-    <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+    <Grid Background="Black">
+        <Grid x:Name="header" VerticalAlignment="Top" Height="80">
 
+        </Grid>
+
+        <MediaElement x:Name="player" Margin="0, 80, 0, 0"/>
+
+        <Grid x:Name="StatusBar" VerticalAlignment="Bottom" Height="60">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="152*"/>
+                <ColumnDefinition Width="653*"/>
+                <ColumnDefinition Width="155*"/>
+            </Grid.ColumnDefinitions>
+            
+            <StackPanel Orientation="Horizontal" Grid.Column="0" HorizontalAlignment="Right" VerticalAlignment="Center">
+                <TextBlock x:Name="currentPosition" Foreground="White"/>
+            </StackPanel>
+            
+            <Slider x:Name="progress" Grid.Column="1" VerticalAlignment="Center"/>
+            
+            <StackPanel Orientation="Horizontal" Grid.Column="2" VerticalAlignment="Center">
+                <Button x:Name="fullScreenSwitch" Grid.Column="2" Foreground="White" Click="fullScreenSwitch_Click" Content="FullScreen" Margin="0,14"/>
+            </StackPanel>
+        </Grid>
     </Grid>
 </Page>

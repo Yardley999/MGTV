@@ -1,4 +1,5 @@
-﻿using Windows.UI.Xaml;
+﻿using MGTV.Pages;
+using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 
 // The User Control item template is documented at http://go.microsoft.com/fwlink/?LinkId=234236
@@ -43,8 +44,16 @@ namespace MGTV.Controls
         {
             this.InitializeComponent();
             this.DataContext = this;
-
+            this.Tapped += ItemTile_Tapped;
             Test();
+        }
+
+        private void ItemTile_Tapped(object sender, Windows.UI.Xaml.Input.TappedRoutedEventArgs e)
+        {
+            VideoPlayPage.PageParams param = new VideoPlayPage.PageParams();
+            param.Url = "http://pchlsws1.imgo.tv/jiankong.fhv/playlist.m3u8";
+
+            App.Instance.Frame.Navigate(typeof(VideoPlayPage), param);
         }
 
         private void Test()

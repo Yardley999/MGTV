@@ -11,8 +11,13 @@
     
     <Grid>
         <Grid.Background>
-            <ImageBrush ImageSource="{Binding Image}" AlignmentX="Center" AlignmentY="Center" Stretch="UniformToFill"/>
+            <ImageBrush ImageSource="../Assets/defaultTileImage.png" AlignmentX="Center" AlignmentY="Center" Stretch="UniformToFill"/>
         </Grid.Background>
+        <Border>
+            <Border.Background>
+                <ImageBrush ImageSource="{Binding Image}" AlignmentX="Center" AlignmentY="Center" Stretch="UniformToFill"/>
+            </Border.Background> 
+        </Border>
         <Border VerticalAlignment="Bottom" Height="40">
             <Border.Background>
                 <LinearGradientBrush StartPoint="0, 1" EndPoint="0, 0">

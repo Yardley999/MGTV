@@ -78,8 +78,8 @@ namespace MGTV.Pages
             playListBox.ItemsSource = PlayLists;
 
             this.player.MediaOpened += Player_MediaOpened;
-            this.progress.ValueChanged += Progress_ValueChanged;
             this.progress.ThumbToolTipValueConverter = new PlayerTimeSliderTooltipValueConverter();
+            this.volumeSlider.ThumbToolTipValueConverter = new VolumePercentageConverter();
         }
 
         #endregion
@@ -106,6 +106,8 @@ namespace MGTV.Pages
         private void PlayerSetup()
         {
             ResetVideoText();
+            this.player.Volume = 0.5;
+            this.volumeSlider.Value = this.player.Volume * 100;
         }
 
         private void ResetVideoText()
@@ -143,11 +145,6 @@ namespace MGTV.Pages
         {
             progress.Value = player.Position.TotalSeconds;
             currentPosition.Text = player.Position.ToShortFromatString();
-        }
-
-        private void Progress_ValueChanged(object sender, RangeBaseValueChangedEventArgs e)
-        {
-            this.player.Position = TimeSpan.FromSeconds(e.NewValue);
         }
 
         #endregion
@@ -285,6 +282,22 @@ namespace MGTV.Pages
 
             dataContext.IsPlaying = true;
             SetUrlAndTryPlay();
+        }
+
+        private void Progress_PointerCaptureLost(object sender, PointerRoutedEventArgs e)
+        {
+            this.player.Position = TimeSpan.FromSeconds(this.progress.Value);
+        }
+
+        private void videoRateTypeFlayoutMentu_Tapped(object sender, TappedRoutedEventArgs e)
+        {
+            this.videoRateButton.Content = (sender as MenuFlyoutItem).Text;
+        }
+
+        private void volumeSliderValue_Changed(object sender, RangeBaseValueChangedEventArgs e)
+        {
+            Slider volumeSlider = sender as Slider;
+            this.player.Volume = volumeSlider.Value / 100.0;
         }
 
         #endregion

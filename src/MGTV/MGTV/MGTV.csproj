@@ -96,6 +96,7 @@
     </Compile>
     <Compile Include="Common\Extensions.cs" />
     <Compile Include="Common\PlayerTimeSliderTooltipValueConverter.cs" />
+    <Compile Include="Common\VolumePercentageConverter.cs" />
     <Compile Include="Controls\Category.xaml.cs">
       <DependentUpon>Category.xaml</DependentUpon>
     </Compile>
@@ -142,6 +143,7 @@
     <Content Include="Assets\pause.png" />
     <Content Include="Assets\next.png" />
     <Content Include="Assets\play.png" />
+    <Content Include="Assets\defaultTileImage.png" />
     <Content Include="Assets\test.jpg" />
     <Content Include="Assets\tvlogo.png" />
     <Content Include="Assets\search.png" />

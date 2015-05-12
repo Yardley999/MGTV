@@ -21,10 +21,10 @@
                     <DataTemplate>
                         <Grid Background="Transparent" Tapped="PlayListItem_Tapped">
                             <Border Background="#313131" CornerRadius="5" Visibility="{Binding IsPlaying, Converter={StaticResource AnythingToVisibilityConverter}, ConverterParameter=neg}">
-                                <TextBlock FontSize="19" Foreground="White" Text="{Binding Name}" Margin="10, 5"/>
+                                <TextBlock Text="{Binding Name}" Style="{StaticResource PlayListItem_Name_Text}"/>
                             </Border>
                             <Border Background="#f06000" CornerRadius="5" Visibility="{Binding IsPlaying, Converter={StaticResource AnythingToVisibilityConverter}}">
-                                <TextBlock FontSize="19" Foreground="White" Text="{Binding Name}" Margin="10, 5"/>
+                                <TextBlock Text="{Binding Name}" Style="{StaticResource PlayListItem_Name_Text}"/>
                             </Border>
                         </Grid>
                     </DataTemplate>
@@ -34,23 +34,50 @@
 
         <Grid x:Name="StatusBar" VerticalAlignment="Bottom" Height="64" Background="#ee090806">
             <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="213"/>
+                <ColumnDefinition Width="258"/>
                 <ColumnDefinition/>
                 <ColumnDefinition Width="189"/>
             </Grid.ColumnDefinitions>
 
-            <StackPanel Orientation="Horizontal" Grid.Column="0" HorizontalAlignment="Right" VerticalAlignment="Center" Margin="0,17,10,17" Height="30" Width="130">
+            <StackPanel Orientation="Horizontal" Grid.Column="0" HorizontalAlignment="Right" VerticalAlignment="Center">
                 <Image x:Name="playButton" Source="../Assets/play.png" Stretch="None" VerticalAlignment="Center" Tapped="playControl_Tapped"/>
                 <Image x:Name="PauseButton" Source="../Assets/pause.png" Visibility="Collapsed" Stretch="None" VerticalAlignment="Center" Tapped="playControl_Tapped"/>
                 <Image Source="../Assets/Next.png" Stretch="None" Margin="5, 0, 0, 0" VerticalAlignment="Center" Tapped="next_tapped"/>
-                <TextBlock x:Name="currentPosition" Text="00:00" Foreground="White" Margin="10, 0, 0, 0" VerticalAlignment="Center"/>
+
+                <Button x:Name="videoRateButton" Content="高清" Foreground="White" Margin="5, 0" Style="{StaticResource NoPressEffectButtonStyle}">
+                    <Button.Flyout>
+                        <MenuFlyout x:Name="videoRateFlyoutMenu">
+                            <MenuFlyoutItem Text="高清" Style="{StaticResource MenuFlayoutItem_Text}" Tapped="videoRateTypeFlayoutMentu_Tapped"/>
+                            <MenuFlyoutItem Text="超清" Style="{StaticResource MenuFlayoutItem_Text}" Tapped="videoRateTypeFlayoutMentu_Tapped"/>
+                            <MenuFlyoutItem Text="极速" Style="{StaticResource MenuFlayoutItem_Text}" Tapped="videoRateTypeFlayoutMentu_Tapped"/>
+                        </MenuFlyout>
+                    </Button.Flyout>
+                </Button>
+
+                <TextBlock x:Name="currentPosition" Text="00:00" Foreground="White" Margin="10, 0, 5, 0" VerticalAlignment="Center"/>
             </StackPanel>
 
-            <Slider x:Name="progress" Grid.Column="1" VerticalAlignment="Center" Height="44" Margin="0,10"/>
+            <Slider x:Name="progress" Grid.Column="1" Template="{StaticResource NoPressEffectSlider}"
+                    Style="{StaticResource VideoPositionSlider_Style}" PointerCaptureLost="Progress_PointerCaptureLost"/>
 
             <StackPanel Orientation="Horizontal" Grid.Column="2" VerticalAlignment="Center" HorizontalAlignment="Left" Margin="10,16,0,16" Height="32" Width="153">
                 <TextBlock x:Name="duration" Text="00:00" Foreground="White" VerticalAlignment="Center"/>
-                <Image Source="../assets/volume.png" Stretch="None" Margin="10, 0, 0, 0" VerticalAlignment="Center"/>
+
+                <Button Style="{StaticResource NoPressEffectButtonStyle}" VerticalAlignment="Center">
+                    <Button.Content>
+                        <Image Source="../assets/volume.png" Stretch="None" VerticalAlignment="Center"/>
+                    </Button.Content>
+                    <Button.Flyout>
+                        <Flyout FlyoutPresenterStyle="{StaticResource balckFlyoutStyle}">
+                            <Flyout.Content>
+                                <Grid Height="36">
+                                    <Slider x:Name="volumeSlider" Style="{StaticResource VolumeSlider_Style}" ValueChanged="volumeSliderValue_Changed" Template="{StaticResource NoPressEffectSlider}" />
+                                </Grid>
+                            </Flyout.Content>
+                        </Flyout>
+                    </Button.Flyout>
+                </Button>
+
                 <Image Source="../assets/fullScreen.png" Stretch="None" Margin="10, 0, 0, 0" VerticalAlignment="Center" Tapped="fullscreenSwitch_tapped"/>
             </StackPanel>
         </Grid>

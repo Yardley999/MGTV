@@ -8,7 +8,7 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     mc:Ignorable="d">
 
-    <Grid Style="{StaticResource RootGrid}">
+    <Grid Style="{StaticResource RootGrid}" RightTapped="RootGrid_RightTapped">
         <Grid.RowDefinitions>
             <RowDefinition Height="128"/>
             <RowDefinition Height="*"/>
@@ -22,7 +22,22 @@
             </StackPanel>
         </Grid>
 
-        <Grid x:Name="content" Grid.Row="1">
+        <ScrollViewer x:Name="topMenuBar" Visibility="Collapsed" VerticalAlignment="Top" Grid.RowSpan="2" Height="168" Background="#aa000000">
+            <StackPanel Orientation="Horizontal" >
+                <Rectangle Height="130" Width="170" Fill="#313131" Margin="5, 0"/>
+                <Rectangle Height="130" Width="170" Fill="#313131" Margin="5, 0"/>
+                <Rectangle Height="130" Width="170" Fill="#313131" Margin="5, 0"/>
+                <Rectangle Height="130" Width="170" Fill="#313131" Margin="5, 0"/>
+                <Rectangle Height="130" Width="170" Fill="#313131" Margin="5, 0"/>
+                <Rectangle Height="130" Width="170" Fill="#313131" Margin="5, 0"/>
+                <Rectangle Height="130" Width="170" Fill="#313131" Margin="5, 0"/>
+                <Rectangle Height="130" Width="170" Fill="#313131" Margin="5, 0"/>
+                <Rectangle Height="130" Width="170" Fill="#313131" Margin="5, 0"/>
+                <Rectangle Height="130" Width="170" Fill="#313131" Margin="5, 0"/>
+            </StackPanel>
+        </ScrollViewer>
+
+        <Grid x:Name="content" Grid.Row="1" Tapped="ContentGrid_Tapped">
             <Grid.RowDefinitions>
                 <RowDefinition Height="588"/>
                 <RowDefinition Height="*"/>

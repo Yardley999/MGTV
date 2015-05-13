@@ -40,6 +40,8 @@ namespace MGTV.Controls
         #endregion
 
 
+        #region Life Cycle
+
         public ItemTile()
         {
             this.InitializeComponent();
@@ -47,6 +49,10 @@ namespace MGTV.Controls
             this.Tapped += ItemTile_Tapped;
             Test();
         }
+
+        #endregion
+
+        #region Event
 
         private void ItemTile_Tapped(object sender, Windows.UI.Xaml.Input.TappedRoutedEventArgs e)
         {
@@ -65,6 +71,8 @@ namespace MGTV.Controls
 
             App.Instance.Frame.Navigate(typeof(VideoPlayPage), param);
         }
+
+        #endregion
 
         private void Test()
         {

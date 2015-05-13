@@ -26,5 +26,16 @@ namespace MGTV
         {
             this.InitializeComponent();
         }
+
+        private void RootGrid_RightTapped(object sender, RightTappedRoutedEventArgs e)
+        {
+            this.topMenuBar.Visibility = Visibility.Visible;
+        }
+
+        private void ContentGrid_Tapped(object sender, TappedRoutedEventArgs e)
+        {
+            this.topMenuBar.Visibility = Visibility.Collapsed;
+            e.Handled = true;
+        }
     }
 }

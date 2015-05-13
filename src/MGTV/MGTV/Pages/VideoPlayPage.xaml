@@ -8,7 +8,13 @@
     mc:Ignorable="d">
 
     <Grid Style="{StaticResource RootGrid}" x:Name="root">
+        
         <MediaElement x:Name="player" Margin="0, 0, 0, 64"/>
+    
+        <Grid x:Name="bufferingGrid" Visibility="{Binding BufferingProgress, ElementName=player, Converter={StaticResource BufferProgressToVisibilityConverter}}">
+            <TextBlock Text="{Binding BufferingProgress, ElementName=player, Converter={StaticResource BufferProgressPercentageConverter}}" 
+                       Foreground="White" FontSize="55" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+        </Grid>
 
         <Grid x:Name="header" VerticalAlignment="Top" Background="Black">
             <ListBox x:Name="playListBox" ItemsSource="{Binding PlayLists}" Background="Transparent">

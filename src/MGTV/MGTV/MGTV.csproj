@@ -94,6 +94,7 @@
     <Compile Include="App.xaml.cs">
       <DependentUpon>App.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Common\BufferProgressConverter.cs" />
     <Compile Include="Common\Extensions.cs" />
     <Compile Include="Common\PlayerTimeSliderTooltipValueConverter.cs" />
     <Compile Include="Common\VolumePercentageConverter.cs" />

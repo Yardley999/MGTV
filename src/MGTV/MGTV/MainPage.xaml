@@ -22,7 +22,15 @@
             </StackPanel>
         </Grid>
 
-        <ScrollViewer x:Name="topMenuBar" Visibility="Collapsed" VerticalAlignment="Top" Grid.RowSpan="2" Height="168" Background="#aa000000">
+        <ScrollViewer x:Name="topMenuBar" 
+                      Visibility="Collapsed" VerticalAlignment="Top" 
+                      Grid.RowSpan="2" Height="168" Background="#aa000000"
+                      ScrollViewer.IsScrollInertiaEnabled="True" 
+                      ScrollViewer.HorizontalScrollBarVisibility="Hidden"
+                      ScrollViewer.VerticalScrollBarVisibility="Hidden"
+                      ScrollViewer.HorizontalScrollMode="Enabled"
+                      ScrollViewer.VerticalScrollMode="Disabled"
+                      ScrollViewer.ZoomMode="Disabled">
             <StackPanel Orientation="Horizontal" >
                 <Rectangle Height="130" Width="170" Fill="#313131" Margin="5, 0"/>
                 <Rectangle Height="130" Width="170" Fill="#313131" Margin="5, 0"/>

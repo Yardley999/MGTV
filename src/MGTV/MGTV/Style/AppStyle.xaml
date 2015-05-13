@@ -2,10 +2,13 @@
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" 
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:shadredFXData="using:SharedFx.Data"
-    xmlns:local="using:MGTV.Style">
+    xmlns:common="using:MGTV.Common"
+    >
 
     <!--Common-->
     <shadredFXData:AnythingToVisibilityConverter x:Key="AnythingToVisibilityConverter"/>
+    <common:BufferProgressPercentageConverter x:Key="BufferProgressPercentageConverter"/>
+    <common:BufferProgressToVisiblityConverter x:Key="BufferProgressToVisibilityConverter"/>
 
     <Style x:Key="textBlockBase" TargetType="TextBlock">
 

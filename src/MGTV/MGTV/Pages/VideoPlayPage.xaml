@@ -9,11 +9,10 @@
 
     <Grid Style="{StaticResource RootGrid}" x:Name="root">
         
-        <MediaElement x:Name="player" Margin="0, 0, 0, 64"/>
-    
+        <MediaElement x:Name="player"/>
+
         <Grid x:Name="bufferingGrid" Visibility="{Binding BufferingProgress, ElementName=player, Converter={StaticResource BufferProgressToVisibilityConverter}}">
-            <TextBlock Text="{Binding BufferingProgress, ElementName=player, Converter={StaticResource BufferProgressPercentageConverter}}" 
-                       Foreground="White" FontSize="55" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+            <ProgressRing IsActive="True" Width="100" Height="100"/>
         </Grid>
 
         <Grid x:Name="header" VerticalAlignment="Top" Background="Black">
@@ -38,17 +37,17 @@
             </ListBox>
         </Grid>
 
-        <Grid x:Name="StatusBar" VerticalAlignment="Bottom" Height="64" Background="#ee090806">
+        <Grid x:Name="StatusBar" VerticalAlignment="Bottom" Background="#ee090806">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="258"/>
-                <ColumnDefinition/>
+                <ColumnDefinition Width="*"/>
                 <ColumnDefinition Width="189"/>
             </Grid.ColumnDefinitions>
 
             <StackPanel Orientation="Horizontal" Grid.Column="0" HorizontalAlignment="Right" VerticalAlignment="Center">
-                <Image x:Name="playButton" Source="../Assets/play.png" Stretch="None" VerticalAlignment="Center" Tapped="playControl_Tapped"/>
-                <Image x:Name="PauseButton" Source="../Assets/pause.png" Visibility="Collapsed" Stretch="None" VerticalAlignment="Center" Tapped="playControl_Tapped"/>
-                <Image Source="../Assets/Next.png" Stretch="None" Margin="5, 0, 0, 0" VerticalAlignment="Center" Tapped="next_tapped"/>
+                <AppBarToggleButton x:Name="PlayPauseButton" Icon="Play" Style="{StaticResource PlayPauseButtonStyle}" VerticalAlignment="Center" Click="PlayPauseButton_Click"/>
+
+                <AppBarButton x:Name="next" Icon="Next" Style="{StaticResource AppBarButtonStyle}" VerticalAlignment="Center" Click="next_Click"/>
 
                 <Button x:Name="videoRateButton" Content="高清" Foreground="White" Margin="5, 0" Style="{StaticResource NoPressEffectButtonStyle}">
                     <Button.Flyout>
@@ -66,14 +65,11 @@
             <Slider x:Name="progress" Grid.Column="1" Template="{StaticResource NoPressEffectSlider}"
                     Style="{StaticResource VideoPositionSlider_Style}" PointerCaptureLost="Progress_PointerCaptureLost"/>
 
-            <StackPanel Orientation="Horizontal" Grid.Column="2" VerticalAlignment="Center" HorizontalAlignment="Left" Margin="10,16,0,16" Height="32" Width="153">
+            <StackPanel Orientation="Horizontal" Grid.Column="2" VerticalAlignment="Center" HorizontalAlignment="Left" Margin="10, 0, 0, 0">
                 <TextBlock x:Name="duration" Text="00:00" Foreground="White" VerticalAlignment="Center"/>
 
-                <Button Style="{StaticResource NoPressEffectButtonStyle}" VerticalAlignment="Center">
-                    <Button.Content>
-                        <Image Source="../assets/volume.png" Stretch="None" VerticalAlignment="Center"/>
-                    </Button.Content>
-                    <Button.Flyout>
+                <AppBarButton Style="{StaticResource AppBarButtonStyle}" Icon="Volume" VerticalAlignment="Center" Margin="8, 0, 0, 0">
+                    <AppBarButton.Flyout>
                         <Flyout FlyoutPresenterStyle="{StaticResource balckFlyoutStyle}">
                             <Flyout.Content>
                                 <Grid Height="36">
@@ -81,10 +77,10 @@
                                 </Grid>
                             </Flyout.Content>
                         </Flyout>
-                    </Button.Flyout>
-                </Button>
+                    </AppBarButton.Flyout>
+                </AppBarButton>
 
-                <Image Source="../assets/fullScreen.png" Stretch="None" Margin="10, 0, 0, 0" VerticalAlignment="Center" Tapped="fullscreenSwitch_tapped"/>
+                <AppBarButton Style="{StaticResource AppBarButtonStyle}" Icon="FullScreen" VerticalAlignment="Center" Click="fullScreenToggle_Click"/>
             </StackPanel>
         </Grid>
 

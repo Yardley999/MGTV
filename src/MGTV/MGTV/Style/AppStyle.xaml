@@ -348,4 +348,178 @@
             </Grid>
         </Grid>
     </ControlTemplate>
-</ResourceDictionary>
+
+    <!--New play pause button style 48x48 pixels in size-->
+    <Style x:Key='PlayPauseButtonStyle' TargetType='AppBarToggleButton'>
+        <Setter Property='Margin' Value='0' />
+        <Setter Property='Width' Value='{ThemeResource MTCMediaButtonWidth}' />
+        <Setter Property='Height' Value='{ThemeResource MTCMediaButtonHeight}' />
+        <Setter Property='Padding' Value='28' />
+        <Setter Property='Template'>
+            <Setter.Value>
+                <ControlTemplate TargetType='AppBarToggleButton'>
+                    <Grid x:Name='grid' Background="Transparent">
+                        <VisualStateManager.VisualStateGroups>
+                            <VisualStateGroup x:Name='CommonStates'>
+                                <VisualState x:Name='Normal' />
+                                <VisualState x:Name='PointerOver'>
+                                    <Storyboard>
+                                        <ObjectAnimationUsingKeyFrames Storyboard.TargetName="grid" Storyboard.TargetProperty="Background">
+                                            <DiscreteObjectKeyFrame KeyTime="0" Value="{ThemeResource MediaButtonPointerOverBackgroundThemeBrush}"/>
+                                        </ObjectAnimationUsingKeyFrames>
+                                        <ObjectAnimationUsingKeyFrames Storyboard.TargetName="Content" Storyboard.TargetProperty="Foreground">
+                                            <DiscreteObjectKeyFrame KeyTime="0" Value="{ThemeResource MediaButtonPointerOverForegroundThemeBrush}"/>
+                                        </ObjectAnimationUsingKeyFrames>
+                                    </Storyboard>
+                                </VisualState>
+                                <VisualState x:Name='Pressed'>
+                                    <Storyboard>
+                                        <ObjectAnimationUsingKeyFrames Storyboard.TargetName="grid" Storyboard.TargetProperty="Background">
+                                            <DiscreteObjectKeyFrame KeyTime="0" Value="{ThemeResource MediaButtonPressedBackgroundThemeBrush}"/>
+                                        </ObjectAnimationUsingKeyFrames>
+                                        <ObjectAnimationUsingKeyFrames Storyboard.TargetName="Content" Storyboard.TargetProperty="Foreground">
+                                            <DiscreteObjectKeyFrame KeyTime="0" Value="{ThemeResource MediaButtonPressedForegroundThemeBrush}"/>
+                                        </ObjectAnimationUsingKeyFrames>
+                                    </Storyboard>
+                                </VisualState>
+                                <VisualState x:Name='Disabled'>
+                                    <Storyboard>
+                                        <DoubleAnimation Storyboard.TargetName='grid'
+                                    Storyboard.TargetProperty='Opacity'
+                                    To='0.35'
+                                    Duration='0' />
+                                    </Storyboard>
+                                </VisualState>
+                                <VisualState x:Name="Checked">
+                                    <Storyboard>
+                                        <ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="Content" Storyboard.TargetName="Content">
+                                            <DiscreteObjectKeyFrame KeyTime="0">
+                                                <DiscreteObjectKeyFrame.Value>
+                                                    <SymbolIcon Symbol="Pause"/>
+                                                </DiscreteObjectKeyFrame.Value>
+                                            </DiscreteObjectKeyFrame>
+                                        </ObjectAnimationUsingKeyFrames>
+                                    </Storyboard>
+                                </VisualState>
+                                <VisualState x:Name='CheckedPointerOver'>
+                                    <Storyboard>
+                                        <ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="Content" Storyboard.TargetName="Content">
+                                            <DiscreteObjectKeyFrame KeyTime="0">
+                                                <DiscreteObjectKeyFrame.Value>
+                                                    <SymbolIcon Symbol="Pause"/>
+                                                </DiscreteObjectKeyFrame.Value>
+                                            </DiscreteObjectKeyFrame>
+                                        </ObjectAnimationUsingKeyFrames>
+                                        <ObjectAnimationUsingKeyFrames Storyboard.TargetName="grid" Storyboard.TargetProperty="Background">
+                                            <DiscreteObjectKeyFrame KeyTime="0" Value="{ThemeResource MediaButtonPointerOverBackgroundThemeBrush}"/>
+                                        </ObjectAnimationUsingKeyFrames>
+                                        <ObjectAnimationUsingKeyFrames Storyboard.TargetName="Content" Storyboard.TargetProperty="Foreground">
+                                            <DiscreteObjectKeyFrame KeyTime="0" Value="{ThemeResource MediaButtonPointerOverForegroundThemeBrush}"/>
+                                        </ObjectAnimationUsingKeyFrames>
+                                    </Storyboard>
+                                </VisualState>
+                                <VisualState x:Name='CheckedPressed'>
+                                    <Storyboard>
+                                        <ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="Content" Storyboard.TargetName="Content">
+                                            <DiscreteObjectKeyFrame KeyTime="0">
+                                                <DiscreteObjectKeyFrame.Value>
+                                                    <SymbolIcon Symbol="Pause"/>
+                                                </DiscreteObjectKeyFrame.Value>
+                                            </DiscreteObjectKeyFrame>
+                                        </ObjectAnimationUsingKeyFrames>
+                                        <ObjectAnimationUsingKeyFrames Storyboard.TargetName="grid" Storyboard.TargetProperty="Background">
+                                            <DiscreteObjectKeyFrame KeyTime="0" Value="{ThemeResource MediaButtonPressedBackgroundThemeBrush}"/>
+                                        </ObjectAnimationUsingKeyFrames>
+                                        <ObjectAnimationUsingKeyFrames Storyboard.TargetName="Content" Storyboard.TargetProperty="Foreground">
+                                            <DiscreteObjectKeyFrame KeyTime="0" Value="{ThemeResource MediaButtonPressedForegroundThemeBrush}"/>
+                                        </ObjectAnimationUsingKeyFrames>
+                                    </Storyboard>
+                                </VisualState>
+                                <VisualState x:Name='CheckedDisabled'>
+                                    <Storyboard>
+                                        <ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="Content" Storyboard.TargetName="Content">
+                                            <DiscreteObjectKeyFrame KeyTime="0">
+                                                <DiscreteObjectKeyFrame.Value>
+                                                    <SymbolIcon Symbol="Pause"/>
+                                                </DiscreteObjectKeyFrame.Value>
+                                            </DiscreteObjectKeyFrame>
+                                        </ObjectAnimationUsingKeyFrames>
+                                        <DoubleAnimation Storyboard.TargetName='grid'
+                                    Storyboard.TargetProperty='Opacity'
+                                    To='0.35'
+                                    Duration='0' />
+                                    </Storyboard>
+                                </VisualState>
+                            </VisualStateGroup>
+                        </VisualStateManager.VisualStateGroups>
+                        <StackPanel VerticalAlignment="Center">
+                            <ContentPresenter
+                                x:Name='Content'
+                                Height="20"
+                                Width="20"
+                                Content="{TemplateBinding Icon}"
+                                Foreground="{ThemeResource MediaButtonForegroundThemeBrush}"
+                                Margin="0,0,0,4"
+                                HorizontalAlignment="Stretch"/>
+                        </StackPanel>
+                    </Grid>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+    <!--New AppBar button style 48x48 pixels in size-->
+    <Style x:Key='AppBarButtonStyle' TargetType='AppBarButton'>
+        <Setter Property='Margin' Value='0' />
+        <Setter Property='Width' Value='{ThemeResource MTCMediaButtonWidth}' />
+        <Setter Property='Height' Value='{ThemeResource MTCMediaButtonHeight}' />
+        <Setter Property='Padding' Value='28' />
+        <Setter Property="UseSystemFocusVisuals" Value="True" />
+        <Setter Property='Template'>
+            <Setter.Value>
+                <ControlTemplate TargetType='AppBarButton'>
+                    <Grid x:Name='grid' Background="Transparent">
+                        <VisualStateManager.VisualStateGroups>
+                            <VisualStateGroup x:Name='CommonStates'>
+                                <VisualState x:Name='Normal' />
+                                <VisualState x:Name='PointerOver'>
+                                    <Storyboard>
+                                        <ObjectAnimationUsingKeyFrames Storyboard.TargetName="grid" Storyboard.TargetProperty="Background">
+                                            <DiscreteObjectKeyFrame KeyTime="0" Value="{ThemeResource MediaButtonPointerOverBackgroundThemeBrush}"/>
+                                        </ObjectAnimationUsingKeyFrames>
+                                        <ObjectAnimationUsingKeyFrames Storyboard.TargetName="Content" Storyboard.TargetProperty="Foreground">
+                                            <DiscreteObjectKeyFrame KeyTime="0" Value="{ThemeResource MediaButtonPointerOverForegroundThemeBrush}"/>
+                                        </ObjectAnimationUsingKeyFrames>
+                                    </Storyboard>
+                                </VisualState>
+                                <VisualState x:Name='Pressed'>
+                                    <Storyboard>
+                                        <ObjectAnimationUsingKeyFrames Storyboard.TargetName="grid" Storyboard.TargetProperty="Background">
+                                            <DiscreteObjectKeyFrame KeyTime="0" Value="{ThemeResource MediaButtonPressedBackgroundThemeBrush}"/>
+                                        </ObjectAnimationUsingKeyFrames>
+                                        <ObjectAnimationUsingKeyFrames Storyboard.TargetName="Content" Storyboard.TargetProperty="Foreground">
+                                            <DiscreteObjectKeyFrame KeyTime="0" Value="{ThemeResource MediaButtonPressedForegroundThemeBrush}"/>
+                                        </ObjectAnimationUsingKeyFrames>
+                                    </Storyboard>
+                                </VisualState>
+                                <VisualState x:Name='Disabled'>
+                                    <Storyboard>
+                                        <DoubleAnimation Storyboard.TargetName='grid'
+                                                                    Storyboard.TargetProperty='Opacity'
+                                                                    To='0.35'
+                                                                    Duration='0' />
+                                    </Storyboard>
+                                </VisualState>
+                            </VisualStateGroup>
+                        </VisualStateManager.VisualStateGroups>
+                        <ContentPresenter
+                                                    x:Name='Content'
+                                                    Content="{TemplateBinding Icon}"
+                                                    Foreground="{ThemeResource MediaButtonForegroundThemeBrush}"/>
+                    </Grid>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+ </ResourceDictionary>

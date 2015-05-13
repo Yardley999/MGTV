@@ -1,17 +1,16 @@
 ﻿using MGTV.Common;
 using MGTV.ViewModels;
+using SharedFx.Extensions;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Linq;
 using Windows.Media.Streaming.Adaptive;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Controls.Primitives;
 using Windows.UI.Xaml.Input;
 using Windows.UI.Xaml.Navigation;
-using System.Linq;
-using SharedFx.Extensions;
-using Windows.UI.Xaml.Media.Imaging;
 
 // The Blank Page item template is documented at http://go.microsoft.com/fwlink/?LinkId=234238
 
@@ -195,8 +194,6 @@ namespace MGTV.Pages
         {
             this.player.Play();
             isPlaying = true;
-            this.playButton.Visibility = Visibility.Collapsed;
-            this.PauseButton.Visibility = Visibility.Visible;
         }
 
         private void Stop()
@@ -216,15 +213,12 @@ namespace MGTV.Pages
         {
             this.player.Pause();
             isPlaying = false;
-            this.playButton.Visibility = Visibility.Visible;
-            this.PauseButton.Visibility = Visibility.Collapsed;
         }
 
         private void SetFullScreen(bool isFullScreen)
         {
             isFullScreenMode = isFullScreen;
             this.player.Margin = new Thickness(0, 0, 0, isFullScreenMode ? 0 : this.StatusBar.ActualHeight);
-            this.StatusBar.Visibility =  isFullScreenMode ?  Visibility.Collapsed : Visibility.Visible;
         }
 
         #endregion
@@ -245,7 +239,7 @@ namespace MGTV.Pages
 
         #region Event
 
-        private void playControl_Tapped(object sender, TappedRoutedEventArgs e)
+        private void PlayPauseButton_Click(object sender, RoutedEventArgs e)
         {
             if (isPlaying)
             {
@@ -257,14 +251,18 @@ namespace MGTV.Pages
             }
         }
 
-        private void next_tapped(object sender, TappedRoutedEventArgs e)
+        private void next_Click(object sender, RoutedEventArgs e)
         {
             Next();
         }
-
-        private void fullscreenSwitch_tapped(object sender, TappedRoutedEventArgs e)
+        private void fullScreenToggle_Click(object sender, RoutedEventArgs e)
         {
             SetFullScreen(!isFullScreenMode);
+            AppBarButton button = sender as AppBarButton;
+            if (button != null)
+            {
+                button.Icon = isFullScreenMode ? new SymbolIcon(Symbol.BackToWindow) : new SymbolIcon(Symbol.FullScreen);
+            }
         }
 
         private void PlayListItem_Tapped(object sender, TappedRoutedEventArgs e)

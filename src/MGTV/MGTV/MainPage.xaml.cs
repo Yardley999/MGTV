@@ -1,5 +1,4 @@
-﻿using MGTV.MG.API;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -26,19 +25,6 @@ namespace MGTV
         public MainPage()
         {
             this.InitializeComponent();
-            //ChannelAPI.GetList(9, list => {
-            //    int i = list.Length;
-            //}, error => {
-            //    System.Diagnostics.Debug.WriteLine(error.Message);
-            //});
-            Action a = async () =>
-               {
-
-                   string address = await VideoAPI.GetRealVideoAddress("http://pcvcr.cdn.imgo.tv/ncrs/vod.do?fid=E87BA921D747F5B490568D78F239741F&limitrate=1292&file=%2Fc1%2F2015%2Fdianshiju%2Fhumamaoba%2F20150512bcb33d76-e505-4dd3-89ca-31c1ddf2d973.fhv&fmt=2&pno=6&m3u8=1&random=1431671081", null);
-                   string a2343 = address;
-               };
-
-            a();
         }
 
         private void RootGrid_RightTapped(object sender, RightTappedRoutedEventArgs e)

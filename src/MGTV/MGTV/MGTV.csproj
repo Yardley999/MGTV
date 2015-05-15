@@ -114,6 +114,8 @@
     <Compile Include="MG\API\MGDataLoader.cs" />
     <Compile Include="MG\API\VideoAPI.cs" />
     <Compile Include="MG\DataModels\Channel.cs" />
+    <Compile Include="MG\DataModels\LibraryFliters.cs" />
+    <Compile Include="MG\DataModels\LibraryList.cs" />
     <Compile Include="MG\DataModels\MetadataModel.cs" />
     <Compile Include="MG\DataModels\Video.cs" />
     <Compile Include="Pages\ProfilePage.xaml.cs">
@@ -126,7 +128,7 @@
       <DependentUpon>VideoPlayPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="SharedFx.10\Data\AnythingToVisibilityConverter.cs" />
+    <Compile Include="SharedFx.10\Data\AnythingConverter.cs" />
     <Compile Include="SharedFx.10\Data\BindableBase.cs" />
     <Compile Include="SharedFx.10\Data\JsonSerializer.cs" />
     <Compile Include="SharedFx.10\Data\MD5.cs" />

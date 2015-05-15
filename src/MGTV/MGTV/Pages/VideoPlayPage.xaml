@@ -45,7 +45,8 @@
             </Grid.ColumnDefinitions>
 
             <StackPanel Orientation="Horizontal" Grid.Column="0" HorizontalAlignment="Right" VerticalAlignment="Center">
-                <AppBarToggleButton x:Name="PlayPauseButton" Icon="Play" Style="{StaticResource PlayPauseButtonStyle}" VerticalAlignment="Center" Click="PlayPauseButton_Click"/>
+                <AppBarToggleButton x:Name="PlayPauseButton" Icon="Play" IsChecked="{Binding BufferingProgress, ElementName=player, Converter={StaticResource BufferProgressToBooleanConverter}}"
+                                    Style="{StaticResource PlayPauseButtonStyle}" VerticalAlignment="Center" Click="PlayPauseButton_Click"/>
 
                 <AppBarButton x:Name="next" Icon="Next" Style="{StaticResource AppBarButtonStyle}" VerticalAlignment="Center" Click="next_Click"/>
 

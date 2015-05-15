@@ -121,15 +121,13 @@ namespace MGTV.Pages
 
         private void Player_MediaOpened(object sender, RoutedEventArgs e)
         {
-            StatebarSetup();
+            StatusbarSetup();
             progressTimer.Start();
         }
 
-        private void StatebarSetup()
+        private void StatusbarSetup()
         {
             ProgressBarSetup();
-
-            this.PlayPauseButton.IsChecked = true;
         }
 
         private void ProgressBarSetup()
@@ -249,7 +247,30 @@ namespace MGTV.Pages
 
         #endregion
 
+        #region Navigation
+
+        public void BackToLastPage()
+        {
+            Frame.GoBack();
+        }
+
+        #endregion
+
         #region Event
+
+        protected override void OnKeyDown(KeyRoutedEventArgs e)
+        {
+            switch (e.Key)
+            {
+                case Windows.System.VirtualKey.Escape:
+                    BackToLastPage();
+                    break;
+                default:
+                    break;
+            }
+
+            base.OnKeyDown(e);
+        }
 
         private void PlayPauseButton_Click(object sender, RoutedEventArgs e)
         {

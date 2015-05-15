@@ -12,6 +12,21 @@ namespace SharedFx.Data
     {
         public object Convert(object value, Type targetType, object parameter, string language)
         {
+            bool result = (bool)(new AnythingToBooleanConverter()).Convert(value, targetType, parameter, language);
+            return result ? Visibility.Visible : Visibility.Collapsed;
+
+        }
+
+        public object ConvertBack(object value, Type targetType, object parameter, string language)
+        {
+            return value is Visibility && (Visibility)value == Visibility.Visible;
+        }
+    }
+
+    public sealed class AnythingToBooleanConverter : IValueConverter
+    {
+        public object Convert(object value, Type targetType, object parameter, string language)
+        {
             bool result = false;
 
             bool negate = false;
@@ -32,6 +47,10 @@ namespace SharedFx.Data
             {
                 result = (int)value > 0;
             }
+            else if (value is double)
+            {
+                result = (double)value > 0;
+            }
             else if (value is DateTime)
             {
                 result = (DateTime)value > DateTime.Now;
@@ -45,13 +64,13 @@ namespace SharedFx.Data
             {
                 result = !result;
             }
-            return result ? Visibility.Visible : Visibility.Collapsed;
 
+            return result;
         }
 
         public object ConvertBack(object value, Type targetType, object parameter, string language)
         {
-            return value is Visibility && (Visibility)value == Visibility.Visible;
+            throw new NotImplementedException();
         }
     }
 }

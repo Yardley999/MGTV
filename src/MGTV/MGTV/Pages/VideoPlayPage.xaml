@@ -7,15 +7,15 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     mc:Ignorable="d">
 
-    <Grid Style="{StaticResource RootGrid}" x:Name="root">
+    <Grid Style="{StaticResource RootGrid}" x:Name="root" RightTapped="RootGrid_RightTapped">
         
         <MediaElement x:Name="player"/>
 
-        <Grid x:Name="bufferingGrid" Visibility="{Binding BufferingProgress, ElementName=player, Converter={StaticResource BufferProgressToVisibilityConverter}}">
+        <Grid x:Name="bufferingGrid" Style="{StaticResource RootGrid}" Visibility="{Binding BufferingProgress, ElementName=player, Converter={StaticResource BufferProgressToVisibilityConverter}}">
             <ProgressRing IsActive="True" Width="100" Height="100"/>
         </Grid>
 
-        <Grid x:Name="header" VerticalAlignment="Top" Background="Black">
+        <Grid x:Name="header" VerticalAlignment="Top" Background="Black" Visibility="Collapsed">
             <ListBox x:Name="playListBox" ItemsSource="{Binding PlayLists}" Background="Transparent">
                 <ListBox.ItemsPanel>
                     <ItemsPanelTemplate>

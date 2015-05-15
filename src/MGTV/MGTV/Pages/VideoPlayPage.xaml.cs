@@ -121,8 +121,15 @@ namespace MGTV.Pages
 
         private void Player_MediaOpened(object sender, RoutedEventArgs e)
         {
-            ProgressBarSetup();
+            StatebarSetup();
             progressTimer.Start();
+        }
+
+        private void StatebarSetup()
+        {
+            ProgressBarSetup();
+
+            this.PlayPauseButton.IsChecked = true;
         }
 
         private void ProgressBarSetup()
@@ -235,6 +242,11 @@ namespace MGTV.Pages
             return string.Empty;
         }
 
+        public void ShowPlaylit(bool show)
+        {
+            this.header.Visibility = show ? Visibility.Visible : Visibility.Collapsed;
+        }
+
         #endregion
 
         #region Event
@@ -255,6 +267,7 @@ namespace MGTV.Pages
         {
             Next();
         }
+
         private void fullScreenToggle_Click(object sender, RoutedEventArgs e)
         {
             SetFullScreen(!isFullScreenMode);
@@ -282,6 +295,12 @@ namespace MGTV.Pages
             SetUrlAndTryPlay();
         }
 
+        private void RootGrid_RightTapped(object sender, RightTappedRoutedEventArgs e)
+        {
+            bool isShow = this.header.Visibility == Visibility.Visible ? false : true;
+            ShowPlaylit(isShow);
+        }
+
         private void Progress_PointerCaptureLost(object sender, PointerRoutedEventArgs e)
         {
             this.player.Position = TimeSpan.FromSeconds(this.progress.Value);
@@ -299,5 +318,7 @@ namespace MGTV.Pages
         }
 
         #endregion
+
+        
     }
 }

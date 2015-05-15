@@ -60,7 +60,7 @@ namespace MGTV.Controls
             param.PlayList.Add(new ViewModels.PlayListItem() {
                 IsPlaying = true,
                 Name = "第一集",
-                Url = "http://pchlsws1.imgo.tv/jiankong.fhv/playlist.m3u8"
+                Url = "http://pcfastvideo.imgo.tv/7aaf448ff2f6973ce4c64ec2eb0cba5a/555591e6/c1/2015/dianshiju/humamaoba/2015051279df128e-0e54-4bd8-8b5c-494c78681940.fhv/playlist.m3u8?uuid=a638db6be2314038a5bcaa2cc8170a4e"
             });
 
             param.PlayList.Add(new ViewModels.PlayListItem() {

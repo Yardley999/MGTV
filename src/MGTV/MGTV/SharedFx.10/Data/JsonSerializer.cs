@@ -1,5 +1,4 @@
-﻿using System;
-using System.IO;
+﻿using System.IO;
 using System.Runtime.Serialization.Json;
 using System.Text;
 
@@ -7,7 +6,7 @@ namespace SharedFx.Data
 {
     public static class JsonSerializer
     {
-        public static string Serialize<T>(T value) where T : class
+        public static string Serialize<T>(T value, bool throwException = false) where T : class
         {
             try
             {
@@ -21,11 +20,18 @@ namespace SharedFx.Data
             }
             catch
             {
-                return null;
+                if(!throwException)
+                {
+                    return null;
+                }
+                else
+                {
+                    throw;
+                }
             }
         }
 
-        public static string Serialize(object value)
+        public static string Serialize(object value, bool throwException = false)
         {
             if (value == null)
             {
@@ -44,11 +50,18 @@ namespace SharedFx.Data
             }
             catch
             {
-                return null;
+                if (!throwException)
+                {
+                    return null;
+                }
+                else
+                {
+                    throw;
+                }
             }
         }
 
-        public static T Deserialize<T>(string json) where T : class
+        public static T Deserialize<T>(string json, bool throwException = false) where T : class
         {
             try
             {
@@ -63,7 +76,14 @@ namespace SharedFx.Data
             }
             catch
             {
-                return null;
+                if(!throwException)
+                {
+                    return null;
+                }
+                else
+                {
+                    throw;
+                }
             }
         }
 

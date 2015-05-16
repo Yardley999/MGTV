@@ -7,4 +7,9 @@ namespace SharedFx.Interface
     {
         Task RunAsync(Action<TSucceess> onSuccess, Action<TError> onFail);
     }
+
+    public interface ICustomizeJsonDeserializable
+    {
+         void Deserialize(string json);
+    }
 }

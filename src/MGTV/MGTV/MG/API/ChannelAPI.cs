@@ -24,10 +24,10 @@ namespace MGTV.MG.API
             await loader.LoadDataAsync(onSuccess, onFail);
         }
 
-        public static async Task GetList(int size, Action<Channel[]> onSuccess, Action<Error> onFail)
+        public static async Task GetList(int size, Action<ChannelList> onSuccess, Action<Error> onFail)
         {
             string methodName = "getList";
-            MGDataLoader<Channel[]> loader = new MGDataLoader<Channel[]>(CATEGORY, methodName);
+            MGDataLoader<ChannelList> loader = new MGDataLoader<ChannelList>(CATEGORY, methodName);
             loader.AddParameter("size", size.ToString());
 
             await loader.LoadDataAsync(onSuccess, onFail);

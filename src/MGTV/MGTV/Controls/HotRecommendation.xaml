@@ -9,7 +9,7 @@
     d:DesignHeight="588"
     d:DesignWidth="480">
 
-    <Grid>
+    <Grid Name="root">
         <Grid.RowDefinitions>
             <RowDefinition Height="22*"/>
             <RowDefinition Height="125*"/>
@@ -22,15 +22,15 @@
                 <RowDefinition Height="*"/>
             </Grid.RowDefinitions>
 
-            <local:ItemTile Grid.Row="0" Margin="5"/>
+            <local:ItemTile Grid.Row="0" Margin="5" Data="{Binding Data[0]}"/>
 
             <Grid Grid.Row="1">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="*"/>
                     <ColumnDefinition Width="*"/>
                 </Grid.ColumnDefinitions>
-                <local:ItemTile Grid.Column="0" Margin="5"/>
-                <local:ItemTile Grid.Column="1" Margin="5"/>
+                <local:ItemTile Grid.Column="0" Margin="5" Data="{Binding Data[1]}"/>
+                <local:ItemTile Grid.Column="1" Margin="5" Data="{Binding Data[2]}"/>
             </Grid>
 
             <Grid Grid.Row="2">
@@ -38,10 +38,9 @@
                     <ColumnDefinition Width="*"/>
                     <ColumnDefinition Width="*"/>
                 </Grid.ColumnDefinitions>
-                <local:ItemTile Grid.Column="0" Margin="5"/>
-                <local:ItemTile Grid.Column="1" Margin="5"/>
+                <local:ItemTile Grid.Column="0" Margin="5" Data="{Binding Data[3]}"/>
+                <local:ItemTile Grid.Column="1" Margin="5" Data="{Binding Data[4]}"/>
             </Grid>
-            
         </Grid>
     </Grid>
 </UserControl>

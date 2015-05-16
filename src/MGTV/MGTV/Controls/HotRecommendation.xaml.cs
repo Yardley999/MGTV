@@ -1,27 +1,24 @@
-﻿using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using System.Runtime.InteropServices.WindowsRuntime;
-using Windows.Foundation;
-using Windows.Foundation.Collections;
+﻿using MGTV.ViewModels;
+using System.Collections.ObjectModel;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
-using Windows.UI.Xaml.Controls.Primitives;
-using Windows.UI.Xaml.Data;
-using Windows.UI.Xaml.Input;
-using Windows.UI.Xaml.Media;
-using Windows.UI.Xaml.Navigation;
-
-// The User Control item template is documented at http://go.microsoft.com/fwlink/?LinkId=234236
 
 namespace MGTV.Controls
 {
     public sealed partial class HotRecommendation : UserControl
     {
+        public static readonly DependencyProperty DataProperty = DependencyProperty.Register("Data", typeof(ObservableCollection<Video>), typeof(HotRecommendation), new PropertyMetadata(null));
+
+        public ObservableCollection<Video> Data
+        {
+            get { return (ObservableCollection<Video>)GetValue(DataProperty); }
+            set { SetValue(DataProperty, value); }
+        }
+
         public HotRecommendation()
         {
             this.InitializeComponent();
+            this.root.DataContext = this;
         }
     }
 }

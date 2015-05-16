@@ -4,6 +4,8 @@ using System.Collections.Generic;
 using System.Threading.Tasks;
 using SharedFx.Data;
 using MGTV.MG.DataModels;
+using SharedFx.Interface;
+using Windows.Data.Json;
 
 namespace MGTV.MG.API
 {
@@ -72,21 +74,48 @@ namespace MGTV.MG.API
                 GetAPIUrl(),
                 response =>
                 {
-                    var metadata = JsonSerializer.Deserialize<MetadataModel<T>>(response, true);
-                    if (metadata.ErrorCode != 200)
+                    T t = Activator.CreateInstance<T>();
+                    if (t is ICustomizeJsonDeserializable)
                     {
-                        if (onFail != null)
+                        var JsonData = JsonObject.Parse(response);
+                        var errorCode = JsonData["err_code"].GetNumber().ToString();
+                        if (!errorCode.Equals("200", StringComparison.OrdinalIgnoreCase))
                         {
-                            onFail.Invoke(new Error() { ErrorCode = metadata.ErrorCode, Message = metadata.ErrorMessage });
+                            string errorMessage = JsonData["err_msg"].GetString();
+                            if(onFail != null)
+                            {
+                                onFail.Invoke(new Error() { ErrorCode = int.Parse(errorCode), Message = errorMessage });
+                            }
+                        }
+                        else
+                        {
+                            (t as ICustomizeJsonDeserializable).Deserialize(JsonData["data"].GetArray().Stringify());
+                            if(onSuccess != null)
+                            {
+                                onSuccess.Invoke(t);
+                            }
                         }
                     }
                     else
                     {
-                        if (onSuccess != null)
+                        var metadata = JsonSerializer.Deserialize<MetadataModel<T>>(response, true);
+
+                        if (metadata.ErrorCode != 200)
                         {
-                            onSuccess.Invoke(metadata.Data);
+                            if (onFail != null)
+                            {
+                                onFail.Invoke(new Error() { ErrorCode = metadata.ErrorCode, Message = metadata.ErrorMessage });
+                            }
+                        }
+                        else
+                        {
+                            if (onSuccess != null)
+                            {
+                                onSuccess.Invoke(metadata.Data);
+                            }
                         }
                     }
+
                 }, error =>
                 {
                     if (onFail != null)

@@ -15,7 +15,7 @@
         </Grid.Background>
         <Border>
             <Border.Background>
-                <ImageBrush ImageSource="{Binding Image}" AlignmentX="Center" AlignmentY="Center" Stretch="UniformToFill"/>
+                <ImageBrush ImageSource="{Binding Data.ImageUrl}" AlignmentX="Center" AlignmentY="Center" Stretch="UniformToFill"/>
             </Border.Background> 
         </Border>
         <Border VerticalAlignment="Bottom" Height="40">
@@ -27,8 +27,8 @@
                 </LinearGradientBrush>
             </Border.Background>
             <Grid Margin="10, 0">
-                <TextBlock Text="{Binding Title}" Style="{StaticResource ItemTile_Title_Text}" />
-                <TextBlock Text="{Binding Intro}" Style="{StaticResource ItemTile_Intro_Text}" />
+                <TextBlock Text="{Binding Data.Name}" Style="{StaticResource ItemTile_Title_Text}" />
+                <TextBlock Text="{Binding Data.Intro}" Style="{StaticResource ItemTile_Intro_Text}" />
             </Grid>
         </Border>
     </Grid>

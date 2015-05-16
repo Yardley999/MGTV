@@ -3,38 +3,43 @@
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:local="using:MGTV.Pages"
+    Background="Black"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     mc:Ignorable="d">
 
-    <Grid Style="{StaticResource RootGrid}" x:Name="root" RightTapped="RootGrid_RightTapped">
+    <Page.TopAppBar>
+        <AppBar Background="Transparent">
+            <Grid x:Name="header" VerticalAlignment="Top" Background="Black" Visibility="Collapsed">
+                <ListBox x:Name="playListBox">
+                    <ListBox.ItemsPanel>
+                        <ItemsPanelTemplate>
+                            <StackPanel Orientation="Horizontal"/>
+                        </ItemsPanelTemplate>
+                    </ListBox.ItemsPanel>
+                    <ListBox.ItemTemplate>
+                        <DataTemplate>
+                            <Grid Background="Transparent" Tapped="PlayListItem_Tapped">
+                                <Border Background="#313131" CornerRadius="5" Visibility="{Binding IsPlaying, Converter={StaticResource AnythingToVisibilityConverter}, ConverterParameter=neg}">
+                                    <TextBlock Text="{Binding Name}" Style="{StaticResource PlayListItem_Name_Text}"/>
+                                </Border>
+                                <Border Background="#f06000" CornerRadius="5" Visibility="{Binding IsPlaying, Converter={StaticResource AnythingToVisibilityConverter}}">
+                                    <TextBlock Text="{Binding Name}" Style="{StaticResource PlayListItem_Name_Text}"/>
+                                </Border>
+                            </Grid>
+                        </DataTemplate>
+                    </ListBox.ItemTemplate>
+                </ListBox>
+            </Grid>
+        </AppBar>
+    </Page.TopAppBar>
+
+    <Grid x:Name="root" Background="#28000000">
         
         <MediaElement x:Name="player"/>
 
-        <Grid x:Name="bufferingGrid" Style="{StaticResource RootGrid}" Visibility="{Binding BufferingProgress, ElementName=player, Converter={StaticResource BufferProgressToVisibilityConverter}}">
+        <Grid x:Name="bufferingGrid" Visibility="{Binding BufferingProgress, ElementName=player, Converter={StaticResource BufferProgressToVisibilityConverter}}">
             <ProgressRing IsActive="True" Width="100" Height="100"/>
-        </Grid>
-
-        <Grid x:Name="header" VerticalAlignment="Top" Background="Black" Visibility="Collapsed">
-            <ListBox x:Name="playListBox" ItemsSource="{Binding PlayLists}" Background="Transparent">
-                <ListBox.ItemsPanel>
-                    <ItemsPanelTemplate>
-                        <StackPanel Orientation="Horizontal"/>
-                    </ItemsPanelTemplate>
-                </ListBox.ItemsPanel>
-                <ListBox.ItemTemplate>
-                    <DataTemplate>
-                        <Grid Background="Transparent" Tapped="PlayListItem_Tapped">
-                            <Border Background="#313131" CornerRadius="5" Visibility="{Binding IsPlaying, Converter={StaticResource AnythingToVisibilityConverter}, ConverterParameter=neg}">
-                                <TextBlock Text="{Binding Name}" Style="{StaticResource PlayListItem_Name_Text}"/>
-                            </Border>
-                            <Border Background="#f06000" CornerRadius="5" Visibility="{Binding IsPlaying, Converter={StaticResource AnythingToVisibilityConverter}}">
-                                <TextBlock Text="{Binding Name}" Style="{StaticResource PlayListItem_Name_Text}"/>
-                            </Border>
-                        </Grid>
-                    </DataTemplate>
-                </ListBox.ItemTemplate>
-            </ListBox>
         </Grid>
 
         <Grid x:Name="StatusBar" VerticalAlignment="Bottom" Background="#ee090806">

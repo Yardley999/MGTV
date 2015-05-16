@@ -138,7 +138,10 @@
     <Compile Include="SharedFx.10\Network\HttpExecuter.cs" />
     <Compile Include="SharedFx.10\Network\HttpExtensions.cs" />
     <Compile Include="SharedFx.10\Network\Interface.cs" />
+    <Compile Include="ViewModels\Category.cs" />
+    <Compile Include="ViewModels\MainPageViewModel.cs" />
     <Compile Include="ViewModels\PlayListItem.cs" />
+    <Compile Include="ViewModels\Video.cs" />
   </ItemGroup>
   <ItemGroup>
     <AppxManifest Include="Package.appxmanifest">

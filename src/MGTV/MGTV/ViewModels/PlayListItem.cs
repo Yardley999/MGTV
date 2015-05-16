@@ -1,9 +1,4 @@
 ﻿using SharedFx.Data;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace MGTV.ViewModels
 {
@@ -15,6 +10,14 @@ namespace MGTV.ViewModels
         {
             get { return isPlaying; }
             set { SetProperty<bool>(ref isPlaying, value); }
+        }
+
+        private int videoId;
+
+        public int VideoId
+        {
+            get { return videoId; }
+            set { SetProperty<int>(ref videoId, value); }
         }
 
 
@@ -39,6 +42,7 @@ namespace MGTV.ViewModels
             IsPlaying = false;
             url = string.Empty;
             name = string.Empty;
+            videoId = -1;
         }
     }
 }

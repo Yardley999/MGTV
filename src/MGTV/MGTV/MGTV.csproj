@@ -142,6 +142,7 @@
     <Compile Include="ViewModels\MainPageViewModel.cs" />
     <Compile Include="ViewModels\PlayListItem.cs" />
     <Compile Include="ViewModels\Video.cs" />
+    <Compile Include="ViewModels\VideoPageViewModel.cs" />
   </ItemGroup>
   <ItemGroup>
     <AppxManifest Include="Package.appxmanifest">

@@ -15,11 +15,18 @@ namespace MGTV
         {
             this.InitializeComponent();
             this.root.DataContext = viewModel;
+            NavigationCacheMode = NavigationCacheMode.Required;
         }
 
         protected override void OnNavigatedTo(NavigationEventArgs e)
         {
             base.OnNavigatedTo(e);
+
+            if(e.NavigationMode == NavigationMode.Back)
+            {
+                return;
+            }
+
             LoadDataAysnc();
         }
 

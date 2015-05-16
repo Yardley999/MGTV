@@ -1,10 +1,12 @@
 ﻿using MGTV.Common;
+using MGTV.MG.API;
 using MGTV.ViewModels;
 using SharedFx.Extensions;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
+using System.Threading.Tasks;
 using Windows.Media.Streaming.Adaptive;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
@@ -25,14 +27,11 @@ namespace MGTV.Pages
 
         public class PageParams
         {
-            public int PlayIndex { get; set; }
-
-            public List<PlayListItem> PlayList { get; set; }
+            public int VideoId { get; set; }
 
             public PageParams()
             {
-                PlayIndex = 0;
-                PlayList = new List<PlayListItem>();
+                VideoId = -1;
             }
         }
 
@@ -40,12 +39,11 @@ namespace MGTV.Pages
 
         #region Field && Property
 
-        public ObservableCollection<PlayListItem> PlayLists { get; set; }
+        private VideoPlayerPageViewModel viewModel;
 
         private PageParams pageParams;
         private DispatcherTimer progressTimer;
         private bool isPlaying = false;
-        private bool isFullScreenMode = false;
 
         #endregion
 
@@ -60,11 +58,45 @@ namespace MGTV.Pages
         protected override void OnNavigatedTo(NavigationEventArgs e)
         {
             base.OnNavigatedTo(e);
-
             pageParams = e.Parameter as PageParams;
-            PlayListSetup();
+
             PlayerSetup();
-            SetUrlAndTryPlay();
+            if(pageParams != null)
+            {
+                LoadVideoDataAsync(pageParams.VideoId);
+            }
+        }
+
+        #endregion
+
+        #region Data 
+
+        private async Task LoadVideoDataAsync(int videoId)
+        {
+            await VideoAPI.GetById(videoId, videoInfo => {
+
+                viewModel.Title = videoInfo.Title;
+                viewModel.VideoSources.Clear();
+                viewModel.IsPlaying = false;
+                viewModel.VideoId = videoId;
+
+                if (videoInfo.VideoSources != null)
+                {
+                    foreach (var item in videoInfo.VideoSources)
+                    {
+                        viewModel.VideoSources.Add(new VideoDefinationSource() {
+                            Name = item.Name,
+                            Url = item.Url
+                        });
+                    }
+                }
+
+                string fetchUrl = viewModel.VideoSources[viewModel.VideoSources.Count - 1].Url;
+                SetUrlAndTryPlay(fetchUrl);
+                PlayListSetup();
+
+            }, error => { });
+
         }
 
         #endregion
@@ -73,8 +105,9 @@ namespace MGTV.Pages
 
         private void Init()
         {
-            PlayLists = new ObservableCollection<PlayListItem>();
-            playListBox.ItemsSource = PlayLists;
+            viewModel = new VideoPlayerPageViewModel();
+            this.root.DataContext = viewModel;
+            this.playlistBox.ItemsSource = viewModel.PlayList;
 
             this.player.MediaOpened += Player_MediaOpened;
             this.progress.ThumbToolTipValueConverter = new PlayerTimeSliderTooltipValueConverter();
@@ -87,19 +120,12 @@ namespace MGTV.Pages
 
         private void PlayListSetup()
         {
-            if (pageParams != null)
-            {
-                PlayLists.Clear();
-                foreach (var item in pageParams.PlayList)
-                {
-                    PlayLists.Add(new PlayListItem()
-                    {
-                        IsPlaying = item.IsPlaying,
-                        Name = item.Name,
-                        Url = item.Url
-                    });
-                }
-            }
+            viewModel.PlayList.Clear();
+            viewModel.PlayList.Add(new PlayListItem() {
+                IsPlaying = true,
+                Name = viewModel.Title,
+                VideoId = viewModel.VideoId
+            });
         }
 
         private void PlayerSetup()
@@ -155,17 +181,17 @@ namespace MGTV.Pages
 
         #region Player Function
 
-        private async void SetUrlAndTryPlay()
+        private async void SetUrlAndTryPlay(string url)
         {
-            if (pageParams != null)
+            if(string.IsNullOrEmpty(url))
             {
-                string playUrl = GetPlayingUrl();
-                
-                if (string.IsNullOrEmpty(playUrl))
-                {
-                    return;
-                }
+                return;
+            }
 
+            string playUrl = await VideoAPI.GetRealVideoAddress(url);
+
+            if(!string.IsNullOrEmpty(playUrl))
+            {
                 var hlslUrl = new Uri(playUrl, UriKind.RelativeOrAbsolute);
                 var hlsSource = await AdaptiveMediaSource.CreateFromUriAsync(hlslUrl);
 
@@ -179,20 +205,6 @@ namespace MGTV.Pages
 
         private void Next()
         {
-            int index = -1;
-
-            var playingItem = PlayLists.FirstOrDefault(p => p.IsPlaying);
-            if (playingItem != null)
-            {
-                index = PlayLists.IndexOf(playingItem);
-            }
-
-            if (index >= 0 && index < PlayLists.Count - 1)
-            {
-                PlayLists[index].IsPlaying = false;
-                PlayLists[index + 1].IsPlaying = true;
-                SetUrlAndTryPlay();
-            }
         }
 
         private void Play()
@@ -222,8 +234,7 @@ namespace MGTV.Pages
 
         private void SetFullScreen(bool isFullScreen)
         {
-            isFullScreenMode = isFullScreen;
-            this.player.Margin = new Thickness(0, 0, 0, isFullScreenMode ? 0 : this.StatusBar.ActualHeight);
+
         }
 
         #endregion
@@ -232,17 +243,12 @@ namespace MGTV.Pages
 
         private string GetPlayingUrl()
         {
-            var item = PlayLists.FirstOrDefault(p => p.IsPlaying);
+            var item = viewModel.PlayList.FirstOrDefault(p => p.IsPlaying);
             if (item != null)
             {
                 return item.Url;
             }
             return string.Empty;
-        }
-
-        public void ShowPlaylit(bool show)
-        {
-            this.header.Visibility = show ? Visibility.Visible : Visibility.Collapsed;
         }
 
         #endregion
@@ -286,40 +292,11 @@ namespace MGTV.Pages
 
         private void next_Click(object sender, RoutedEventArgs e)
         {
-            Next();
-        }
-
-        private void fullScreenToggle_Click(object sender, RoutedEventArgs e)
-        {
-            SetFullScreen(!isFullScreenMode);
-            AppBarButton button = sender as AppBarButton;
-            if (button != null)
-            {
-                button.Icon = isFullScreenMode ? new SymbolIcon(Symbol.BackToWindow) : new SymbolIcon(Symbol.FullScreen);
-            }
         }
 
         private void PlayListItem_Tapped(object sender, TappedRoutedEventArgs e)
         {
-            Stop();
 
-            var dataContext = sender.GetDataContext<PlayListItem>();
-            foreach (var item in PlayLists)
-            {
-                if(item.IsPlaying )
-                {
-                   item.IsPlaying = false;
-                }
-            }
-
-            dataContext.IsPlaying = true;
-            SetUrlAndTryPlay();
-        }
-
-        private void RootGrid_RightTapped(object sender, RightTappedRoutedEventArgs e)
-        {
-            bool isShow = this.header.Visibility == Visibility.Visible ? false : true;
-            ShowPlaylit(isShow);
         }
 
         private void Progress_PointerCaptureLost(object sender, PointerRoutedEventArgs e)
@@ -338,8 +315,37 @@ namespace MGTV.Pages
             this.player.Volume = volumeSlider.Value / 100.0;
         }
 
+
         #endregion
 
-        
+        #region Control Panel
+
+        private void StatusBar_Tapped(object sender, TappedRoutedEventArgs e)
+        {
+            e.Handled = true;
+        }
+
+        private void NavigationBar_Tapped(object sender, TappedRoutedEventArgs e)
+        {
+            e.Handled = true;
+        }
+
+        private void controlPanel_Tapped(object sender, TappedRoutedEventArgs e)
+        {
+            if(this.controlPanel.Opacity == 0)
+            {
+                this.controlPanel.Opacity = 1;
+            }
+            else
+            {
+                this.controlPanel.Opacity = 0;
+            }
+        }
+
+        private void BackButton_Click(object sender, RoutedEventArgs e)
+        {
+            BackToLastPage();
+        }
+        #endregion
     }
 }

@@ -34,13 +34,13 @@
         </AppBar>
     </Page.TopAppBar>
 
-    <Grid x:Name="root" Style="{StaticResource RootGrid}">
+    <Grid x:Name="root" Style="{StaticResource RootGrid}" Margin="0, -32, 0, 0">
         <Grid.RowDefinitions>
             <RowDefinition Height="128"/>
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
 
-        <Grid x:Name="header" Grid.Row="0" VerticalAlignment="Top" Margin="100, 50, 50, 0">
+        <Grid x:Name="header" Grid.Row="0" VerticalAlignment="Top" Margin="80, 50, 50, 0">
             <Image Source="assets/tvlogo.png" Stretch="None" VerticalAlignment="Center" HorizontalAlignment="Left"/>
             <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" VerticalAlignment="Center">
                 <Image Source="assets/search.png" Stretch="None"/>
@@ -57,7 +57,7 @@
                 ScrollViewer.ZoomMode="Disabled">
             <StackPanel Orientation="Horizontal" Margin="200, 0" VerticalAlignment="Top" Height="588">
                 <controls:HotRecommendation HorizontalAlignment="Left" Width="520"
-                                            Margin="-100, 0, 0, 0" Data="{Binding Recommendation.Videos}"/>
+                                            Margin="-120, 0, 0, 0" Data="{Binding Recommendation.Videos}"/>
 
                 <ItemsControl ItemsSource="{Binding Categories}">
                     <ItemsControl.ItemsPanel>

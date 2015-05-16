@@ -7,7 +7,7 @@ namespace MGTV.Controls
 {
     public sealed partial class HotRecommendation : UserControl
     {
-        public static readonly DependencyProperty DataProperty = DependencyProperty.Register("Data", typeof(ObservableCollection<Video>), typeof(HotRecommendation), new PropertyMetadata(null));
+        public static readonly DependencyProperty DataProperty = DependencyProperty.Register("Data", typeof(ObservableCollection<Video>), typeof(HotRecommendation), new PropertyMetadata(new ObservableCollection<Video>()));
 
         public ObservableCollection<Video> Data
         {

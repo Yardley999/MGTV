@@ -20,7 +20,7 @@ namespace MGTV.Controls
         public ItemTile()
         {
             this.InitializeComponent();
-            this.DataContext = this;
+            this.root.DataContext = this;
         }
 
         #endregion

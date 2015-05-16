@@ -48,9 +48,7 @@
             </StackPanel>
         </Grid>
 
-        <TextBlock Text="{Binding Recommendation}" FontSize="55" Foreground="Red"/>
-
-        <ScrollViewer IsHitTestVisible="True" Grid.Row="1"
+        <ScrollViewer Name="contentScrollViewer" x:DeferLoadStrategy="Lazy" IsHitTestVisible="True" Grid.Row="1"
                 ScrollViewer.IsScrollInertiaEnabled="True" 
                 ScrollViewer.HorizontalScrollBarVisibility="Auto"
                 ScrollViewer.VerticalScrollBarVisibility="Hidden"
@@ -58,13 +56,21 @@
                 ScrollViewer.VerticalScrollMode="Disabled"
                 ScrollViewer.ZoomMode="Disabled">
             <StackPanel Orientation="Horizontal" Margin="200, 0" VerticalAlignment="Top" Height="588">
-                <controls:HotRecommendation HorizontalAlignment="Left" Margin="-100, 0, 0, 0" Data="{Binding Recommendation.Videos}"/>
+                <controls:HotRecommendation HorizontalAlignment="Left" Width="520"
+                                            Margin="-100, 0, 0, 0" Data="{Binding Recommendation.Videos}"/>
 
-                <controls:Category CategoryName="综艺" Margin="100, 0, 0, 0"/>
-
-                <controls:Category CategoryName="连续剧" Margin="100, 0, 0, 0"/>
-
-                <controls:Category CategoryName="电影" Margin="100, 0, 0, 0"/>
+                <ItemsControl ItemsSource="{Binding Categories}">
+                    <ItemsControl.ItemsPanel>
+                        <ItemsPanelTemplate>
+                            <StackPanel Orientation="Horizontal"/>
+                        </ItemsPanelTemplate>
+                    </ItemsControl.ItemsPanel>
+                    <ItemsControl.ItemTemplate>
+                        <DataTemplate>
+                            <controls:Category CategoryName="{Binding Name}" VideoData="{Binding Videos}" Width="780" Margin="100, 0, 0 ,0"/>
+                        </DataTemplate>
+                    </ItemsControl.ItemTemplate>
+                </ItemsControl>
             </StackPanel>
         </ScrollViewer>
     </Grid>

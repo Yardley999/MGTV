@@ -1,5 +1,7 @@
-﻿using System;
+﻿using MGTV.ViewModels;
+using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.IO;
 using System.Linq;
 using System.Runtime.InteropServices.WindowsRuntime;
@@ -23,6 +25,7 @@ namespace MGTV.Controls
         #region Dependency Property
 
         public static readonly DependencyProperty CategoryNameProperty = DependencyProperty.Register("CategoryName", typeof(string), typeof(Category), new PropertyMetadata(string.Empty));
+        public static readonly DependencyProperty VideoDataProperty = DependencyProperty.Register("VideoData", typeof(ObservableCollection<Video>), typeof(Category), new PropertyMetadata(null));
 
         #endregion
 
@@ -34,12 +37,18 @@ namespace MGTV.Controls
             set { SetValue(CategoryNameProperty, value); }
         }
 
+        public ObservableCollection<Video> VideoData
+        {
+            get { return (ObservableCollection<Video>)GetValue(VideoDataProperty); }
+            set { SetValue(VideoDataProperty, value); }
+        }
+
         #endregion
 
         public Category()
         {
             this.InitializeComponent();
-            this.DataContext = this;
+            this.root.DataContext = this;
         }
     }
 }

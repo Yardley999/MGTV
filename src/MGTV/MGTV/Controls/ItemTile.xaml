@@ -9,16 +9,17 @@
     d:DesignHeight="128"
     d:DesignWidth="220">
     
-    <Grid>
+    <Grid Name="root">
         <Grid.Background>
-            <ImageBrush ImageSource="../Assets/defaultTileImage.png" AlignmentX="Center" AlignmentY="Center" Stretch="UniformToFill"/>
+            <!--<ImageBrush ImageSource="../Assets/defaultTileImage.png" AlignmentX="Center" AlignmentY="Center" Stretch="UniformToFill"/>-->
+            <SolidColorBrush Color="Gray"/>
         </Grid.Background>
         <Border>
             <Border.Background>
                 <ImageBrush ImageSource="{Binding Data.ImageUrl}" AlignmentX="Center" AlignmentY="Center" Stretch="UniformToFill"/>
             </Border.Background> 
         </Border>
-        <Border VerticalAlignment="Bottom" Height="40">
+        <Border VerticalAlignment="Bottom" Height="60">
             <Border.Background>
                 <LinearGradientBrush StartPoint="0, 1" EndPoint="0, 0">
                     <GradientStop Offset="0" Color="#ee000000"/>

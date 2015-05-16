@@ -1,10 +1,5 @@
 ﻿using SharedFx.Data;
-using System;
-using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace MGTV.ViewModels
 {
@@ -18,12 +13,12 @@ namespace MGTV.ViewModels
             set { SetProperty<Category>(ref recommendation, value); }
         }
 
-        public ObservableCollection<Category> Categoyies { get; set; }
+        public ObservableCollection<Category> Categories { get; set; }
 
         public MainPageViewModel()
         {
             recommendation = new Category();
-            Categoyies = new ObservableCollection<Category>();
+            Categories = new ObservableCollection<Category>();
         }
     }
 }

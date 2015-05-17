@@ -16,10 +16,10 @@ namespace MGTV.MG.API
     {
         private const string CATEGORY = "channel";
 
-        public static async Task GetMajorList(Action<Channel[]> onSuccess, Action<Error> onFail)
+        public static async Task GetMajorList(Action<List<Channel>> onSuccess, Action<Error> onFail)
         {
             string methodName = "getMajorList";
-            MGDataLoader<Channel[]> loader = new MGDataLoader<Channel[]>(CATEGORY, methodName);
+            MGDataLoader<List<Channel>> loader = new MGDataLoader<List<Channel>>(CATEGORY, methodName);
 
             await loader.LoadDataAsync(onSuccess, onFail);
         }

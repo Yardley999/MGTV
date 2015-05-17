@@ -60,7 +60,6 @@ namespace MGTV.MG.DataModels
         }
     }
 
-
     [DataContract]
     public class Recommendation
     {

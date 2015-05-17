@@ -15,34 +15,44 @@ namespace MGTV
 {
     public sealed partial class MainPage : Page
     {
+        #region Field && Property
+
         private MainPageViewModel viewModel = new MainPageViewModel();
+
+        #endregion
+
+        #region Life Cycle
 
         public MainPage()
         {
             this.InitializeComponent();
             this.root.DataContext = viewModel;
-            NavigationCacheMode = NavigationCacheMode.Required;
-            Init();
+            this.NavigationCacheMode = NavigationCacheMode.Required;
+            BackgroundInit();
+            TopAppBarItemListDataBinding();
         }
 
         protected override void OnNavigatedTo(NavigationEventArgs e)
         {
             base.OnNavigatedTo(e);
 
-            if(e.NavigationMode == NavigationMode.Back)
+            topAppBar.IsOpen = false;
+
+            if (e.NavigationMode == NavigationMode.Back)
             {
+                this.FindName("contentScrollViewer");
                 return;
             }
-            else
-            {
-                LoadDataAysnc();
-            }
+
+            LoadDataAysnc();
+            LoadTopAppBarItemsAsync();
         }
 
+        #endregion
 
-        #region Data
+        #region Content Data
 
-        public async Task LoadDataAysnc()
+        private async Task LoadDataAysnc()
         {
             await ChannelAPI.GetList(9, channels => {
                 if (channels == null)
@@ -117,12 +127,45 @@ namespace MGTV
 
         #endregion
 
+        #region App Bar
+
+        private void TopAppBarItemListDataBinding()
+        {
+            topAppBarItemList.ItemsSource = viewModel.ChannelNavigationItems;
+        }
+
+        private async Task LoadTopAppBarItemsAsync()
+        {
+            await ChannelAPI.GetMajorList(channels => {
+                viewModel.ChannelNavigationItems.Clear();
+                viewModel.ChannelNavigationItems.Add(Channel.Home);
+
+                if (channels != null)
+                {
+                    foreach (var item in channels)
+                    {
+                        viewModel.ChannelNavigationItems.Add(new Channel() {
+                            Id = item.Id,
+                            IconUrl = item.IconUrl,
+                            Name = item.Name
+                        });
+                    }
+                }
+
+
+            }, error => {
+
+            });
+        }
+
+        #endregion
+
+        #region Change Background
+
         private void ChangeBackground_Tapped(object sender, Windows.UI.Xaml.Input.TappedRoutedEventArgs e)
         {
             ChangeBackground();
         }
-
-        #region Change Background
 
         private string currentBackground = string.Empty;
 
@@ -136,9 +179,9 @@ namespace MGTV
 
         bool isBackgroundInChanging = false;
 
-        private void Init()
+        private void BackgroundInit()
         {
-            currentBackground = RandomSelectBackground();
+            currentBackground = backgourndImages.FirstOrDefault();
             background1.Opacity = 1;
             background1.Visibility = Visibility.Visible;
             background1.Background = new ImageBrush() {
@@ -166,40 +209,40 @@ namespace MGTV
                 return;
             }
 
-            Grid gridToShow;
-            Grid gridToHide;
+            Border borderToShow;
+            Border borderToHide;
 
             if(background1.Visibility == Visibility.Collapsed)
             {
-                gridToShow = background1;
-                gridToHide = background2;
+                borderToShow = background1;
+                borderToHide = background2;
             }
             else
             {
-                gridToShow = background2;
-                gridToHide = background1;
+                borderToShow = background2;
+                borderToHide = background1;
             }
 
             isBackgroundInChanging = true;
             TimeSpan duration = TimeSpan.FromSeconds(1.8);
-            gridToShow.Visibility = Visibility.Visible;
+            borderToShow.Visibility = Visibility.Visible;
             string imageToShow = RandomSelectBackground();
-            gridToShow.Background = new ImageBrush() {
+            borderToShow.Background = new ImageBrush() {
                 ImageSource = new BitmapImage(new Uri(imageToShow, UriKind.RelativeOrAbsolute)),
                 AlignmentX = AlignmentX.Center,
                 AlignmentY = AlignmentY.Center,
                 Stretch = Stretch.UniformToFill
             };
 
-            FadeAnimation.Fade(gridToHide, 1, 0, duration, null);
-            FadeAnimation.Fade(gridToShow, 0, 1, duration, fe =>
+            FadeAnimation.Fade(borderToHide, 1, 0, duration, null);
+            FadeAnimation.Fade(borderToShow, 0, 1, duration, fe =>
             {
-                gridToHide.Visibility = Visibility.Collapsed;
+                borderToHide.Visibility = Visibility.Collapsed;
                 isBackgroundInChanging = false;
                 currentBackground = imageToShow;
             });
         }
-        
+
         #endregion
     }
 }

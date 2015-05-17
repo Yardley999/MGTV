@@ -10,27 +10,28 @@
 
     <Page.TopAppBar>
         <AppBar x:Name="topAppBar" IsSticky="True" Background="Transparent">
-            <ScrollViewer
-                      Height="168" Background="#aa000000"
+            <ListBox x:Name="topAppBarItemList"
+                      Background="#aa000000"
                       ScrollViewer.IsScrollInertiaEnabled="True" 
-                      ScrollViewer.HorizontalScrollBarVisibility="Hidden"
+                      ScrollViewer.HorizontalScrollBarVisibility="Auto"
                       ScrollViewer.VerticalScrollBarVisibility="Hidden"
                       ScrollViewer.HorizontalScrollMode="Enabled"
                       ScrollViewer.VerticalScrollMode="Disabled"
                       ScrollViewer.ZoomMode="Disabled">
-                <StackPanel Orientation="Horizontal" >
-                    <Rectangle Height="130" Width="170" Fill="#313131" Margin="5, 0"/>
-                    <Rectangle Height="130" Width="170" Fill="#313131" Margin="5, 0"/>
-                    <Rectangle Height="130" Width="170" Fill="#313131" Margin="5, 0"/>
-                    <Rectangle Height="130" Width="170" Fill="#313131" Margin="5, 0"/>
-                    <Rectangle Height="130" Width="170" Fill="#313131" Margin="5, 0"/>
-                    <Rectangle Height="130" Width="170" Fill="#313131" Margin="5, 0"/>
-                    <Rectangle Height="130" Width="170" Fill="#313131" Margin="5, 0"/>
-                    <Rectangle Height="130" Width="170" Fill="#313131" Margin="5, 0"/>
-                    <Rectangle Height="130" Width="170" Fill="#313131" Margin="5, 0"/>
-                    <Rectangle Height="130" Width="170" Fill="#313131" Margin="5, 0"/>
-                </StackPanel>
-            </ScrollViewer>
+                <ListBox.ItemsPanel>
+                    <ItemsPanelTemplate>
+                        <StackPanel Orientation="Horizontal"/>
+                    </ItemsPanelTemplate>
+                </ListBox.ItemsPanel>
+                <ListBox.ItemTemplate>
+                    <DataTemplate>
+                        <StackPanel Orientation="Vertical" Width="130" Background="#80000000">
+                            <Rectangle Height="80" Width="130" Fill="#313131" Margin="5, 0"/>
+                            <TextBlock Text="{Binding Name}" FontSize="21" Foreground="White" HorizontalAlignment="Center" Margin="0, 16, 0, 0"/>
+                        </StackPanel>
+                    </DataTemplate>
+                </ListBox.ItemTemplate>
+            </ListBox>
         </AppBar>
     </Page.TopAppBar>
 
@@ -40,8 +41,8 @@
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
 
-        <Grid Name="background1" Grid.Row="0" Grid.RowSpan="2"/>
-        <Grid Name="background2" Grid.Row="0" Grid.RowSpan="2"/>
+        <Border Name="background1" Grid.Row="0" Grid.RowSpan="2"/>
+        <Border Name="background2" Grid.Row="0" Grid.RowSpan="2"/>
 
         <Grid x:Name="header" Grid.Row="0" VerticalAlignment="Top" Margin="80, 50, 50, 0">
             <Image Source="assets/tvlogo.png" Stretch="None" VerticalAlignment="Center" HorizontalAlignment="Left"/>

@@ -146,6 +146,7 @@
     <Compile Include="SharedFx.10\UI\Animations\VibrateAnimation.cs" />
     <Compile Include="SharedFx.10\UI\UIExtension.cs" />
     <Compile Include="ViewModels\Category.cs" />
+    <Compile Include="ViewModels\Channel.cs" />
     <Compile Include="ViewModels\MainPageViewModel.cs" />
     <Compile Include="ViewModels\PlayListItem.cs" />
     <Compile Include="ViewModels\Video.cs" />
@@ -238,11 +239,10 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <SDKReference Include="WindowsDesktop, Version=10.0.10069.0">
-      <Name>Microsoft Desktop Extension SDK for Universal App Platform</Name>
+    <SDKReference Include="WindowsMobile, Version=10.0.0.1">
+      <Name>Microsoft Mobile Extension SDK for Universal App Platform</Name>
     </SDKReference>
   </ItemGroup>
-  <ItemGroup />
   <PropertyGroup Condition=" '$(VisualStudioVersion)' == '' or '$(VisualStudioVersion)' &lt; '14.0' ">
     <VisualStudioVersion>14.0</VisualStudioVersion>
   </PropertyGroup>

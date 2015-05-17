@@ -138,6 +138,13 @@
     <Compile Include="SharedFx.10\Network\HttpExecuter.cs" />
     <Compile Include="SharedFx.10\Network\HttpExtensions.cs" />
     <Compile Include="SharedFx.10\Network\Interface.cs" />
+    <Compile Include="SharedFx.10\UI\Animations\AnimationBase.cs" />
+    <Compile Include="SharedFx.10\UI\Animations\FadeAnimation.cs" />
+    <Compile Include="SharedFx.10\UI\Animations\MoveAnimation.cs" />
+    <Compile Include="SharedFx.10\UI\Animations\RotateAnimation.cs" />
+    <Compile Include="SharedFx.10\UI\Animations\ScaleAnimation.cs" />
+    <Compile Include="SharedFx.10\UI\Animations\VibrateAnimation.cs" />
+    <Compile Include="SharedFx.10\UI\UIExtension.cs" />
     <Compile Include="ViewModels\Category.cs" />
     <Compile Include="ViewModels\MainPageViewModel.cs" />
     <Compile Include="ViewModels\PlayListItem.cs" />
@@ -153,7 +160,10 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Assets\background.png" />
+    <Content Include="Assets\Background\forest.jpg" />
+    <Content Include="Assets\Background\night.png" />
+    <Content Include="Assets\Background\ice.jpg" />
+    <Content Include="Assets\Background\ice2.jpg" />
     <Content Include="Assets\history.png" />
     <Content Include="Assets\defaultTileImage.png" />
     <Content Include="Assets\test.jpg" />

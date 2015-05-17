@@ -34,17 +34,21 @@
         </AppBar>
     </Page.TopAppBar>
 
-    <Grid x:Name="root" Style="{StaticResource RootGrid}" Margin="0, -32, 0, 0">
+    <Grid x:Name="root" Margin="0, -32, 0, 0">
         <Grid.RowDefinitions>
             <RowDefinition Height="128"/>
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
+
+        <Grid Name="background1" Grid.Row="0" Grid.RowSpan="2"/>
+        <Grid Name="background2" Grid.Row="0" Grid.RowSpan="2"/>
 
         <Grid x:Name="header" Grid.Row="0" VerticalAlignment="Top" Margin="80, 50, 50, 0">
             <Image Source="assets/tvlogo.png" Stretch="None" VerticalAlignment="Center" HorizontalAlignment="Left"/>
             <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" VerticalAlignment="Center">
                 <Image Source="assets/search.png" Stretch="None"/>
                 <Image Source="assets/history.png" Margin="15, 0, 0, 0" Stretch="None"/>
+                <Image Source="assets/history.png" Margin="15, 0, 0, 0" Stretch="None" Tapped="ChangeBackground_Tapped"/>
             </StackPanel>
         </Grid>
 

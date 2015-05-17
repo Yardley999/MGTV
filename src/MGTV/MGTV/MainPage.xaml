@@ -48,7 +48,7 @@
             <Image Source="assets/tvlogo.png" Stretch="None" VerticalAlignment="Center" HorizontalAlignment="Left"/>
             <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" VerticalAlignment="Center">
                 <Image Source="assets/search.png" Stretch="None"/>
-                <Image Source="assets/history.png" Margin="15, 0, 0, 0" Stretch="None"/>
+                <Image Source="assets/history.png" Margin="15, 0, 0, 0" Stretch="None" Tapped="History_Tapped"/>
                 <Image Source="assets/history.png" Margin="15, 0, 0, 0" Stretch="None" Tapped="ChangeBackground_Tapped"/>
             </StackPanel>
         </Grid>

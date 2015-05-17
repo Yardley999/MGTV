@@ -244,5 +244,10 @@ namespace MGTV
         }
 
         #endregion
+
+        private void History_Tapped(object sender, Windows.UI.Xaml.Input.TappedRoutedEventArgs e)
+        {
+            MGTV.Common.LiveTileHelper.Create();
+        }
     }
 }

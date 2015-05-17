@@ -96,6 +96,7 @@
     </Compile>
     <Compile Include="Common\BufferProgressConverter.cs" />
     <Compile Include="Common\Extensions.cs" />
+    <Compile Include="Common\LiveTileHelper.cs" />
     <Compile Include="Common\PlayerTimeSliderTooltipValueConverter.cs" />
     <Compile Include="Common\VolumePercentageConverter.cs" />
     <Compile Include="Controls\Category.xaml.cs">

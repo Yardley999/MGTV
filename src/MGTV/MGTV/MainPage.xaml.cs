@@ -10,6 +10,8 @@ using Windows.UI.Xaml.Navigation;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Media.Imaging;
+using Windows.UI.StartScreen;
+using MGTV.Common;
 
 namespace MGTV
 {
@@ -30,6 +32,7 @@ namespace MGTV
             this.NavigationCacheMode = NavigationCacheMode.Required;
             BackgroundInit();
             TopAppBarItemListDataBinding();
+            CreateTile();
         }
 
         protected override void OnNavigatedTo(NavigationEventArgs e)
@@ -245,9 +248,12 @@ namespace MGTV
 
         #endregion
 
-        private void History_Tapped(object sender, Windows.UI.Xaml.Input.TappedRoutedEventArgs e)
+        #region Live Tile
+
+        private async Task CreateTile()
         {
-            MGTV.Common.LiveTileHelper.Create();
+            await LiveTileHelper.PinSecondaryTileAsync(Constants.TileId, Constants.TileDisplayName, string.Empty, TileSize.Wide310x150);
         }
+        #endregion
     }
 }

@@ -97,6 +97,7 @@
     <Compile Include="Common\BufferProgressConverter.cs" />
     <Compile Include="Common\Constants.cs" />
     <Compile Include="Common\Extensions.cs" />
+    <Compile Include="Controls\UniversalWrapPanel.cs" />
     <Compile Include="LiveTile\BadgeContent.cs" />
     <Compile Include="LiveTile\Common.cs" />
     <Compile Include="LiveTile\ContentInterfaces.cs" />
@@ -125,6 +126,9 @@
     <Compile Include="MG\DataModels\LibraryList.cs" />
     <Compile Include="MG\DataModels\MetadataModel.cs" />
     <Compile Include="MG\DataModels\Video.cs" />
+    <Compile Include="Pages\ChannelDetailsPage.xaml.cs">
+      <DependentUpon>ChannelDetailsPage.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Pages\ProfilePage.xaml.cs">
       <DependentUpon>ProfilePage.xaml</DependentUpon>
     </Compile>
@@ -154,6 +158,8 @@
     <Compile Include="SharedFx.10\UI\UIExtension.cs" />
     <Compile Include="ViewModels\Category.cs" />
     <Compile Include="ViewModels\Channel.cs" />
+    <Compile Include="ViewModels\ChannelDetailPageViewModel.cs" />
+    <Compile Include="ViewModels\Filters.cs" />
     <Compile Include="ViewModels\MainPageViewModel.cs" />
     <Compile Include="ViewModels\PlayListItem.cs" />
     <Compile Include="ViewModels\Video.cs" />
@@ -204,6 +210,10 @@
     <Page Include="MainPage.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Pages\ChannelDetailsPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Pages\ProfilePage.xaml">
       <SubType>Designer</SubType>

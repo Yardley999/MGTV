@@ -33,10 +33,10 @@ namespace MGTV.MG.API
             await loader.LoadDataAsync(onSuccess, onFail);
         }
 
-        public static async Task GetLibraryFilters(int channelId, Action<LibraryFilter[]> onSuccess, Action<Error> onFail)
+        public static async Task GetLibraryFilters(int channelId, Action<List<LibraryFilter>> onSuccess, Action<Error> onFail)
         {
             string methodName = "getLibraryFilters";
-            MGDataLoader<LibraryFilter[]> loader = new MGDataLoader<LibraryFilter[]>(CATEGORY, methodName);
+            MGDataLoader< List<LibraryFilter>> loader = new MGDataLoader<List<LibraryFilter>>(CATEGORY, methodName);
             loader.AddParameter("channelId", channelId.ToString());
 
             await loader.LoadDataAsync(onSuccess, onFail);

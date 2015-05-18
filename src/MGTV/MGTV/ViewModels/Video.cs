@@ -36,12 +36,21 @@ namespace MGTV.ViewModels
             set { SetProperty<int>(ref videoId, value); }
         }
 
+        private string playCount;
+
+        public string PlayCount
+        {
+            get { return playCount; }
+            set { SetProperty<string>(ref playCount, value); }
+        }
+
         public Video()
         {
             name = string.Empty;
             imgUrl = string.Empty;
             intro = string.Empty;
             videoId = -1;
+            playCount = string.Empty;
         }
     }
 

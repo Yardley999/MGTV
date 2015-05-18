@@ -1,0 +1,98 @@
+﻿<Page
+    x:Class="MGTV.Pages.ChannelDetailsPage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:MGTV.Pages"
+    xmlns:controls="using:MGTV.Controls"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    mc:Ignorable="d">
+
+    <Grid Name="root">
+        <Grid.Background>
+            <ImageBrush ImageSource="{Binding Background}" Stretch="UniformToFill" AlignmentX="Center" AlignmentY="Center"/>
+        </Grid.Background>
+
+        <StackPanel Orientation="Horizontal" Background="Transparent" VerticalAlignment="Top" Margin="0, 60">
+            <AppBarButton Icon="Back" Margin="45, 0, 15, 0"  
+                              Style="{StaticResource AppBarButtonStyle}" VerticalAlignment="Bottom"
+                              Click="BackButton_Click"/>
+            <TextBlock Text="{Binding Title}" FontSize="32" VerticalAlignment="Bottom" Foreground="White"/>
+            <TextBlock FontFamily="30" VerticalAlignment="Bottom" Foreground="#bfbfbf" Margin="25, 0, 0, 7">
+                共 <Run Text="{Binding VideoCount}"/> 个视频
+            </TextBlock>
+        </StackPanel>
+
+        <ScrollViewer Name="contentScrollViwer" Margin="0, 160, 0, 0">
+            
+        </ScrollViewer>
+
+        <Grid Name="filterPanel" Width="360" Background="Black" HorizontalAlignment="Right">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="3*"/>
+                <RowDefinition Height="3*"/>
+                <RowDefinition Height="34*"/>
+            </Grid.RowDefinitions>
+
+            <StackPanel Grid.Row="0" Background="#313131" Orientation="Horizontal">
+                <TextBlock Text="分类选择" Foreground="White" VerticalAlignment="Center" Margin="30, 0, 0, 0" FontSize="28"/>
+            </StackPanel>
+
+            <StackPanel Name="orderType" Orientation="Horizontal" HorizontalAlignment="Left" Margin="30, 30, 0, 0" Grid.Row="1" VerticalAlignment="Top">
+                <RadioButton Style="{StaticResource orderTypeStyle}" IsChecked="True">
+                    <RadioButton.Content>
+                        <StackPanel Orientation="Horizontal">
+                            <Image Source="../assets/history.png" Height="16" Width="16"/>
+                            <TextBlock Text="最新" Margin="10, 0, 0, 0"/>
+                        </StackPanel>
+                    </RadioButton.Content>
+                </RadioButton>
+                <RadioButton Style="{StaticResource orderTypeStyle}" Margin="46, 0, 0, 0">
+                    <RadioButton.Content>
+                        <StackPanel Orientation="Horizontal">
+                            <Image Source="../assets/history.png" Height="16" Width="16"/>
+                            <TextBlock Text="热门" Margin="10, 0, 0, 0"/>
+                        </StackPanel>
+                    </RadioButton.Content>
+                </RadioButton>
+            </StackPanel>
+
+            <Grid Grid.Row="2">
+                <ItemsControl Margin="30, 0, 0, 30" ItemsSource="{Binding Filters}">
+                    <ItemsControl.ItemsPanel>
+                        <ItemsPanelTemplate>
+                            <StackPanel Orientation="Vertical"/>
+                        </ItemsPanelTemplate>
+                    </ItemsControl.ItemsPanel>
+                    <ItemsControl.ItemTemplate>
+                        <DataTemplate>
+                            <Grid>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="32"/>
+                                    <RowDefinition Height="*"/>
+                                </Grid.RowDefinitions>
+
+                                <TextBlock Text="{Binding Name}" Foreground="White" VerticalAlignment="Bottom" Grid.Row="0"/>
+
+                                <ItemsControl ItemsSource="{Binding Values}" Grid.Row="1" Margin="-15, 10, 0, 0">
+                                    <ItemsControl.ItemsPanel>
+                                        <ItemsPanelTemplate>
+                                            <controls:UniversalWrapPanel Orientation="Horizontal"/>
+                                        </ItemsPanelTemplate>
+                                    </ItemsControl.ItemsPanel>
+                                    <ItemsControl.ItemTemplate>
+                                        <DataTemplate>
+                                            <CheckBox Foreground="#b0b0b0" Content="{Binding ValueOfFilter}" FontSize="14"
+                                                      IsChecked="{Binding IsChecked, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"
+                                                      Style="{StaticResource filterItemCheckBox}" Margin="5, 5, 5, 5"/>
+                                        </DataTemplate>
+                                    </ItemsControl.ItemTemplate>
+                                </ItemsControl>
+                            </Grid>
+                        </DataTemplate>
+                    </ItemsControl.ItemTemplate>
+                </ItemsControl>
+            </Grid>
+        </Grid>
+    </Grid>
+</Page>

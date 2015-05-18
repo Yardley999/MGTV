@@ -13,6 +13,8 @@ using Windows.UI.Xaml.Media.Imaging;
 using Windows.UI.StartScreen;
 using MGTV.Common;
 using MGTV.LiveTile;
+using MGTV.Pages;
+using SharedFx.Extensions;
 
 namespace MGTV
 {
@@ -162,6 +164,20 @@ namespace MGTV
             });
         }
 
+        private void TopAppBarItem_Tapped(object sender, Windows.UI.Xaml.Input.TappedRoutedEventArgs e)
+        {
+            var dataContext = sender.GetDataContext<Channel>();
+
+            if(dataContext.Id > 0)
+            {
+                ChannelDetailsPage.PageParams para = new ChannelDetailsPage.PageParams();
+                para.Background = currentBackground;
+                para.ChannelId = dataContext.Id;
+                para.ChannelName = dataContext.Name;
+
+                Frame.Navigate(typeof(ChannelDetailsPage), para);
+            }
+        }
         #endregion
 
         #region Change Background
@@ -258,5 +274,7 @@ namespace MGTV
             LiveTileHelper.UpdateBadgeNumber(Constants.TileId, 10);
         }
         #endregion
+
+       
     }
 }

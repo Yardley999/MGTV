@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace HaoDouCookBook.Utility
+namespace MGTV.Utility
 {
     public static class DateTimeExtension
     {

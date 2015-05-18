@@ -25,14 +25,14 @@ namespace MGTV.MG.DataModels
     public class FilterItem
     {
         [DataMember(Name = "id")]
-        public int Id { get; set; }
+        public string Id { get; set; }
 
         [DataMember(Name = "name")]
         public string Name { get; set; }
 
         public FilterItem()
         {
-            Id = -1;
+            Id = string.Empty;
             Name = string.Empty;
         }
     }

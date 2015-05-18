@@ -10,28 +10,26 @@
 
     <Page.TopAppBar>
         <AppBar x:Name="topAppBar" IsSticky="True" Background="Transparent">
-            <ListBox x:Name="topAppBarItemList"
-                      Background="#aa000000"
+            <ItemsControl x:Name="topAppBarItemList" Width="1920" Background="Transparent" BorderThickness="0" Padding="0"
                       ScrollViewer.IsScrollInertiaEnabled="True" 
                       ScrollViewer.HorizontalScrollBarVisibility="Auto"
                       ScrollViewer.VerticalScrollBarVisibility="Hidden"
                       ScrollViewer.HorizontalScrollMode="Enabled"
                       ScrollViewer.VerticalScrollMode="Disabled"
                       ScrollViewer.ZoomMode="Disabled">
-                <ListBox.ItemsPanel>
+                <ItemsControl.ItemsPanel>
                     <ItemsPanelTemplate>
                         <StackPanel Orientation="Horizontal"/>
                     </ItemsPanelTemplate>
-                </ListBox.ItemsPanel>
-                <ListBox.ItemTemplate>
+                </ItemsControl.ItemsPanel>
+                <ItemsControl.ItemTemplate>
                     <DataTemplate>
-                        <StackPanel Orientation="Vertical" Width="130" Background="#80000000">
-                            <Rectangle Height="80" Width="130" Fill="#313131" Margin="5, 0"/>
-                            <TextBlock Text="{Binding Name}" FontSize="21" Foreground="White" HorizontalAlignment="Center" Margin="0, 16, 0, 0"/>
+                            <Rectangle Height="80" Width="130" Fill="#313131"/>
+                            <TextBlock Text="{Binding Name}" FontSize="21" Foreground="White" HorizontalAlignment="Center" Margin="0, 16, 0, 10"/>
                         </StackPanel>
                     </DataTemplate>
-                </ListBox.ItemTemplate>
-            </ListBox>
+                </ItemsControl.ItemTemplate>
+            </ItemsControl>
         </AppBar>
     </Page.TopAppBar>
 

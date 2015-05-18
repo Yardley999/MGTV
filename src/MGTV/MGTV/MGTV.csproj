@@ -97,7 +97,10 @@
     <Compile Include="Common\BufferProgressConverter.cs" />
     <Compile Include="Common\Constants.cs" />
     <Compile Include="Common\Extensions.cs" />
-    <Compile Include="Common\LiveTileHelper.cs" />
+    <Compile Include="LiveTile\BadgeContent.cs" />
+    <Compile Include="LiveTile\Common.cs" />
+    <Compile Include="LiveTile\ContentInterfaces.cs" />
+    <Compile Include="LiveTile\LiveTileHelper.cs" />
     <Compile Include="Common\PlayerTimeSliderTooltipValueConverter.cs" />
     <Compile Include="Common\VolumePercentageConverter.cs" />
     <Compile Include="Controls\Category.xaml.cs">
@@ -109,6 +112,8 @@
     <Compile Include="Controls\ItemTile.xaml.cs">
       <DependentUpon>ItemTile.xaml</DependentUpon>
     </Compile>
+    <Compile Include="LiveTile\TileContent.cs" />
+    <Compile Include="LiveTile\ToastContent.cs" />
     <Compile Include="MainPage.xaml.cs">
       <DependentUpon>MainPage.xaml</DependentUpon>
     </Compile>

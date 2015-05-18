@@ -12,6 +12,7 @@ using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Media.Imaging;
 using Windows.UI.StartScreen;
 using MGTV.Common;
+using MGTV.LiveTile;
 
 namespace MGTV
 {
@@ -168,6 +169,8 @@ namespace MGTV
         private void ChangeBackground_Tapped(object sender, Windows.UI.Xaml.Input.TappedRoutedEventArgs e)
         {
             ChangeBackground();
+            LiveTileHelper.UpdateBadgeNumber(Constants.TileId, (uint)(new Random()).Next(1, 99));
+            LiveTileHelper.UpdateSecondaryTileAsync(Constants.TileId, "热播新剧", TimeSpan.FromSeconds(20));
         }
 
         private string currentBackground = string.Empty;
@@ -203,7 +206,6 @@ namespace MGTV
             var list = backgourndImages.Where(img => !img.Equals(currentBackground, StringComparison.OrdinalIgnoreCase)).ToList();
             return list[(new Random()).Next(0, list.Count())];
         }
-
 
         public void ChangeBackground()
         {
@@ -253,6 +255,7 @@ namespace MGTV
         private async Task CreateTile()
         {
             await LiveTileHelper.PinSecondaryTileAsync(Constants.TileId, Constants.TileDisplayName, string.Empty, TileSize.Wide310x150);
+            LiveTileHelper.UpdateBadgeNumber(Constants.TileId, 10);
         }
         #endregion
     }

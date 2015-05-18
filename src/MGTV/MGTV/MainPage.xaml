@@ -24,6 +24,7 @@
                 </ItemsControl.ItemsPanel>
                 <ItemsControl.ItemTemplate>
                     <DataTemplate>
+                        <StackPanel Orientation="Vertical" Background="#aa000000" Margin="3, 0">
                             <Rectangle Height="80" Width="130" Fill="#313131"/>
                             <TextBlock Text="{Binding Name}" FontSize="21" Foreground="White" HorizontalAlignment="Center" Margin="0, 16, 0, 10"/>
                         </StackPanel>

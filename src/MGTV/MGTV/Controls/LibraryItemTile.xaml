@@ -6,24 +6,27 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     mc:Ignorable="d"
-    d:DesignHeight="124"
-    d:DesignWidth="448">
+    Height="124"
+    Width="448">
 
-    <Grid Name="root" Background="#2c2c2c">
+    <Grid Name="root" Background="#2c2c2c" Visibility="{Binding Data.Title, Converter={StaticResource AnythingToVisibilityConverter}}">
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="*"/>
             <ColumnDefinition Width="*"/>
         </Grid.ColumnDefinitions>
         <Border Grid.Column="0">
             <Border.Background>
-                <ImageBrush ImageSource="{Binding ImageUrl}" AlignmentX="Center" AlignmentY="Center" Stretch="UniformToFill"/>
+                <ImageBrush ImageSource="{Binding Data.ImageUrl}" AlignmentX="Center" AlignmentY="Center" Stretch="UniformToFill"/>
             </Border.Background>
         </Border>
 
-        <Grid Grid.Column="1" Margin="25, 0, 0, 0">
-            <TextBlock Text="{Binding Title}" Foreground="White" FontSize="24" Margin="0, 15, 0, 0" TextTrimming="CharacterEllipsis"/>
-            <TextBlock Text="{Binding Intro}" Foreground="#e0e0e0" Margin="0, 50, 0, 0" TextTrimming="CharacterEllipsis" TextWrapping="Wrap"/>
-            <TextBlock Text="{Binding PlayCout}" Foreground="#e0e0e0" VerticalAlignment="Bottom" Margin="0, 0, 0, 10" TextTrimming="CharacterEllipsis"/>
+        <Grid Grid.Column="1" Margin="15, 0, 0, 0">
+            <TextBlock Text="{Binding Data.Name}" Foreground="White" FontSize="22" Margin="0, 12, 0, 0" TextTrimming="CharacterEllipsis"/>
+            <TextBlock Text="{Binding Data.Intro}" Foreground="#737373" FontSize="14" Margin="0, 42, 0, 0" TextTrimming="CharacterEllipsis" TextWrapping="Wrap"/>
+            <StackPanel Orientation="Horizontal" VerticalAlignment="Bottom" Margin="0, 0, 0, 10">
+                <Image Source="../assets/playcountIcon.png" Stretch="None"/>
+                <TextBlock Text="{Binding Data.PlayCount}" Foreground="#737373" Margin="5, 0" FontSize="14" VerticalAlignment="Center"/>
+            </StackPanel>
         </Grid>
     </Grid>
 </UserControl>

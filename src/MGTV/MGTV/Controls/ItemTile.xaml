@@ -9,7 +9,7 @@
     d:DesignHeight="128"
     d:DesignWidth="220">
     
-    <Grid Name="root" Tapped="ItemTile_Tapped">
+    <Grid Name="root" Tapped="ItemTile_Tapped" Visibility="{Binding Path.Name, Converter={StaticResource AnythingToVisibilityConverter}}">
         <Grid.Background>
             <!--<ImageBrush ImageSource="../Assets/defaultTileImage.png" AlignmentX="Center" AlignmentY="Center" Stretch="UniformToFill"/>-->
             <SolidColorBrush Color="Gray"/>

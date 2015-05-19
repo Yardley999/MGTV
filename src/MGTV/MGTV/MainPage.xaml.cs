@@ -60,6 +60,7 @@ namespace MGTV
 
         private async Task LoadDataAysnc()
         {
+            indicator.IsActive = true;
             await ChannelAPI.GetList(9, channels => {
                 if (channels == null)
                 {
@@ -114,9 +115,10 @@ namespace MGTV
                 // lazy init
                 //
                 this.FindName("contentScrollViewer");
+                indicator.IsActive = false;
 
             }, error => {
-
+                indicator.IsActive = false;
             });
         }
 
@@ -274,7 +276,5 @@ namespace MGTV
             LiveTileHelper.UpdateBadgeNumber(Constants.TileId, 10);
         }
         #endregion
-
-       
     }
 }

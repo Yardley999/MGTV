@@ -91,9 +91,50 @@ namespace MGTV.Pages
 
             await ChannelAPI.GetLibraryList(data => {
                 viewModel.VideoCount = data.Count;
+                viewModel.GroupList.Clear();
+
+                if(data.Videos != null)
+                {
+                    for (int i = 0; i < data.Videos.Length; i++)
+                    {
+                        int groupIndex = i / 10;
+                        if(viewModel.GroupList.Count > groupIndex)
+                        {
+                            var group = viewModel.GroupList[groupIndex];
+                            group.Group.Add(CopyVideoData(data.Videos[i]));
+                        }
+                        else
+                        {
+                            VideoGroup group = new VideoGroup();
+                            group.Group.Add(CopyVideoData(data.Videos[i]));
+                            viewModel.GroupList.Add(group);
+                        }
+                    }
+                }
+
+                // lazy init
+                //
+                this.FindName("contentScrollViwer");
+                this.FindName("videoCountText");
 
             }, error => { },
-            pageParams.ChannelId);
+            pageParams.ChannelId, 
+            OrderType.LASTEST, 
+            filterDicts,
+            1, 
+            40);
+        }
+
+        private Video CopyVideoData(MG.DataModels.Video data)
+        {
+            return new Video()
+            {
+                ImageUrl = data.ImageUrl,
+                Intro = data.Title,
+                Name = data.Title,
+                PlayCount = data.PlayCount,
+                VideoId = data.Id
+            };
         }
 
         private async Task LoadFilterDataAsync()
@@ -134,6 +175,8 @@ namespace MGTV.Pages
 
                         viewModel.Filters.Add(f);
                     }
+
+                    this.FindName("filterPanel");
                 }
             }, error => {
             });

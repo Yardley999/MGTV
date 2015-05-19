@@ -18,16 +18,35 @@
                               Style="{StaticResource AppBarButtonStyle}" VerticalAlignment="Bottom"
                               Click="BackButton_Click"/>
             <TextBlock Text="{Binding Title}" FontSize="32" VerticalAlignment="Bottom" Foreground="White"/>
-            <TextBlock FontFamily="30" VerticalAlignment="Bottom" Foreground="#bfbfbf" Margin="25, 0, 0, 7">
+            <TextBlock x:DeferLoadStrategy="Lazy" Name="videoCountText" FontFamily="30" VerticalAlignment="Bottom" Foreground="#bfbfbf" Margin="25, 0, 0, 7">
                 共 <Run Text="{Binding VideoCount}"/> 个视频
             </TextBlock>
         </StackPanel>
 
-        <ScrollViewer Name="contentScrollViwer" Margin="0, 160, 0, 0">
-            
+        <ScrollViewer x:DeferLoadStrategy="Lazy" Name="contentScrollViwer" Margin="0, 160, 0, 0"
+                ScrollViewer.IsScrollInertiaEnabled="True" 
+                ScrollViewer.HorizontalScrollBarVisibility="Auto"
+                ScrollViewer.VerticalScrollBarVisibility="Hidden"
+                ScrollViewer.HorizontalScrollMode="Enabled"
+                ScrollViewer.VerticalScrollMode="Disabled"
+                ScrollViewer.ZoomMode="Disabled">
+            <StackPanel Orientation="Horizontal" Margin="100, 0, 460, 0">
+                <ItemsControl ItemsSource="{Binding GroupList}">
+                    <ItemsControl.ItemsPanel>
+                        <ItemsPanelTemplate>
+                            <StackPanel Orientation="Horizontal"/>
+                        </ItemsPanelTemplate>
+                    </ItemsControl.ItemsPanel>
+                    <ItemsControl.ItemTemplate>
+                        <DataTemplate>
+                            <controls:LibraListGroupItem DataList="{Binding Group}" Margin="0, 0, 50, 0"/>
+                        </DataTemplate>
+                    </ItemsControl.ItemTemplate>
+                </ItemsControl>
+            </StackPanel>
         </ScrollViewer>
 
-        <Grid Name="filterPanel" Width="360" Background="Black" HorizontalAlignment="Right">
+        <Grid  x:DeferLoadStrategy="Lazy" Name="filterPanel" Width="360" Background="Black" HorizontalAlignment="Right">
             <Grid.RowDefinitions>
                 <RowDefinition Height="3*"/>
                 <RowDefinition Height="3*"/>

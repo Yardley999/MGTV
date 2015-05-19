@@ -29,8 +29,9 @@ namespace MGTV.ViewModels
             set { SetProperty<int>(ref videoCount, value); }
         }
 
-
         public ObservableCollection<Filter> Filters { get; set; }
+
+        public ObservableCollection<VideoGroup> GroupList { get; set; }
 
         public ChannelDetailsPageViewModel()
         {
@@ -38,7 +39,18 @@ namespace MGTV.ViewModels
             title = string.Empty;
             videoCount = 0;
             Filters = new ObservableCollection<Filter>();
+            GroupList = new ObservableCollection<VideoGroup>();
         }
-
     }
+
+    public class VideoGroup : BindableBase
+    {
+        public ObservableCollection<Video> Group { get; set; }
+
+        public VideoGroup()
+        {
+            Group = new ObservableCollection<Video>();
+        }
+    }
+
 }

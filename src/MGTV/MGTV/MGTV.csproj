@@ -97,6 +97,12 @@
     <Compile Include="Common\BufferProgressConverter.cs" />
     <Compile Include="Common\Constants.cs" />
     <Compile Include="Common\Extensions.cs" />
+    <Compile Include="Controls\LibraListGroupItem.xaml.cs">
+      <DependentUpon>LibraListGroupItem.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\LibraryItemTile.xaml.cs">
+      <DependentUpon>LibraryItemTile.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Controls\UniversalWrapPanel.cs" />
     <Compile Include="LiveTile\BadgeContent.cs" />
     <Compile Include="LiveTile\Common.cs" />
@@ -180,6 +186,7 @@
     <Content Include="Assets\Background\ice2.jpg" />
     <Content Include="Assets\history.png" />
     <Content Include="Assets\defaultTileImage.png" />
+    <Content Include="Assets\playcountIcon.png" />
     <Content Include="Assets\test.jpg" />
     <Content Include="Assets\tvlogo.png" />
     <Content Include="Assets\search.png" />
@@ -204,6 +211,14 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Controls\ItemTile.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Controls\LibraListGroupItem.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Controls\LibraryItemTile.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

@@ -14,9 +14,10 @@
             <ColumnDefinition Width="*"/>
             <ColumnDefinition Width="*"/>
         </Grid.ColumnDefinitions>
+        <Border Grid.Column="0" Background="#606060"/>
         <Border Grid.Column="0">
             <Border.Background>
-                <ImageBrush ImageSource="{Binding Data.ImageUrl}" AlignmentX="Center" AlignmentY="Center" Stretch="Uniform"/>
+                <ImageBrush ImageSource="{Binding Data.ImageUrl}" AlignmentX="Center" AlignmentY="Center" Stretch="UniformToFill"/>
             </Border.Background>
         </Border>
 

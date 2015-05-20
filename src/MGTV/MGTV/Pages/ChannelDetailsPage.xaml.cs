@@ -1,10 +1,12 @@
 ﻿using MGTV.MG.API;
+using System.Linq;
 using MGTV.ViewModels;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Navigation;
+using System.Text;
 
 namespace MGTV.Pages
 {
@@ -42,6 +44,7 @@ namespace MGTV.Pages
         public ChannelDetailsPage()
         {
             this.InitializeComponent();
+            NavigationCacheMode = NavigationCacheMode.Required;
             Init();
         }
 
@@ -58,6 +61,7 @@ namespace MGTV.Pages
 
             if (pageParams != null)
             {
+                Init();
                 viewModel.Background = pageParams.Background;
                 viewModel.Title = pageParams.ChannelName;
                 LoadFilterDataAsync();
@@ -79,7 +83,7 @@ namespace MGTV.Pages
 
         #region Data
 
-        private async Task LoadLibraryDataAsync(Dictionary<string, string> filterDicts)
+        private async Task LoadLibraryDataAsync(Dictionary<string, string> filterDicts, OrderType orderType = OrderType.LASTEST)
         {
             if(pageParams == null)
             {
@@ -122,8 +126,8 @@ namespace MGTV.Pages
             }, error => {
                 //indicator.IsActive = false;
             },
-            pageParams.ChannelId, 
-            OrderType.LASTEST, 
+            pageParams.ChannelId,
+            orderType, 
             filterDicts,
             1, 
             40);
@@ -195,5 +199,16 @@ namespace MGTV.Pages
         }
 
         #endregion
+
+        private async void ChangeFilter_Click(object sender, RoutedEventArgs e)
+        {
+            OrderType orderType = OrderType.LASTEST;
+            if(this.lastestRadioBtn.IsChecked == true)
+            {
+                orderType =  OrderType.HOT;
+            }
+
+           await LoadLibraryDataAsync(null, orderType);
+        }
     }
 }

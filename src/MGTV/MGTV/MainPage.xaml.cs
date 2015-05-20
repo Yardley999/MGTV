@@ -128,7 +128,7 @@ namespace MGTV
             video.Name = source.Title;
             video.VideoId = source.Id;
             video.ImageUrl = source.ImageUrl;
-            video.Intro = source.Title;
+            video.Intro = source.Desc;
 
             return video;
         }
@@ -195,10 +195,10 @@ namespace MGTV
 
         private List<string> backgourndImages = new List<string>()
         {
-            "ms-appx:///Assets/Background/night.png",
-            "ms-appx:///Assets/Background/ice.jpg",
-            "ms-appx:///Assets/Background/ice2.jpg",
-            "ms-appx:///Assets/Background/forest.jpg"
+            "ms-appx:///Assets/Background/1.jpg",
+            "ms-appx:///Assets/Background/2.jpg",
+            "ms-appx:///Assets/Background/3.jpg",
+            "ms-appx:///Assets/Background/4.jpg"
         };
 
         bool isBackgroundInChanging = false;

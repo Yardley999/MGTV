@@ -125,7 +125,7 @@ namespace MGTV.Pages
             return new Video()
             {
                 ImageUrl = data.ImageUrl,
-                Intro = data.Title,
+                Intro = data.Desc,
                 Name = data.Title,
                 PlayCount = data.PlayCount,
                 VideoId = data.Id

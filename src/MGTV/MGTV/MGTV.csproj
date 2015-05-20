@@ -180,10 +180,10 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Assets\Background\forest.jpg" />
-    <Content Include="Assets\Background\night.png" />
-    <Content Include="Assets\Background\ice.jpg" />
-    <Content Include="Assets\Background\ice2.jpg" />
+    <Content Include="Assets\Background\1.jpg" />
+    <Content Include="Assets\Background\2.jpg" />
+    <Content Include="Assets\Background\3.jpg" />
+    <Content Include="Assets\Background\4.jpg" />
     <Content Include="Assets\history.png" />
     <Content Include="Assets\defaultTileImage.png" />
     <Content Include="Assets\playcountIcon.png" />

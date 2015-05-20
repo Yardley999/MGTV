@@ -11,6 +11,10 @@ namespace MGTV.MG.DataModels
         [DataMember(Name = "title")]
         public string Title { get; set; }
 
+
+        [DataMember(Name = "desc")]
+        public string Desc { get; set; }
+
         [DataMember(Name = "playCount")]
         public string PlayCount { get; set; }
 

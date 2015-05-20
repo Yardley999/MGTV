@@ -56,7 +56,7 @@
     <Style x:Key="PlayListItem_Name_Text" TargetType="TextBlock" BasedOn="{StaticResource textBlockBase}">
         <Setter Property="FontSize" Value="13"/>
         <Setter Property="Foreground" Value="White"/>
-        <Setter Property="Margin"   Value="15, 5"/>
+        <Setter Property="Margin"   Value="15, 8"/>
     </Style>
 
     <Style x:Key="MenuFlayoutItem_Text" TargetType="MenuFlyoutItem" >
@@ -643,17 +643,26 @@
                                 <VisualState x:Name="UncheckedPressed">
                                     <Storyboard>
                                         <ColorAnimation Storyboard.TargetProperty="Color" Duration="0" To="#ef5e01" Storyboard.TargetName="backgroundColor"/>
+                                        <ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="Foreground" Storyboard.TargetName="ContentPresenter">
+                                            <DiscreteObjectKeyFrame KeyTime="0:0:0" Value="White"/>
+                                        </ObjectAnimationUsingKeyFrames>
                                     </Storyboard>
                                 </VisualState>
                                 <VisualState x:Name="UncheckedDisabled"/>
                                 <VisualState x:Name="CheckedNormal">
                                     <Storyboard>
                                         <ColorAnimation Storyboard.TargetProperty="Color" Duration="0" To="#ef5e01" Storyboard.TargetName="backgroundColor"/>
+                                        <ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="Foreground" Storyboard.TargetName="ContentPresenter">
+                                            <DiscreteObjectKeyFrame KeyTime="0:0:0" Value="White"/>
+                                        </ObjectAnimationUsingKeyFrames>
                                     </Storyboard>
                                 </VisualState>
                                 <VisualState x:Name="CheckedPointerOver">
                                     <Storyboard>
                                         <ColorAnimation Storyboard.TargetProperty="Color" Duration="0" To="#ef5e01" Storyboard.TargetName="backgroundColor"/>
+                                        <ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="Foreground" Storyboard.TargetName="ContentPresenter">
+                                            <DiscreteObjectKeyFrame KeyTime="0:0:0" Value="White"/>
+                                        </ObjectAnimationUsingKeyFrames>
                                     </Storyboard>
                                 </VisualState>
                                 <VisualState x:Name="CheckedPressed">

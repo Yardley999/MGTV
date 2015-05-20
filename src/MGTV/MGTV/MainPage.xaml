@@ -10,18 +10,24 @@
 
     <Page.TopAppBar>
         <AppBar x:Name="topAppBar" IsSticky="True" Style="{StaticResource NoTopAppBarStyle}" Background="#393939" >
-            <ItemsControl x:Name="topAppBarItemList" Width="1920" 
-                      ScrollViewer.IsScrollInertiaEnabled="True" 
-                      ScrollViewer.HorizontalScrollBarVisibility="Auto"
-                      ScrollViewer.VerticalScrollBarVisibility="Hidden"
-                      ScrollViewer.HorizontalScrollMode="Enabled"
-                      ScrollViewer.VerticalScrollMode="Disabled"
-                      ScrollViewer.ZoomMode="Disabled">
+            <ItemsControl x:Name="topAppBarItemList">
                 <ItemsControl.ItemsPanel>
                     <ItemsPanelTemplate>
                         <StackPanel Orientation="Horizontal"/>
                     </ItemsPanelTemplate>
                 </ItemsControl.ItemsPanel>
+                <ItemsControl.Template>
+                    <ControlTemplate>
+                        <ScrollViewer ScrollViewer.IsScrollInertiaEnabled="True" 
+                      ScrollViewer.HorizontalScrollBarVisibility="Auto"
+                      ScrollViewer.VerticalScrollBarVisibility="Hidden"
+                      ScrollViewer.HorizontalScrollMode="Enabled"
+                      ScrollViewer.VerticalScrollMode="Disabled"
+                      ScrollViewer.ZoomMode="Disabled">
+                            <ItemsPresenter/>
+                        </ScrollViewer>
+                    </ControlTemplate>
+                </ItemsControl.Template>
                 <ItemsControl.ItemTemplate>
                     <DataTemplate>
                         <Border Background="#393939">

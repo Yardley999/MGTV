@@ -6,16 +6,10 @@ using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Navigation;
 
-// The Blank Page item template is documented at http://go.microsoft.com/fwlink/?LinkId=234238
-
 namespace MGTV.Pages
 {
-    /// <summary>
-    /// An empty page that can be used on its own or navigated to within a Frame.
-    /// </summary>
     public sealed partial class ChannelDetailsPage : Page
     {
-
         #region Page Params
 
         public class PageParams
@@ -36,8 +30,14 @@ namespace MGTV.Pages
 
         #endregion
 
+        #region Field && Property
+
         PageParams pageParams;
         ChannelDetailsPageViewModel viewModel;
+
+        #endregion
+
+        #region Life Cycle
 
         public ChannelDetailsPage()
         {
@@ -65,11 +65,19 @@ namespace MGTV.Pages
             }
         }
 
+        #endregion
+
+        #region Init
+
         private void Init()
         {
             viewModel = new ChannelDetailsPageViewModel();
             root.DataContext = viewModel;
         }
+
+        #endregion
+
+        #region Data
 
         private async Task LoadLibraryDataAsync(Dictionary<string, string> filterDicts)
         {
@@ -107,11 +115,12 @@ namespace MGTV.Pages
                 //
                 this.FindName("contentScrollViwer");
                 this.FindName("videoCountText");
+                this.FindName("filterPanel");
 
                 indicator.IsActive = false;
 
             }, error => {
-                indicator.IsActive = false;
+                //indicator.IsActive = false;
             },
             pageParams.ChannelId, 
             OrderType.LASTEST, 
@@ -171,15 +180,20 @@ namespace MGTV.Pages
                         viewModel.Filters.Add(f);
                     }
 
-                    this.FindName("filterPanel");
                 }
             }, error => {
             });
         }
 
+        #endregion
+
+        #region Event
+
         private void BackButton_Click(object sender, RoutedEventArgs e)
         {
             Frame.GoBack();
         }
+
+        #endregion
     }
 }

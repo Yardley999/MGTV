@@ -16,7 +16,7 @@
         </Grid.ColumnDefinitions>
         <Border Grid.Column="0">
             <Border.Background>
-                <ImageBrush ImageSource="{Binding Data.ImageUrl}" AlignmentX="Center" AlignmentY="Center" Stretch="UniformToFill"/>
+                <ImageBrush ImageSource="{Binding Data.ImageUrl}" AlignmentX="Center" AlignmentY="Center" Stretch="Uniform"/>
             </Border.Background>
         </Border>
 

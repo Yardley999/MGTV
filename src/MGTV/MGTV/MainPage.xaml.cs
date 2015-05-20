@@ -118,7 +118,7 @@ namespace MGTV
                 indicator.IsActive = false;
 
             }, error => {
-                indicator.IsActive = false;
+                //indicator.IsActive = false;
             });
         }
 
@@ -247,7 +247,7 @@ namespace MGTV
             }
 
             isBackgroundInChanging = true;
-            TimeSpan duration = TimeSpan.FromSeconds(1.8);
+            TimeSpan duration = TimeSpan.FromSeconds(2.8);
             borderToShow.Visibility = Visibility.Visible;
             string imageToShow = RandomSelectBackground();
             borderToShow.Background = new ImageBrush() {

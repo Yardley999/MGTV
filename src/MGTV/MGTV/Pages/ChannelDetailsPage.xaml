@@ -15,16 +15,20 @@
         </Grid.Background>
 
         <StackPanel Orientation="Horizontal" Background="Transparent" VerticalAlignment="Top" Margin="0, 60">
-            <AppBarButton Icon="Back" Margin="45, 0, 15, 0"  
-                              Style="{StaticResource AppBarButtonStyle}" VerticalAlignment="Bottom"
-                              Click="BackButton_Click"/>
+            <AppBarButton Margin="45, 0, 15, 0"  
+                              Style="{StaticResource NoEffectAppBarButtonStyle}" VerticalAlignment="Bottom"
+                              Click="BackButton_Click">
+                <AppBarButton.Icon>
+                    <BitmapIcon UriSource="ms-appx:///Assets/back-btn.png" Margin="5"/>
+                </AppBarButton.Icon>
+            </AppBarButton>
             <TextBlock Text="{Binding Title}" FontSize="32" VerticalAlignment="Bottom" Foreground="White"/>
             <TextBlock x:DeferLoadStrategy="Lazy" Name="videoCountText" FontFamily="30" VerticalAlignment="Bottom" Foreground="#bfbfbf" Margin="25, 0, 0, 7">
                 共 <Run Text="{Binding VideoCount}"/> 个视频
             </TextBlock>
         </StackPanel>
 
-        <ScrollViewer x:DeferLoadStrategy="Lazy" Name="contentScrollViwer" Margin="0, 160, 0, 0"
+        <ScrollViewer x:DeferLoadStrategy="Lazy" Name="contentScrollViwer" Margin="0, 150, 0, 0"
                 ScrollViewer.IsScrollInertiaEnabled="True" 
                 ScrollViewer.HorizontalScrollBarVisibility="Auto"
                 ScrollViewer.VerticalScrollBarVisibility="Hidden"

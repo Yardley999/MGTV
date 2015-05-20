@@ -45,13 +45,17 @@
 
         <Grid Opacity="0" Background="Transparent" Tapped="controlPanel_Tapped" x:Name="controlPanel">
             <StackPanel Orientation="Horizontal" Background="Black" VerticalAlignment="Top" Tapped="NavigationBar_Tapped">
-                <AppBarButton Icon="Back" Margin="45, 0, 15, 0"  
+                <AppBarButton Margin="30, 0, 30, 0"  
                               Style="{StaticResource AppBarButtonStyle}" VerticalAlignment="Center"
-                              Click="BackButton_Click"/>
-                <TextBlock Text="{Binding Title}" FontSize="21" VerticalAlignment="Center" Foreground="White"/>
+                              Click="BackButton_Click">
+                    <AppBarButton.Icon>
+                        <BitmapIcon UriSource="ms-appx:///Assets/back-btn.png" Margin="5"/>
+                    </AppBarButton.Icon>
+                </AppBarButton>
+                <TextBlock Text="{Binding Title}" FontSize="30" VerticalAlignment="Center" Foreground="White"/>
             </StackPanel>
 
-            <Grid x:Name="StatusBar" VerticalAlignment="Bottom" Background="#ee090806" Tapped="StatusBar_Tapped">
+            <Grid x:Name="StatusBar" Height="64" VerticalAlignment="Bottom" Background="#ee090806" Tapped="StatusBar_Tapped">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="258"/>
                     <ColumnDefinition Width="*"/>
@@ -74,14 +78,14 @@
                         </Button.Flyout>
                     </Button>
 
-                    <TextBlock x:Name="currentPosition" Text="00:00" Foreground="White" Margin="10, 0, 5, 0" VerticalAlignment="Center"/>
+                    <TextBlock x:Name="currentPosition" Text="00:00" FontSize="14" Foreground="#aaa" Margin="10, 0, 5, 0" VerticalAlignment="Center"/>
                 </StackPanel>
 
                 <Slider x:Name="progress" Grid.Column="1" Template="{StaticResource NoPressEffectSlider}"
                     Style="{StaticResource VideoPositionSlider_Style}" PointerCaptureLost="Progress_PointerCaptureLost"/>
 
                 <StackPanel Orientation="Horizontal" Grid.Column="2" VerticalAlignment="Center" HorizontalAlignment="Left" Margin="10, 0, 0, 0">
-                    <TextBlock x:Name="duration" Text="00:00" Foreground="White" VerticalAlignment="Center"/>
+                    <TextBlock x:Name="duration" Text="00:00" FontSize="14" Foreground="#aaa" VerticalAlignment="Center"/>
 
                     <AppBarButton Style="{StaticResource AppBarButtonStyle}" Icon="Volume" VerticalAlignment="Center" Margin="8, 0, 0, 0">
                         <AppBarButton.Flyout>

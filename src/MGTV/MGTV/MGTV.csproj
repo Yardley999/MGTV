@@ -180,6 +180,7 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Assets\back-btn.png" />
     <Content Include="Assets\Background\1.jpg" />
     <Content Include="Assets\Background\2.jpg" />
     <Content Include="Assets\Background\3.jpg" />

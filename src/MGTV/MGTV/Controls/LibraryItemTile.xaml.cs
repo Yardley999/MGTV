@@ -1,4 +1,5 @@
-﻿using MGTV.ViewModels;
+﻿using MGTV.Pages;
+using MGTV.ViewModels;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 
@@ -18,6 +19,15 @@ namespace MGTV.Controls
         {
             this.InitializeComponent();
             this.root.DataContext = this;
+            this.Tapped += LibraryItemTile_Tapped;
+        }
+
+        private void LibraryItemTile_Tapped(object sender, Windows.UI.Xaml.Input.TappedRoutedEventArgs e)
+        {
+            VideoPlayPage.PageParams para = new VideoPlayPage.PageParams();
+            para.VideoId = Data.VideoId;
+
+            App.Instance.Frame.Navigate(typeof(VideoPlayPage), para);
         }
     }
 }

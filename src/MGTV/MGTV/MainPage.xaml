@@ -9,7 +9,7 @@
     mc:Ignorable="d">
 
     <Page.TopAppBar>
-        <AppBar x:Name="topAppBar" IsSticky="True" Background="Transparent">
+        <AppBar x:Name="topAppBar" IsSticky="True" Style="{StaticResource NoTopAppBarStyle}" Background="#393939" >
             <ItemsControl x:Name="topAppBarItemList" Width="1920" 
                       ScrollViewer.IsScrollInertiaEnabled="True" 
                       ScrollViewer.HorizontalScrollBarVisibility="Auto"

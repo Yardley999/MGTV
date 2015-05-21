@@ -43,25 +43,24 @@ namespace MGTV.LiveTile
             return SecondaryTile.Exists(id);
         }
 
-        public static void UpdateSecondaryTileAsync(string id, string text, TimeSpan duration)
+        public static void UpdateSecondaryTileAsync(string id, string title, string desc, TimeSpan duration, string imageSrc)
         {
             if(IsPinned(id))
             {
 
                 ITileSquare150x150Text04 squareContent = TileContentFactory.CreateTileSquare150x150Text04();
-                squareContent.TextBodyWrap.Text = text;
+                squareContent.TextBodyWrap.Text = title;
 
                 ITileWide310x150ImageAndText02 tileContent = TileContentFactory.CreateTileWide310x150ImageAndText02();
-                tileContent.TextCaption1.Text = text;
-                tileContent.TextCaption2.Text = text + "123123123123";
-                tileContent.Image.Src = "ms-appx:///Assets/test.jpg";
+                tileContent.TextCaption1.Text = title;
+                tileContent.TextCaption2.Text = desc;
+                tileContent.Image.Src = imageSrc;
                 tileContent.Square150x150Content = squareContent;
 
                 var notify = tileContent.CreateNotification();
                 notify.ExpirationTime = DateTime.Now.AddSeconds(duration.TotalSeconds);
 
                 TileUpdateManager.CreateTileUpdaterForSecondaryTile(id).Update(notify);
-                SecondaryTile secondaryTile = new SecondaryTile(id);
             }
         }
 

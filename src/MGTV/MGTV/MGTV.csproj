@@ -152,6 +152,7 @@
     <Compile Include="SharedFx.10\Data\XmlHelper.cs" />
     <Compile Include="SharedFx.10\Extensions\DataContextExtensions.cs" />
     <Compile Include="SharedFx.10\Extensions\DateTimeExtension.cs" />
+    <Compile Include="SharedFx.10\Extensions\ImageHelper.cs" />
     <Compile Include="SharedFx.10\Network\HttpExecuter.cs" />
     <Compile Include="SharedFx.10\Network\HttpExtensions.cs" />
     <Compile Include="SharedFx.10\Network\Interface.cs" />

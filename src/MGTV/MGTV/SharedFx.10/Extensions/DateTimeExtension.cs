@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace MGTV.Utility
+namespace SharedFx.Extensions
 {
     public static class DateTimeExtension
     {

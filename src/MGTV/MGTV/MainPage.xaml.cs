@@ -15,6 +15,7 @@ using MGTV.Common;
 using MGTV.LiveTile;
 using MGTV.Pages;
 using SharedFx.Extensions;
+using SharedFx.Data;
 
 namespace MGTV
 {
@@ -110,6 +111,25 @@ namespace MGTV
 
                         viewModel.Categories.Add(category);
                     }
+                }
+                
+                // update live tile
+                //
+                if(viewModel.Recommendation != null
+                    && viewModel.Recommendation.Videos.Count > 0)
+                {
+                    var video = viewModel.Recommendation.Videos[0];
+                    ImageHelper imageHelper = new ImageHelper();
+                    string fileName = MD5Core.GetHashString(video.ImageUrl) + ".jpg";
+                    imageHelper.Download(video.ImageUrl, "Images", fileName, localFile =>
+                    {
+                        LiveTileHelper.UpdateSecondaryTileAsync(
+                            Constants.TileId, 
+                            video.Name, 
+                            video.Intro, 
+                            TimeSpan.FromMinutes(1), 
+                            "ms-appdata:///local/Images/" + fileName);
+                    });
                 }
 
                 // lazy init
@@ -208,8 +228,6 @@ namespace MGTV
         private void ChangeBackground_Tapped(object sender, Windows.UI.Xaml.Input.TappedRoutedEventArgs e)
         {
             ChangeBackground();
-            LiveTileHelper.UpdateBadgeNumber(Constants.TileId, (uint)(new Random()).Next(1, 99));
-            LiveTileHelper.UpdateSecondaryTileAsync(Constants.TileId, "热播新剧", TimeSpan.FromSeconds(20));
         }
 
         private string currentBackground = string.Empty;
@@ -294,7 +312,6 @@ namespace MGTV
         private async Task CreateTile()
         {
             await LiveTileHelper.PinSecondaryTileAsync(Constants.TileId, Constants.TileDisplayName, string.Empty, TileSize.Wide310x150);
-            LiveTileHelper.UpdateBadgeNumber(Constants.TileId, 10);
         }
         #endregion
     }

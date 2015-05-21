@@ -62,18 +62,18 @@
             </StackPanel>
             <StackPanel Grid.Row="1">
                 <StackPanel Name="orderType" Orientation="Horizontal" HorizontalAlignment="Left" Margin="30, 30, 0, 0" Grid.Row="1" VerticalAlignment="Top">
-                    <RadioButton Style="{StaticResource orderTypeStyle}" IsChecked="True" Click="ChangeFilter_Click">
+                    <RadioButton Style="{StaticResource orderTypeStyle}" GroupName="OrderType" IsChecked="True" Click="ChangeFilter_Click">
                         <RadioButton.Content>
                             <StackPanel Orientation="Horizontal">
-                                <Image Source="../assets/history.png" Height="16" Width="16"/>
+                                <Image Source="../assets/ico-filter-new01.png" Height="16" Width="16"/>
                                 <TextBlock Text="最新" Margin="10, 0, 0, 0"/>
                             </StackPanel>
                         </RadioButton.Content>
                     </RadioButton>
-                    <RadioButton x:Name="lastestRadioBtn" Style="{StaticResource orderTypeStyle}" Margin="46, 0, 0, 0" Click="ChangeFilter_Click">
+                    <RadioButton x:Name="lastestRadioBtn" GroupName="OrderType" Style="{StaticResource orderTypeStyle}" Margin="46, 0, 0, 0" Click="ChangeFilter_Click">
                         <RadioButton.Content>
                             <StackPanel Orientation="Horizontal">
-                                <Image Source="../assets/history.png" Height="16" Width="16"/>
+                                <Image Source="../assets/ico-filter-hot02.png" Height="16" Width="16"/>
                                 <TextBlock Text="热门" Margin="10, 0, 0, 0"/>
                             </StackPanel>
                         </RadioButton.Content>
@@ -95,7 +95,7 @@
                                     <RowDefinition Height="*"/>
                                 </Grid.RowDefinitions>
 
-                                <TextBlock Text="{Binding Name}" Foreground="White" VerticalAlignment="Bottom" Grid.Row="0"/>
+                                <TextBlock Name="groupText" Text="{Binding Name}" Foreground="White" VerticalAlignment="Bottom" Grid.Row="0"/>
 
                                 <ItemsControl ItemsSource="{Binding Values}" Grid.Row="1" Margin="-15, 10, 0, 0">
                                     <ItemsControl.ItemsPanel>
@@ -105,9 +105,9 @@
                                     </ItemsControl.ItemsPanel>
                                     <ItemsControl.ItemTemplate>
                                         <DataTemplate>
-                                            <CheckBox Foreground="#b0b0b0" Content="{Binding ValueOfFilter}" FontSize="14"
+                                            <RadioButton Foreground="#b0b0b0" Content="{Binding ValueOfFilter}" FontSize="14" GroupName="{Binding Text, ElementName=groupText}"
                                                       IsChecked="{Binding IsChecked, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"
-                                                      Style="{StaticResource filterItemCheckBox}" Margin="5, 5, 5, 5" Click="ChangeFilter_Click"/>
+                                                      Style="{StaticResource filterItemRadioButton}" Margin="5, 5, 5, 5" Click="ChangeFilter_Click"/>
                                         </DataTemplate>
                                     </ItemsControl.ItemTemplate>
                                 </ItemsControl>

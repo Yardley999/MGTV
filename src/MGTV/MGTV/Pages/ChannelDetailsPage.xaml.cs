@@ -52,7 +52,7 @@ namespace MGTV.Pages
         {
             base.OnNavigatedTo(e);
 
-            if(e.NavigationMode == NavigationMode.Back)
+            if (e.NavigationMode == NavigationMode.Back)
             {
                 return;
             }
@@ -85,23 +85,24 @@ namespace MGTV.Pages
 
         private async Task LoadLibraryDataAsync(Dictionary<string, string> filterDicts, OrderType orderType = OrderType.LASTEST)
         {
-            if(pageParams == null)
+            if (pageParams == null)
             {
                 return;
             }
 
             indicator.IsActive = true;
 
-            await ChannelAPI.GetLibraryList(data => {
+            await ChannelAPI.GetLibraryList(data =>
+            {
                 viewModel.VideoCount = data.Count;
                 viewModel.GroupList.Clear();
 
-                if(data.Videos != null)
+                if (data.Videos != null)
                 {
                     for (int i = 0; i < data.Videos.Length; i++)
                     {
                         int groupIndex = i / 10;
-                        if(viewModel.GroupList.Count > groupIndex)
+                        if (viewModel.GroupList.Count > groupIndex)
                         {
                             var group = viewModel.GroupList[groupIndex];
                             group.Group.Add(CopyVideoData(data.Videos[i]));
@@ -123,13 +124,14 @@ namespace MGTV.Pages
 
                 indicator.IsActive = false;
 
-            }, error => {
+            }, error =>
+            {
                 //indicator.IsActive = false;
             },
             pageParams.ChannelId,
-            orderType, 
+            orderType,
             filterDicts,
-            1, 
+            1,
             40);
         }
 
@@ -152,7 +154,8 @@ namespace MGTV.Pages
                 return;
             }
 
-            await ChannelAPI.GetLibraryFilters(pageParams.ChannelId, filters => {
+            await ChannelAPI.GetLibraryFilters(pageParams.ChannelId, filters =>
+            {
                 if (filters != null)
                 {
                     viewModel.Filters.Clear();
@@ -162,18 +165,19 @@ namespace MGTV.Pages
                         f.Name = filter.Name;
                         f.Type = filter.Type;
 
-                        if(filter.Items != null)
+                        if (filter.Items != null)
                         {
                             foreach (var val in filter.Items)
                             {
                                 string name = val.Name;
 
-                                if(string.IsNullOrEmpty(name))
+                                if (string.IsNullOrEmpty(name))
                                 {
                                     name = "其他";
                                 }
 
-                                f.Values.Add(new FilterValue() {
+                                f.Values.Add(new FilterValue()
+                                {
                                     ValueOfFilter = name,
                                     IsChecked = false,
                                     Id = val.Id
@@ -185,7 +189,8 @@ namespace MGTV.Pages
                     }
 
                 }
-            }, error => {
+            }, error =>
+            {
             });
         }
 
@@ -203,12 +208,28 @@ namespace MGTV.Pages
         private async void ChangeFilter_Click(object sender, RoutedEventArgs e)
         {
             OrderType orderType = OrderType.LASTEST;
-            if(this.lastestRadioBtn.IsChecked == true)
+            if (this.lastestRadioBtn.IsChecked == true)
             {
-                orderType =  OrderType.HOT;
+                orderType = OrderType.HOT;
             }
 
-           await LoadLibraryDataAsync(null, orderType);
+            Dictionary<string, string> filters = new Dictionary<string, string>();
+            foreach (var FilterGroup in viewModel.Filters)
+            {
+                string key = FilterGroup.Type;
+                var filterValue = FilterGroup.Values.FirstOrDefault(v => v.IsChecked);
+                if(filterValue == null)
+                {
+                    continue;
+                }
+
+                if(!filters.ContainsKey(key))
+                {
+                    filters.Add(key, filterValue.Id);
+                }
+            }
+
+            await LoadLibraryDataAsync(filters, orderType);
         }
     }
 }

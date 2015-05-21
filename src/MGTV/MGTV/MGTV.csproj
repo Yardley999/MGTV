@@ -187,7 +187,9 @@
     <Content Include="Assets\Background\4.jpg" />
     <Content Include="Assets\history.png" />
     <Content Include="Assets\defaultTileImage.png" />
-    <Content Include="Assets\playcountIcon.png" />
+    <Content Include="Assets\ico-filter-hot02.png" />
+    <Content Include="Assets\ico-filter-new01.png" />
+    <Content Include="Assets\ico-play-14.png" />
     <Content Include="Assets\test.jpg" />
     <Content Include="Assets\tvlogo.png" />
     <Content Include="Assets\search.png" />

@@ -10,6 +10,7 @@ using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Controls.Primitives;
 using Windows.UI.Xaml.Input;
 using Windows.UI.Xaml.Navigation;
+using SharedFx.Extensions;
 
 namespace MGTV.Pages
 {
@@ -83,9 +84,32 @@ namespace MGTV.Pages
                     }
                 }
 
+                viewModel.PlayList.Clear();
+
+                if (videoInfo.RelatedVideos != null)
+                {
+                    foreach (var item in videoInfo.RelatedVideos)
+                    {
+                        viewModel.PlayList.Add(new PlayListItem() {
+                            IsPlaying = false,
+                            Name = item.Title,
+                            VideoId = item.Id
+                        });
+                    }
+                }
+
+                //insert current playing to list
+                //
+                int index = viewModel.PlayList.Count > 2 ? 1 : 0;
+                viewModel.PlayList.Insert(index, new PlayListItem() {
+                    IsPlaying = true,
+                    Name = viewModel.Title,
+                    VideoId = viewModel.VideoId
+                });
+
+
                 string fetchUrl = viewModel.VideoSources[viewModel.VideoSources.Count - 1].Url;
                 SetUrlAndTryPlay(fetchUrl);
-                PlayListSetup();
 
             }, error => { });
 
@@ -109,16 +133,6 @@ namespace MGTV.Pages
         #endregion
 
         #region  Setup
-
-        private void PlayListSetup()
-        {
-            viewModel.PlayList.Clear();
-            viewModel.PlayList.Add(new PlayListItem() {
-                IsPlaying = true,
-                Name = viewModel.Title,
-                VideoId = viewModel.VideoId
-            });
-        }
 
         private void PlayerSetup()
         {
@@ -233,16 +247,6 @@ namespace MGTV.Pages
 
         #region Play List
 
-        private string GetPlayingUrl()
-        {
-            var item = viewModel.PlayList.FirstOrDefault(p => p.IsPlaying);
-            if (item != null)
-            {
-                return item.Url;
-            }
-            return string.Empty;
-        }
-
         #endregion
 
         #region Navigation
@@ -286,9 +290,10 @@ namespace MGTV.Pages
         {
         }
 
-        private void PlayListItem_Tapped(object sender, TappedRoutedEventArgs e)
+        private async void PlayListItem_Tapped(object sender, TappedRoutedEventArgs e)
         {
-
+            var dataContext = sender.GetDataContext<PlayListItem>();
+            await LoadVideoDataAsync(dataContext.VideoId);
         }
 
         private void Progress_PointerCaptureLost(object sender, PointerRoutedEventArgs e)
@@ -306,7 +311,6 @@ namespace MGTV.Pages
             Slider volumeSlider = sender as Slider;
             this.player.Volume = volumeSlider.Value / 100.0;
         }
-
 
         #endregion
 

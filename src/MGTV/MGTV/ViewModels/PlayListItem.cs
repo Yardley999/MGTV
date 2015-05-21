@@ -20,15 +20,6 @@ namespace MGTV.ViewModels
             set { SetProperty<int>(ref videoId, value); }
         }
 
-
-        private string url;
-
-        public string Url
-        {
-            get { return url; }
-            set { SetProperty<string>(ref url, value); }
-        }
-
         private string name;
 
         public string Name
@@ -40,7 +31,6 @@ namespace MGTV.ViewModels
         public PlayListItem()
         {
             IsPlaying = false;
-            url = string.Empty;
             name = string.Empty;
             videoId = -1;
         }

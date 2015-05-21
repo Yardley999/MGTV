@@ -19,16 +19,16 @@
                 <ItemsControl.Template>
                     <ControlTemplate>
                         <ScrollViewer ScrollViewer.HorizontalScrollMode="Enabled"
-                     ScrollViewer.VerticalScrollBarVisibility="Hidden"
-                     ScrollViewer.HorizontalScrollBarVisibility="Auto"
-                     ScrollViewer.ZoomMode="Disabled">
+                                     ScrollViewer.VerticalScrollBarVisibility="Hidden"
+                                     ScrollViewer.HorizontalScrollBarVisibility="Auto"
+                                     ScrollViewer.ZoomMode="Disabled">
                             <ItemsPresenter/>
                         </ScrollViewer>
                     </ControlTemplate> 
                 </ItemsControl.Template>
                 <ItemsControl.ItemTemplate>
                     <DataTemplate>
-                        <Grid Background="Transparent" Tapped="PlayListItem_Tapped" VerticalAlignment="Center" Margin="0, 10, 0, 10">
+                        <Grid Background="Transparent" Tapped="PlayListItem_Tapped" VerticalAlignment="Center" Margin="0, 10, 10, 10">
                             <Border Background="#313131" CornerRadius="5" Visibility="{Binding IsPlaying, Converter={StaticResource AnythingToVisibilityConverter}, ConverterParameter=neg}">
                                 <TextBlock Text="{Binding Name}" Style="{StaticResource PlayListItem_Name_Text}"/>
                             </Border>

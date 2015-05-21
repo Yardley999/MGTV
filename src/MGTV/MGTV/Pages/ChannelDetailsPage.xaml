@@ -13,6 +13,8 @@
         <Grid.Background>
             <ImageBrush ImageSource="{Binding Background}" Stretch="UniformToFill" AlignmentX="Center" AlignmentY="Center"/>
         </Grid.Background>
+        
+        <Border Background="#80000000"/>
 
         <StackPanel Orientation="Horizontal" Background="Transparent" VerticalAlignment="Top" Margin="0, 56, 0, 46">
             <AppBarButton Margin="100, 0, 0, 0" Height="50" Width="50"

@@ -46,6 +46,10 @@ namespace MGTV.Pages
         {
             this.InitializeComponent();
             Init();
+            this.player.MediaFailed += (s, o) =>
+            {
+                string error = o.ErrorMessage;
+            };
         }
 
         protected override void OnNavigatedTo(NavigationEventArgs e)
@@ -199,13 +203,8 @@ namespace MGTV.Pages
             if(!string.IsNullOrEmpty(playUrl))
             {
                 var hlslUrl = new Uri(playUrl, UriKind.RelativeOrAbsolute);
-                var hlsSource = await AdaptiveMediaSource.CreateFromUriAsync(hlslUrl);
-
-                if (hlsSource.Status == AdaptiveMediaSourceCreationStatus.Success)
-                {
-                    player.SetMediaStreamSource(hlsSource.MediaSource);
-                    Play();
-                }
+                player.Source = hlslUrl;
+                Play();
             }
         }
 

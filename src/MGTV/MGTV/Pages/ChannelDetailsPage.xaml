@@ -53,36 +53,35 @@
 
         <Grid  x:DeferLoadStrategy="Lazy" Name="filterPanel" Width="360" Background="Black" HorizontalAlignment="Right">
             <Grid.RowDefinitions>
-                <RowDefinition Height="3*"/>
-                <RowDefinition Height="3*"/>
-                <RowDefinition Height="34*"/>
+                <RowDefinition Height="80"/>
+                <RowDefinition Height="*"/>
             </Grid.RowDefinitions>
 
             <StackPanel Grid.Row="0" Background="#313131" Orientation="Horizontal">
                 <TextBlock Text="分类选择" Foreground="White" VerticalAlignment="Center" Margin="30, 0, 0, 0" FontSize="28"/>
             </StackPanel>
+            <StackPanel Grid.Row="1">
+                <StackPanel Name="orderType" Orientation="Horizontal" HorizontalAlignment="Left" Margin="30, 30, 0, 0" Grid.Row="1" VerticalAlignment="Top">
+                    <RadioButton Style="{StaticResource orderTypeStyle}" IsChecked="True" Click="ChangeFilter_Click">
+                        <RadioButton.Content>
+                            <StackPanel Orientation="Horizontal">
+                                <Image Source="../assets/history.png" Height="16" Width="16"/>
+                                <TextBlock Text="最新" Margin="10, 0, 0, 0"/>
+                            </StackPanel>
+                        </RadioButton.Content>
+                    </RadioButton>
+                    <RadioButton x:Name="lastestRadioBtn" Style="{StaticResource orderTypeStyle}" Margin="46, 0, 0, 0" Click="ChangeFilter_Click">
+                        <RadioButton.Content>
+                            <StackPanel Orientation="Horizontal">
+                                <Image Source="../assets/history.png" Height="16" Width="16"/>
+                                <TextBlock Text="热门" Margin="10, 0, 0, 0"/>
+                            </StackPanel>
+                        </RadioButton.Content>
+                    </RadioButton>
+                </StackPanel>
 
-            <StackPanel Name="orderType" Orientation="Horizontal" HorizontalAlignment="Left" Margin="30, 30, 0, 0" Grid.Row="1" VerticalAlignment="Top">
-                <RadioButton Style="{StaticResource orderTypeStyle}" IsChecked="True" Click="ChangeFilter_Click">
-                    <RadioButton.Content>
-                        <StackPanel Orientation="Horizontal">
-                            <Image Source="../assets/history.png" Height="16" Width="16"/>
-                            <TextBlock Text="最新" Margin="10, 0, 0, 0"/>
-                        </StackPanel>
-                    </RadioButton.Content>
-                </RadioButton>
-                <RadioButton x:Name="lastestRadioBtn" Style="{StaticResource orderTypeStyle}" Margin="46, 0, 0, 0" Click="ChangeFilter_Click">
-                    <RadioButton.Content>
-                        <StackPanel Orientation="Horizontal">
-                            <Image Source="../assets/history.png" Height="16" Width="16"/>
-                            <TextBlock Text="热门" Margin="10, 0, 0, 0"/>
-                        </StackPanel>
-                    </RadioButton.Content>
-                </RadioButton>
-            </StackPanel>
 
-            <Grid Grid.Row="2">
-                <ItemsControl Margin="30, 0, 0, 30" ItemsSource="{Binding Filters}">
+                <ItemsControl Margin="30, 30, 0, 30" ItemsSource="{Binding Filters}">
                     <ItemsControl.ItemsPanel>
                         <ItemsPanelTemplate>
                             <StackPanel Orientation="Vertical"/>
@@ -116,10 +115,10 @@
                         </DataTemplate>
                     </ItemsControl.ItemTemplate>
                 </ItemsControl>
-            </Grid>
+            </StackPanel>
         </Grid>
 
         <ProgressRing x:Name="indicator" IsActive="False" VerticalAlignment="Center" HorizontalAlignment="Center" Width="100" Height="100"/>
-        
+
     </Grid>
 </Page>

@@ -61,7 +61,7 @@ namespace MGTV
         private async Task LoadDataAysnc()
         {
             indicator.IsActive = true;
-            await ChannelAPI.GetList(9, channels => {
+            await ChannelAPI.GetList(12, channels => {
                 if (channels == null)
                 {
                     return;
@@ -137,6 +137,18 @@ namespace MGTV
 
         #region App Bar
 
+        private Dictionary<int, string> AppBarIconMap = new Dictionary<int, string>() {
+            { 1, "ms-appx:///Assets/NavListIcon/ico-nav-02.png"},
+            { 2, "ms-appx:///Assets/NavListIcon/ico-nav-03.png"},
+            { 3, "ms-appx:///Assets/NavListIcon/ico-nav-04.png"},
+            { 4, "ms-appx:///Assets/NavListIcon/ico-nav-05.png"},
+            { 5, "ms-appx:///Assets/NavListIcon/ico-nav-06.png"},
+            { 7, "ms-appx:///Assets/NavListIcon/ico-nav-07.png"},
+            { 8, "ms-appx:///Assets/NavListIcon/ico-nav-08.png"},
+            { 10, "ms-appx:///Assets/NavListIcon/ico-nav-09.png"},
+            { 9, "ms-appx:///Assets/NavListIcon/ico-nav-10.png"},
+        };
+
         private void TopAppBarItemListDataBinding()
         {
             topAppBarItemList.ItemsSource = viewModel.ChannelNavigationItems;
@@ -152,9 +164,18 @@ namespace MGTV
                 {
                     foreach (var item in channels)
                     {
+                        string iconUrl = item.IconUrl;
+                        if(string.IsNullOrEmpty(iconUrl))
+                        {
+                            if(AppBarIconMap.ContainsKey(item.Id))
+                            {
+                                iconUrl = AppBarIconMap[item.Id];
+                            }
+                        }
+
                         viewModel.ChannelNavigationItems.Add(new Channel() {
                             Id = item.Id,
-                            IconUrl = item.IconUrl,
+                            IconUrl = iconUrl,
                             Name = item.Name
                         });
                     }

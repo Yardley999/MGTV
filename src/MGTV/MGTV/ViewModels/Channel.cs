@@ -30,7 +30,7 @@ namespace MGTV.ViewModels
 
         public static readonly Channel Home = new Channel()
         {
-            IconUrl = string.Empty,
+            IconUrl = "ms-appx:///Assets/NavListIcon/ico-nav-01.png",
             Name = "首页",
             Id = 0
         };

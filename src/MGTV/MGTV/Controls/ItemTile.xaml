@@ -6,10 +6,10 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     mc:Ignorable="d"
-    d:DesignHeight="128"
-    d:DesignWidth="220">
-    
-    <Grid Name="root" Tapped="ItemTile_Tapped" Visibility="{Binding Path.Name, Converter={StaticResource AnythingToVisibilityConverter}}">
+    Height="126"
+    Width="220">
+
+    <Grid Name="root" Tapped="ItemTile_Tapped" Visibility="{Binding Data, Converter={StaticResource AnythingToVisibilityConverter}}">
         <Grid.Background>
             <!--<ImageBrush ImageSource="../Assets/defaultTileImage.png" AlignmentX="Center" AlignmentY="Center" Stretch="UniformToFill"/>-->
             <SolidColorBrush Color="Gray"/>
@@ -27,7 +27,7 @@
                     <GradientStop Offset="1" Color="#00000000"/>
                 </LinearGradientBrush>
             </Border.Background>
-            <Grid Margin="10, 0">
+            <Grid Margin="8, 0">
                 <TextBlock Text="{Binding Data.Name}" Style="{StaticResource ItemTile_Title_Text}" />
                 <TextBlock Text="{Binding Data.Intro}" Style="{StaticResource ItemTile_Intro_Text}" />
             </Grid>

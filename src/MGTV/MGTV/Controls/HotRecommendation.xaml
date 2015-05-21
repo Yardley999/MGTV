@@ -14,7 +14,7 @@
             <RowDefinition Height="22*"/>
             <RowDefinition Height="125*"/>
         </Grid.RowDefinitions>
-        <TextBlock Text="热门推荐" Grid.Row="0" Style="{StaticResource MainPage_Header_Text}" VerticalAlignment="Bottom" Margin="10, 0, 0, 15"/>
+        <TextBlock Text="热门推荐" Grid.Row="0" Style="{StaticResource MainPage_Header_Text}" VerticalAlignment="Bottom" Margin="10, 0, 0, 20"/>
         <Grid Grid.Row="1">
             <Grid.RowDefinitions>
                 <RowDefinition Height="*"/>
@@ -22,7 +22,7 @@
                 <RowDefinition Height="*"/>
             </Grid.RowDefinitions>
 
-            <local:ItemTile Grid.Row="0" Margin="5" Data="{Binding Data[0]}"/>
+            <local:ItemTile Grid.Row="0" Margin="5" Data="{Binding Data[0]}" Width="450" Height="260"/>
 
             <Grid Grid.Row="1">
                 <Grid.ColumnDefinitions>

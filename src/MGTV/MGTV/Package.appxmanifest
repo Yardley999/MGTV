@@ -37,7 +37,7 @@
         Square44x44Logo="Assets\SmallLogo.png"
         Description="MGTV"
         BackgroundColor="#464646">
-        <uap:SplashScreen Image="Assets\SplashScreen.png" />
+        <uap:SplashScreen Image="Assets\SplashScreen.jpg" BackgroundColor="#131313" />
       </uap:VisualElements>
     </Application>
   </Applications>

@@ -62,7 +62,7 @@ namespace MGTV.Pages
             if (pageParams != null)
             {
                 Init();
-                viewModel.Background = pageParams.Background;
+                viewModel.Background = App.Instance.BackgroundImage;
                 viewModel.Title = pageParams.ChannelName;
                 LoadFilterDataAsync();
                 LoadLibraryDataAsync(null);
@@ -184,6 +184,10 @@ namespace MGTV.Pages
                                 });
                             }
                         }
+                        if(f.Values.Count > 0)
+                        {
+                            f.Values[0].IsChecked = true;
+                        }
 
                         viewModel.Filters.Add(f);
                     }
@@ -202,8 +206,6 @@ namespace MGTV.Pages
         {
             Frame.GoBack();
         }
-
-        #endregion
 
         private async void ChangeFilter_Click(object sender, RoutedEventArgs e)
         {
@@ -231,5 +233,7 @@ namespace MGTV.Pages
 
             await LoadLibraryDataAsync(filters, orderType);
         }
+
+        #endregion
     }
 }

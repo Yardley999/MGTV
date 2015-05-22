@@ -43,7 +43,7 @@ namespace MGTV.MG.API
 
     public class MGDataLoader<T> where T : class
     {
-        public const string HOST = "http://win-dev.api.hunantv.com";
+        public const string HOST = "http://win.api.hunantv.com";
         public const string VERSION = "v1";
 
         private string category;

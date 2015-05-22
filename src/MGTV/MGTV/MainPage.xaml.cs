@@ -214,7 +214,6 @@ namespace MGTV
             if(dataContext.Id > 0)
             {
                 ChannelDetailsPage.PageParams para = new ChannelDetailsPage.PageParams();
-                para.Background = currentBackground;
                 para.ChannelId = dataContext.Id;
                 para.ChannelName = dataContext.Name;
 
@@ -230,10 +229,9 @@ namespace MGTV
             ChangeBackground();
         }
 
-        private string currentBackground = string.Empty;
-
         private List<string> backgourndImages = new List<string>()
         {
+            "ms-appx:///Assets/Background/0.jpg",
             "ms-appx:///Assets/Background/1.jpg",
             "ms-appx:///Assets/Background/2.jpg",
             "ms-appx:///Assets/Background/3.jpg",
@@ -244,11 +242,11 @@ namespace MGTV
 
         private void BackgroundInit()
         {
-            currentBackground = backgourndImages.FirstOrDefault();
+            App.Instance.BackgroundImage = backgourndImages.FirstOrDefault();
             background1.Opacity = 1;
             background1.Visibility = Visibility.Visible;
             background1.Background = new ImageBrush() {
-                ImageSource = new BitmapImage(new Uri(currentBackground)),
+                ImageSource = new BitmapImage(new Uri(App.Instance.BackgroundImage)),
                 AlignmentX = AlignmentX.Center,
                 AlignmentY = AlignmentY.Center,
                 Stretch = Stretch.UniformToFill
@@ -260,7 +258,7 @@ namespace MGTV
 
         private string RandomSelectBackground()
         {
-            var list = backgourndImages.Where(img => !img.Equals(currentBackground, StringComparison.OrdinalIgnoreCase)).ToList();
+            var list = backgourndImages.Where(img => !img.Equals(App.Instance.BackgroundImage, StringComparison.OrdinalIgnoreCase)).ToList();
             return list[(new Random()).Next(0, list.Count())];
         }
 
@@ -301,7 +299,7 @@ namespace MGTV
             {
                 borderToHide.Visibility = Visibility.Collapsed;
                 isBackgroundInChanging = false;
-                currentBackground = imageToShow;
+                App.Instance.BackgroundImage = imageToShow;
             });
         }
 

@@ -14,9 +14,9 @@
             <RowDefinition Height="22*"/>
             <RowDefinition Height="125*"/>
         </Grid.RowDefinitions>
-        <StackPanel Orientation="Horizontal" VerticalAlignment="Bottom" Margin="5, 0, 0, 20">
+        <StackPanel Orientation="Horizontal" VerticalAlignment="Bottom" Margin="5, 0, 0, 20" Tapped="Header_Tapped">
             <TextBlock Text="{Binding CategoryName}" Style="{StaticResource MainPage_Header_Text}" VerticalAlignment="Center"  />
-            <Image Source="../Assets/ico-title-arrow.png" Stretch="None" VerticalAlignment="Center" Margin="16, 0, 0, 0"/>
+            <Image Source="../Assets/ico-title-arrow.png" Stretch="None" VerticalAlignment="Center" Margin="16, 0, 0, 1"/>
         </StackPanel>
 
         <Grid Grid.Row="1">

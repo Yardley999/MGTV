@@ -17,8 +17,8 @@ namespace MGTV.LiveTile
                 return;
             }
 
-            Uri logo = new Uri("ms-appx:///assets/Logo.scale-100.png");
-            Uri wideLogo = new Uri("ms-appx:///assets/WideLogo.scale-100.png");
+            Uri logo = new Uri("ms-appx:///assets/Logo.scale-100.jpg");
+            Uri wideLogo = new Uri("ms-appx:///assets/WideLogo.scale-100.jpg");
 
             SecondaryTile secondaryTile = new SecondaryTile(id,
                                                             displayName,

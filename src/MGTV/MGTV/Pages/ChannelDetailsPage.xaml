@@ -8,6 +8,12 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     mc:Ignorable="d">
+    
+    <Page.TopAppBar>
+        <AppBar x:Name="topAppBar" IsSticky="True" Style="{StaticResource NoTopAppBarStyle}" Background="#393939" Tapped="TopAppBar_Tapped" >
+            <controls:NavigationBar x:Name="navigationBar"/>
+        </AppBar>
+    </Page.TopAppBar>
 
     <Grid Name="root">
         <Grid.Background>

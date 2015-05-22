@@ -235,5 +235,19 @@ namespace MGTV.Pages
         }
 
         #endregion
+
+        #region App Bar
+
+        private void TopAppBar_Tapped(object sender, Windows.UI.Xaml.Input.TappedRoutedEventArgs e)
+        {
+            e.Handled = true;
+
+            if (this.topAppBar.IsOpen)
+            {
+                this.topAppBar.IsOpen = false;
+            }
+        }
+
+        #endregion
     }
 }

@@ -15,14 +15,11 @@ namespace MGTV.ViewModels
 
         public ObservableCollection<Category> Categories { get; set; }
 
-        public ObservableCollection<Channel> ChannelNavigationItems { get; set; }
 
         public MainPageViewModel()
         {
             recommendation = new Category();
             Categories = new ObservableCollection<Category>();
-            ChannelNavigationItems = new ObservableCollection<Channel>();
-            ChannelNavigationItems.Add(Channel.Home);
         }
     }
 }

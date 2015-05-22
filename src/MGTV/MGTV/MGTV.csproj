@@ -105,6 +105,9 @@
     <Compile Include="Controls\LibraryItemTile.xaml.cs">
       <DependentUpon>LibraryItemTile.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Controls\NavigationBar.xaml.cs">
+      <DependentUpon>NavigationBar.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Controls\UniversalWrapPanel.cs" />
     <Compile Include="LiveTile\BadgeContent.cs" />
     <Compile Include="LiveTile\Common.cs" />
@@ -243,6 +246,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Controls\LibraryItemTile.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Controls\NavigationBar.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

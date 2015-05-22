@@ -35,7 +35,6 @@ namespace MGTV
             this.root.DataContext = viewModel;
             this.NavigationCacheMode = NavigationCacheMode.Required;
             BackgroundInit();
-            TopAppBarItemListDataBinding();
             CreateTile();
         }
 
@@ -52,7 +51,7 @@ namespace MGTV
             }
 
             LoadDataAysnc();
-            LoadTopAppBarItemsAsync();
+            navigationBar.LoadTopAppBarItemsAsync();
         }
 
         #endregion
@@ -157,69 +156,16 @@ namespace MGTV
 
         #region App Bar
 
-        private Dictionary<int, string> AppBarIconMap = new Dictionary<int, string>() {
-            { 1, "ms-appx:///Assets/NavListIcon/ico-nav-02.png"},
-            { 2, "ms-appx:///Assets/NavListIcon/ico-nav-03.png"},
-            { 3, "ms-appx:///Assets/NavListIcon/ico-nav-04.png"},
-            { 4, "ms-appx:///Assets/NavListIcon/ico-nav-05.png"},
-            { 5, "ms-appx:///Assets/NavListIcon/ico-nav-06.png"},
-            { 7, "ms-appx:///Assets/NavListIcon/ico-nav-07.png"},
-            { 8, "ms-appx:///Assets/NavListIcon/ico-nav-08.png"},
-            { 10, "ms-appx:///Assets/NavListIcon/ico-nav-09.png"},
-            { 9, "ms-appx:///Assets/NavListIcon/ico-nav-10.png"},
-        };
-
-        private void TopAppBarItemListDataBinding()
+        private void TopAppBar_Tapped(object sender, Windows.UI.Xaml.Input.TappedRoutedEventArgs e)
         {
-            topAppBarItemList.ItemsSource = viewModel.ChannelNavigationItems;
-        }
+            e.Handled = true;
 
-        private async Task LoadTopAppBarItemsAsync()
-        {
-            await ChannelAPI.GetMajorList(channels => {
-                viewModel.ChannelNavigationItems.Clear();
-                viewModel.ChannelNavigationItems.Add(Channel.Home);
-
-                if (channels != null)
-                {
-                    foreach (var item in channels)
-                    {
-                        string iconUrl = item.IconUrl;
-                        if(string.IsNullOrEmpty(iconUrl))
-                        {
-                            if(AppBarIconMap.ContainsKey(item.Id))
-                            {
-                                iconUrl = AppBarIconMap[item.Id];
-                            }
-                        }
-
-                        viewModel.ChannelNavigationItems.Add(new Channel() {
-                            Id = item.Id,
-                            IconUrl = iconUrl,
-                            Name = item.Name
-                        });
-                    }
-                }
-
-
-            }, error => {
-
-            });
-        }
-
-        private void TopAppBarItem_Tapped(object sender, Windows.UI.Xaml.Input.TappedRoutedEventArgs e)
-        {
-            var dataContext = sender.GetDataContext<Channel>();
-
-            if(dataContext.Id > 0)
+            if (this.topAppBar.IsOpen)
             {
-                ChannelDetailsPage.PageParams para = new ChannelDetailsPage.PageParams();
-                para.ChannelId = dataContext.Id;
-                para.ChannelName = dataContext.Name;
-
-                Frame.Navigate(typeof(ChannelDetailsPage), para);
+                this.topAppBar.IsOpen = false;
             }
         }
+
         #endregion
 
         #region Change Background
@@ -312,5 +258,7 @@ namespace MGTV
             await LiveTileHelper.PinSecondaryTileAsync(Constants.TileId, Constants.TileDisplayName, string.Empty, TileSize.Wide310x150);
         }
         #endregion
+
+       
     }
 }

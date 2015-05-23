@@ -48,6 +48,7 @@ namespace MGTV
             {
                 Instance = this;
             }
+
         }
 
         private void App_UnhandledException(object sender, UnhandledExceptionEventArgs e)
@@ -104,9 +105,28 @@ namespace MGTV
                 // parameter
                 rootFrame.Navigate(typeof(MainPage), e.Arguments);
             }
+
+            var appView = Windows.UI.ViewManagement.ApplicationView.GetForCurrentView();
+            appView.SetDesiredBoundsMode(Windows.UI.ViewManagement.ApplicationViewBoundsMode.UseCoreWindow);
+            appView.SetPreferredMinSize(new Windows.Foundation.Size(1024, 778));
+            appView.VisibleBoundsChanged += AppView_VisibleBoundsChanged;
+
             // Ensure the current window is active
             Window.Current.Activate();
         }
+
+        private void AppView_VisibleBoundsChanged(Windows.UI.ViewManagement.ApplicationView sender, object args)
+        {
+            var appView = Windows.UI.ViewManagement.ApplicationView.GetForCurrentView();
+            double minHeight = 778;
+            double minWidth = 1024;
+
+            double toWidth = Math.Max(minWidth, appView.VisibleBounds.Width) ;
+            double toHeight = Math.Max(minHeight, appView.VisibleBounds.Height);
+
+            appView.TryResizeView(new Windows.Foundation.Size(toWidth, toHeight));
+        }
+
 
         /// <summary>
         /// Invoked when Navigation to a certain page fails

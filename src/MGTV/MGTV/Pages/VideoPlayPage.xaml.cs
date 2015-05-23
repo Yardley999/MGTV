@@ -2,9 +2,7 @@
 using MGTV.MG.API;
 using MGTV.ViewModels;
 using System;
-using System.Linq;
 using System.Threading.Tasks;
-using Windows.Media.Streaming.Adaptive;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Controls.Primitives;

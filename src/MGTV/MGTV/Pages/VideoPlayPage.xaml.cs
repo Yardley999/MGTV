@@ -237,9 +237,22 @@ namespace MGTV.Pages
             isPlaying = false;
         }
 
-        private void SetFullScreen(bool isFullScreen)
+        private void SetWindowFull(bool isFull)
         {
+            var appView = Windows.UI.ViewManagement.ApplicationView.GetForCurrentView();
+            if (appView == null)
+            {
+                return;
+            }
 
+            if(isFull)
+            {
+                appView.TryEnterFullScreenMode();
+            }
+            else
+            {
+                appView.ExitFullScreenMode();
+            }
         }
 
         #endregion
@@ -348,24 +361,6 @@ namespace MGTV.Pages
         {
             viewModel.IsFullScreen = !viewModel.IsFullScreen;
             SetWindowFull(viewModel.IsFullScreen);
-        }
-
-        private void SetWindowFull(bool isFull)
-        {
-            var appView = Windows.UI.ViewManagement.ApplicationView.GetForCurrentView();
-            if (appView == null)
-            {
-                return;
-            }
-
-            if(isFull)
-            {
-                appView.TryEnterFullScreenMode();
-            }
-            else
-            {
-                appView.ExitFullScreenMode();
-            }
         }
 
         #endregion

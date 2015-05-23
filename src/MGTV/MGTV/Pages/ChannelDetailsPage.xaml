@@ -31,7 +31,7 @@
                 </AppBarButton.Icon>
             </AppBarButton>
             <TextBlock Text="{Binding Title}" FontSize="40" Margin="31, 0, 0, 0" VerticalAlignment="Bottom" Foreground="White"/>
-            <TextBlock x:DeferLoadStrategy="Lazy" Name="videoCountText" FontFamily="20" VerticalAlignment="Bottom" Foreground="#aaaaaa" Margin="32, 0, 0, 7">
+            <TextBlock x:DeferLoadStrategy="Lazy" Name="videoCountText" FontSize="20" VerticalAlignment="Bottom" Foreground="#aaaaaa" Margin="32, 0, 0, 7">
                 共 <Run Text="{Binding VideoCount}"/> 个视频
             </TextBlock>
         </StackPanel>
@@ -59,14 +59,18 @@
             </StackPanel>
         </ScrollViewer>
 
-        <Grid  x:DeferLoadStrategy="Lazy" Name="filterPanel" Width="360" Background="#f2000000" HorizontalAlignment="Right">
+        <TextBlock Name="showFilterText" Text="筛选" Margin="0, 66, 80, 0" FontSize="24" Foreground="#ffffff" 
+                   HorizontalAlignment="Right" VerticalAlignment="Top"
+                   Tapped="ShowFilter_Tapped"/>
+        
+        <Grid Name="filterPanel" Width="360" Background="#f2000000" HorizontalAlignment="Right">
             <Grid.RowDefinitions>
                 <RowDefinition Height="84"/>
                 <RowDefinition Height="*"/>
             </Grid.RowDefinitions>
 
             <StackPanel Grid.Row="0" Background="#313131" Orientation="Horizontal">
-                <Image Source="../assets/ico-back-a.png" Stretch="None" Margin="34, 0, 0, 0" VerticalAlignment="Center"/>
+                <Image Source="../assets/ico-back-a.png" Stretch="None" Margin="34, 0, 0, 0" VerticalAlignment="Center" Tapped="HideFilter_Tapped"/>
                 <TextBlock Text="分类选择" Foreground="White" VerticalAlignment="Center" Margin="16, 0, 0, 0" FontSize="24"/>
             </StackPanel>
             <StackPanel Grid.Row="1">

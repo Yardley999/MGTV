@@ -7,6 +7,8 @@ using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Navigation;
 using System.Text;
+using SharedFx.UI.Animations;
+using System;
 
 namespace MGTV.Pages
 {
@@ -77,6 +79,7 @@ namespace MGTV.Pages
         {
             viewModel = new ChannelDetailsPageViewModel();
             root.DataContext = viewModel;
+            FilterPanelReset();
         }
 
         #endregion
@@ -120,7 +123,6 @@ namespace MGTV.Pages
                 //
                 this.FindName("contentScrollViwer");
                 this.FindName("videoCountText");
-                this.FindName("filterPanel");
 
                 indicator.IsActive = false;
 
@@ -207,6 +209,58 @@ namespace MGTV.Pages
             Frame.GoBack();
         }
 
+        #region Filters
+
+        private bool isFilterAniRuning = false;
+        private TimeSpan filterAnimationDuration = TimeSpan.FromSeconds(0.167);
+
+        private void FilterPanelReset()
+        {
+            isFilterAniRuning = false;
+            MoveAnimation.MoveBy(this.filterPanel, filterPanel.Width, 0, TimeSpan.FromSeconds(0), null);
+            this.showFilterText.Opacity = 1;
+        }
+
+        private void ExpandFilter()
+        {
+            if (isFilterAniRuning)
+            {
+                return;
+            }
+            isFilterAniRuning = true;
+            
+            MoveAnimation.MoveBy(this.filterPanel, -filterPanel.Width, 0, filterAnimationDuration, fe => {
+                isFilterAniRuning = false;
+            });
+
+            FadeAnimation.Fade(this.showFilterText, this.showFilterText.Opacity, 0, filterAnimationDuration, null);
+        }
+
+        private void UnExpandFilter()
+        {
+            if (isFilterAniRuning)
+            {
+                return;
+            }
+            isFilterAniRuning = true;
+            
+            MoveAnimation.MoveBy(this.filterPanel, filterPanel.ActualWidth, 0, filterAnimationDuration, fe => {
+                isFilterAniRuning = false;
+            });
+
+            FadeAnimation.Fade(this.showFilterText, this.showFilterText.Opacity, 1, filterAnimationDuration, null);
+        }
+
+        private void ShowFilter_Tapped(object sender, Windows.UI.Xaml.Input.TappedRoutedEventArgs e)
+        {
+            ExpandFilter();
+        }
+
+        private void HideFilter_Tapped(object sender, Windows.UI.Xaml.Input.TappedRoutedEventArgs e)
+        {
+            UnExpandFilter();
+        }
+
         private async void ChangeFilter_Click(object sender, RoutedEventArgs e)
         {
             OrderType orderType = OrderType.LASTEST;
@@ -233,6 +287,8 @@ namespace MGTV.Pages
 
             await LoadLibraryDataAsync(filters, orderType);
         }
+
+        #endregion
 
         #endregion
 

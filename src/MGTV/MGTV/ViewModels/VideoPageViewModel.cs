@@ -33,11 +33,20 @@ namespace MGTV.ViewModels
 
         public ObservableCollection<VideoDefinationSource> VideoSources { get; set; }
 
+        private bool isFullScreen;
+
+        public bool IsFullScreen
+        {
+            get { return isFullScreen; }
+            set { SetProperty<bool>(ref isFullScreen, value); }
+        }
+
         public VideoPlayerPageViewModel()
         {
             VideoSources = new ObservableCollection<VideoDefinationSource>();
             PlayList = new ObservableCollection<PlayListItem>();
             title = string.Empty;
+            isFullScreen = false;
         }
     }
 

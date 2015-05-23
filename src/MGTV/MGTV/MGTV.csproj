@@ -150,8 +150,8 @@
       <DependentUpon>VideoPlayPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="SharedFx.10\Data\AnythingConverter.cs" />
     <Compile Include="SharedFx.10\Data\BindableBase.cs" />
+    <Compile Include="SharedFx.10\Data\Converter.cs" />
     <Compile Include="SharedFx.10\Data\JsonSerializer.cs" />
     <Compile Include="SharedFx.10\Data\MD5.cs" />
     <Compile Include="SharedFx.10\Data\XmlHelper.cs" />

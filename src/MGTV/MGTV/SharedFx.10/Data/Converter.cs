@@ -1,5 +1,6 @@
 ﻿using System;
 using Windows.UI.Xaml;
+using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Data;
 
 namespace SharedFx.Data
@@ -66,6 +67,77 @@ namespace SharedFx.Data
             }
 
             return result;
+        }
+
+        public object ConvertBack(object value, Type targetType, object parameter, string language)
+        {
+            throw new NotImplementedException();
+        }
+    }
+
+    public sealed class BooleanSwitchToSymbolIconConverter : IValueConverter
+    {
+        /// <param name="parameter">Format is [SymbolIconForTrue]_[SymbolIconForFlase]</param> 
+        public object Convert(object value, Type targetType, object parameter, string language)
+        {
+            if (value == null
+                || parameter == null)
+            {
+                return null;
+            }
+
+            string[] icons = parameter.ToString().Split(new char[] { '_' }, StringSplitOptions.RemoveEmptyEntries);
+
+            if(icons.Length < 2)
+            {
+                return null;
+            }
+
+            bool isTure = bool.Parse(value.ToString());
+            Symbol symbol;
+            
+            if (isTure)
+            {
+                Enum.TryParse<Symbol>(icons[0], true, out symbol);
+            }
+            else
+            {
+                Enum.TryParse<Symbol>(icons[1], true, out symbol);
+            }
+
+            return new SymbolIcon(symbol);
+        }
+
+        public object ConvertBack(object value, Type targetType, object parameter, string language)
+        {
+            throw new NotImplementedException();
+        }
+    }
+
+    public sealed class StringFromatConverter : IValueConverter
+    {
+        public object Convert(object value, Type targetType, object parameter, string language)
+        {
+            string val = string.Empty;
+            if(value != null)
+            {
+                val = value.ToString();
+            }
+
+            string format = string.Empty;
+            if(parameter != null)
+            {
+                format = parameter.ToString();
+            }
+
+            if(string.IsNullOrEmpty(format))
+            {
+                return val;
+            }
+            else
+            {
+                return string.Format(format, val);
+            }
         }
 
         public object ConvertBack(object value, Type targetType, object parameter, string language)

@@ -105,7 +105,9 @@
                         </AppBarButton.Flyout>
                     </AppBarButton>
 
-                    <AppBarButton Style="{StaticResource AppBarButtonStyle}" Icon="FullScreen" VerticalAlignment="Center" />
+                    <AppBarButton Style="{StaticResource AppBarButtonStyle}"
+                                  Icon="{Binding IsFullScreen, Converter={StaticResource BoolSwitchToSymbolIconConverter}, ConverterParameter=BackToWindow_FullScreen}"
+                                  VerticalAlignment="Center" Click="FullScreen_Click"/>
                 </StackPanel>
             </Grid>
         </Grid>

@@ -253,6 +253,8 @@ namespace MGTV.Pages
         public void BackToLastPage()
         {
             Frame.GoBack();
+            viewModel.IsFullScreen = false;
+            SetWindowFull(viewModel.IsFullScreen);
         }
 
         #endregion
@@ -341,6 +343,31 @@ namespace MGTV.Pages
         {
             BackToLastPage();
         }
+
+        private void FullScreen_Click(object sender, RoutedEventArgs e)
+        {
+            viewModel.IsFullScreen = !viewModel.IsFullScreen;
+            SetWindowFull(viewModel.IsFullScreen);
+        }
+
+        private void SetWindowFull(bool isFull)
+        {
+            var appView = Windows.UI.ViewManagement.ApplicationView.GetForCurrentView();
+            if (appView == null)
+            {
+                return;
+            }
+
+            if(isFull)
+            {
+                appView.TryEnterFullScreenMode();
+            }
+            else
+            {
+                appView.ExitFullScreenMode();
+            }
+        }
+
         #endregion
     }
 }

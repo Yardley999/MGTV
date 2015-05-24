@@ -2,6 +2,7 @@
 using MGTV.MG.API;
 using MGTV.ViewModels;
 using System;
+using System.Linq;
 using System.Threading.Tasks;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
@@ -9,6 +10,7 @@ using Windows.UI.Xaml.Controls.Primitives;
 using Windows.UI.Xaml.Input;
 using Windows.UI.Xaml.Navigation;
 using SharedFx.Extensions;
+using System.Collections.Generic;
 
 namespace MGTV.Pages
 {
@@ -35,6 +37,7 @@ namespace MGTV.Pages
         private PageParams pageParams;
         private DispatcherTimer progressTimer;
         private bool isPlaying = false;
+        TimeSpan playingPosition = TimeSpan.Zero;
 
         #endregion
 
@@ -44,10 +47,6 @@ namespace MGTV.Pages
         {
             this.InitializeComponent();
             Init();
-            this.player.MediaFailed += (s, o) =>
-            {
-                string error = o.ErrorMessage;
-            };
         }
 
         protected override void OnNavigatedTo(NavigationEventArgs e)
@@ -68,6 +67,7 @@ namespace MGTV.Pages
 
         private async Task LoadVideoDataAsync(int videoId)
         {
+            playingPosition = TimeSpan.Zero;
             await VideoAPI.GetById(videoId, videoInfo => {
 
                 viewModel.Title = videoInfo.Title;
@@ -81,7 +81,8 @@ namespace MGTV.Pages
                     {
                         viewModel.VideoSources.Add(new VideoDefinationSource() {
                             Name = item.Name,
-                            Url = item.Url
+                            Url = item.Url,
+                            Id = item.Definition
                         });
                     }
                 }
@@ -109,10 +110,8 @@ namespace MGTV.Pages
                     VideoId = viewModel.VideoId
                 });
 
-
-                string fetchUrl = viewModel.VideoSources[viewModel.VideoSources.Count - 1].Url;
-                SetUrlAndTryPlay(fetchUrl);
-
+                SelectVideoRate(2, viewModel.VideoSources);
+                
             }, error => { });
 
         }
@@ -157,6 +156,7 @@ namespace MGTV.Pages
         {
             StatusbarSetup();
             progressTimer.Start();
+            this.player.Position = playingPosition;
         }
 
         private void StatusbarSetup()
@@ -189,6 +189,33 @@ namespace MGTV.Pages
 
         #region Player Function
 
+        private void SelectVideoRate(int definitionId, IEnumerable<VideoDefinationSource> videoSources)
+        {
+            // select rate 
+            //
+            var toPlayVideoRate = videoSources.FirstOrDefault(v => v.Id == definitionId);
+            if (toPlayVideoRate == null)
+            {
+                toPlayVideoRate = videoSources.FirstOrDefault();
+            }
+
+            // update menu item state
+            //
+            foreach(var menuItem in videoRateFlyoutMenu.Items)
+            {
+                var tag = menuItem.Tag.ToString();
+                menuItem.IsEnabled = videoSources.Any(v => v.Id.ToString() == tag);
+            }
+
+            // play
+            //
+            if (toPlayVideoRate != null)
+            {
+                this.videoRateButton.Content = toPlayVideoRate.Name;
+                SetUrlAndTryPlay(toPlayVideoRate.Url);
+            }
+        }
+
         private async void SetUrlAndTryPlay(string url)
         {
             if(string.IsNullOrEmpty(url))
@@ -208,6 +235,12 @@ namespace MGTV.Pages
 
         private void Next()
         {
+            var currentPlaying = viewModel.PlayList.FirstOrDefault(v => v.IsPlaying);
+            int index = viewModel.PlayList.IndexOf(currentPlaying);
+            if(viewModel.PlayList.Count > index)
+            {
+                LoadVideoDataAsync(viewModel.PlayList[index + 1].VideoId);
+            }
         }
 
         private void Play()
@@ -220,6 +253,7 @@ namespace MGTV.Pages
         {
             this.player.Stop();
             this.player.Position = TimeSpan.Zero;
+            playingPosition = TimeSpan.Zero;
 
             if (progressTimer != null)
             {
@@ -256,6 +290,14 @@ namespace MGTV.Pages
         #endregion
 
         #region Play List
+
+        private void topAppBar_Tapped(object sender, TappedRoutedEventArgs e)
+        {
+            if(topAppBar.IsOpen)
+            {
+                topAppBar.IsOpen = false;
+            }
+        }
 
         #endregion
 
@@ -300,6 +342,7 @@ namespace MGTV.Pages
 
         private void next_Click(object sender, RoutedEventArgs e)
         {
+            Next();
         }
 
         private async void PlayListItem_Tapped(object sender, TappedRoutedEventArgs e)
@@ -311,11 +354,21 @@ namespace MGTV.Pages
         private void Progress_PointerCaptureLost(object sender, PointerRoutedEventArgs e)
         {
             this.player.Position = TimeSpan.FromSeconds(this.progress.Value);
+            playingPosition = this.player.Position;
         }
 
         private void videoRateTypeFlayoutMentu_Tapped(object sender, TappedRoutedEventArgs e)
         {
-            this.videoRateButton.Content = (sender as MenuFlyoutItem).Text;
+            string tag = (sender as FrameworkElement).Tag.ToString();
+            if(!string.IsNullOrEmpty(tag))
+            {
+                int definitionId = 0;
+                if(int.TryParse(tag, out definitionId))
+                {
+                    playingPosition = this.player.Position;
+                    SelectVideoRate(definitionId, viewModel.VideoSources);
+                }
+            }
         }
 
         private void volumeSliderValue_Changed(object sender, RangeBaseValueChangedEventArgs e)
@@ -362,5 +415,6 @@ namespace MGTV.Pages
         }
 
         #endregion
+
     }
 }

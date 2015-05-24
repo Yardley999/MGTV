@@ -9,7 +9,7 @@
     mc:Ignorable="d">
 
     <Page.TopAppBar>
-        <AppBar Background="Black" IsSticky="True">
+        <AppBar x:Name="topAppBar" Background="Black" IsSticky="True" Tapped="topAppBar_Tapped">
             <ItemsControl x:Name="playlistBox" Background="Transparent" Height="80" Margin="15, 0, 0, 0">
                 <ItemsControl.ItemsPanel>
                     <ItemsPanelTemplate>
@@ -50,7 +50,7 @@
         </Grid>
 
         <Grid Opacity="0" Background="Transparent" Tapped="controlPanel_Tapped" x:Name="controlPanel">
-            <StackPanel Orientation="Horizontal" Background="Black" VerticalAlignment="Top" Tapped="NavigationBar_Tapped">
+            <StackPanel Orientation="Horizontal" Background="Black" VerticalAlignment="Top" Tapped="NavigationBar_Tapped" Margin="0, 0, 0, 10">
                 <AppBarButton Margin="30, 0, 30, 0"  
                               Style="{StaticResource AppBarButtonStyle}" VerticalAlignment="Center"
                               Click="BackButton_Click">
@@ -72,14 +72,15 @@
                     <AppBarToggleButton x:Name="PlayPauseButton" Icon="Play" IsChecked="{Binding BufferingProgress, ElementName=player, Converter={StaticResource BufferProgressToBooleanConverter}}"
                                     Style="{StaticResource PlayPauseButtonStyle}" VerticalAlignment="Center" Click="PlayPauseButton_Click"/>
 
-                    <AppBarButton x:Name="next" Icon="Next" Style="{StaticResource AppBarButtonStyle}" VerticalAlignment="Center"/>
+                    <AppBarButton x:Name="next" Icon="Next" Style="{StaticResource AppBarButtonStyle}" VerticalAlignment="Center" Click="next_Click"/>
 
                     <Button x:Name="videoRateButton" Content="高清" Foreground="White" Margin="5, 0" Style="{StaticResource NoPressEffectButtonStyle}">
                         <Button.Flyout>
                             <MenuFlyout x:Name="videoRateFlyoutMenu">
-                                <MenuFlyoutItem Text="高清" Style="{StaticResource MenuFlayoutItem_Text}" Tapped="videoRateTypeFlayoutMentu_Tapped"/>
-                                <MenuFlyoutItem Text="超清" Style="{StaticResource MenuFlayoutItem_Text}" Tapped="videoRateTypeFlayoutMentu_Tapped"/>
-                                <MenuFlyoutItem Text="极速" Style="{StaticResource MenuFlayoutItem_Text}" Tapped="videoRateTypeFlayoutMentu_Tapped"/>
+                                <MenuFlyoutItem Text="超清" Tag="3" Style="{StaticResource MenuFlayoutItem_Text}" Tapped="videoRateTypeFlayoutMentu_Tapped"/>
+                                <MenuFlyoutItem Text="高清" Tag="2" Style="{StaticResource MenuFlayoutItem_Text}" Tapped="videoRateTypeFlayoutMentu_Tapped"/>
+                                <MenuFlyoutItem Text="标清" Tag="1" Style="{StaticResource MenuFlayoutItem_Text}" Tapped="videoRateTypeFlayoutMentu_Tapped"/>
+                                <MenuFlyoutItem Text="流畅" Tag="0" Style="{StaticResource MenuFlayoutItem_Text}" Tapped="videoRateTypeFlayoutMentu_Tapped"/>
                             </MenuFlyout>
                         </Button.Flyout>
                     </Button>

@@ -68,6 +68,13 @@ namespace MGTV.ViewModels
             set { SetProperty<string>(ref url, value); }
         }
 
+        private int id;
+
+        public int Id
+        {
+            get { return id; }
+            set { SetProperty<int>(ref id, value); }
+        }
 
         public VideoDefinationSource()
         {

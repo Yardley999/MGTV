@@ -62,6 +62,7 @@
     <Style x:Key="MenuFlayoutItem_Text" TargetType="MenuFlyoutItem" >
         <Setter Property="Background" Value="Black"/>
         <Setter Property="Foreground" Value="White"/>
+        <Setter Property="IsEnabled" Value="False"/>
     </Style>
 
     <Style x:Key="NoPressEffectButtonStyle" TargetType="Button">

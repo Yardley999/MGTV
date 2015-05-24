@@ -3,6 +3,7 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:shadredFXData="using:SharedFx.Data"
     xmlns:common="using:MGTV.Common"
+    xmlns:controls="using:MGTV.Controls"
     >
 
     <!--Common-->
@@ -148,10 +149,10 @@
         </Setter>
     </Style>
 
-    <Style x:Key="VideoPositionSlider_Style" TargetType="Slider">
+    <Style x:Key="VideoPositionSlider_Style" TargetType="controls:ProgressSilder">
         <Setter Property="VerticalAlignment" Value="Center"/>
         <Setter Property="Foreground" Value="#f06000"/>
-        <Setter Property="Background" Value="Gray"/>
+        <Setter Property="Background" Value="#60a2a2a2"/>
         <Setter Property="Height" Value="36"/>
         <Setter Property="Margin" Value="15, 0"/>
     </Style>
@@ -265,6 +266,11 @@
     						Fill="{TemplateBinding Background}"
     						Height="{ThemeResource SliderTrackThemeHeight}"
     						Grid.Row="1"
+    						Grid.ColumnSpan="3" />
+                    <Rectangle x:Name="ProgressTrackRect"
+    						Fill="Gray"
+    						Height="{ThemeResource SliderTrackThemeHeight}"
+    						Grid.Row="1" HorizontalAlignment="Left"
     						Grid.ColumnSpan="3" />
                     <Rectangle x:Name="HorizontalDecreaseRect"
     						Fill="{TemplateBinding Foreground}"

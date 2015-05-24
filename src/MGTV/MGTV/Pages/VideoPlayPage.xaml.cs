@@ -131,6 +131,7 @@ namespace MGTV.Pages
             this.volumeSlider.ThumbToolTipValueConverter = new VolumePercentageConverter();
         }
 
+
         #endregion
 
         #region  Setup
@@ -182,6 +183,7 @@ namespace MGTV.Pages
         private void ProgressTimer_Tick(object sender, object e)
         {
             progress.Value = player.Position.TotalSeconds;
+            progress.DownloadProgressValue = player.DownloadProgress + 0.05;
             currentPosition.Text = player.Position.ToShortFromatString();
         }
 

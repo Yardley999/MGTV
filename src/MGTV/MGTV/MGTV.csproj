@@ -108,6 +108,7 @@
     <Compile Include="Controls\NavigationBar.xaml.cs">
       <DependentUpon>NavigationBar.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Controls\ProgressSilder.cs" />
     <Compile Include="Controls\UniversalWrapPanel.cs" />
     <Compile Include="LiveTile\BadgeContent.cs" />
     <Compile Include="LiveTile\Common.cs" />

@@ -3,6 +3,7 @@
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:local="using:MGTV.Pages"
+    xmlns:controls="using:MGTV.Controls"
     Background="Black"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
@@ -88,7 +89,7 @@
                     <TextBlock x:Name="currentPosition" Text="00:00" FontSize="14" Foreground="#aaa" Margin="10, 0, 5, 0" VerticalAlignment="Center"/>
                 </StackPanel>
 
-                <Slider x:Name="progress" Grid.Column="1" Template="{StaticResource NoPressEffectSlider}"
+                <controls:ProgressSilder x:Name="progress" Grid.Column="1" Template="{StaticResource NoPressEffectSlider}"
                     Style="{StaticResource VideoPositionSlider_Style}" PointerCaptureLost="Progress_PointerCaptureLost"/>
 
                 <StackPanel Orientation="Horizontal" Grid.Column="2" VerticalAlignment="Center" HorizontalAlignment="Left" Margin="10, 0, 0, 0">

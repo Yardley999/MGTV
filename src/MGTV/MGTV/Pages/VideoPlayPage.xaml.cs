@@ -127,11 +127,9 @@ namespace MGTV.Pages
             this.playlistBox.ItemsSource = viewModel.PlayList;
 
             this.player.MediaOpened += Player_MediaOpened;
-            this.player.BufferingProgressChanged += Player_BufferingProgressChanged;
             this.progress.ThumbToolTipValueConverter = new PlayerTimeSliderTooltipValueConverter();
             this.volumeSlider.ThumbToolTipValueConverter = new VolumePercentageConverter();
         }
-
 
         #endregion
 
@@ -153,18 +151,6 @@ namespace MGTV.Pages
         #endregion
 
         #region Progress Bar
-
-        private void Player_BufferingProgressChanged(object sender, RoutedEventArgs e)
-        {
-            if(this.player.BufferingProgress >= 1)
-            {
-                viewModel.IsPlayButtonInPauseStatus = isPlaying;
-            }
-            else
-            {
-                viewModel.IsPlayButtonInPauseStatus = false;
-            }
-        }
 
         private void Player_MediaOpened(object sender, RoutedEventArgs e)
         {
@@ -196,8 +182,17 @@ namespace MGTV.Pages
         private void ProgressTimer_Tick(object sender, object e)
         {
             progress.Value = player.Position.TotalSeconds;
-            progress.DownloadProgressValue = player.DownloadProgress + 0.05;
+            progress.DownloadProgressValue = player.DownloadProgress;
             currentPosition.Text = player.Position.ToShortFromatString();
+
+            if (this.player.BufferingProgress >= 1)
+            {
+                viewModel.IsPlayButtonInPauseStatus = isPlaying;
+            }
+            else
+            {
+                viewModel.IsPlayButtonInPauseStatus = false;
+            }
         }
 
         #endregion

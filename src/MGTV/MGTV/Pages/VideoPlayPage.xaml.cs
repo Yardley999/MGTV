@@ -127,6 +127,7 @@ namespace MGTV.Pages
             this.playlistBox.ItemsSource = viewModel.PlayList;
 
             this.player.MediaOpened += Player_MediaOpened;
+            this.player.BufferingProgressChanged += Player_BufferingProgressChanged;
             this.progress.ThumbToolTipValueConverter = new PlayerTimeSliderTooltipValueConverter();
             this.volumeSlider.ThumbToolTipValueConverter = new VolumePercentageConverter();
         }
@@ -152,6 +153,18 @@ namespace MGTV.Pages
         #endregion
 
         #region Progress Bar
+
+        private void Player_BufferingProgressChanged(object sender, RoutedEventArgs e)
+        {
+            if(this.player.BufferingProgress >= 1)
+            {
+                viewModel.IsPlayButtonInPauseStatus = isPlaying;
+            }
+            else
+            {
+                viewModel.IsPlayButtonInPauseStatus = false;
+            }
+        }
 
         private void Player_MediaOpened(object sender, RoutedEventArgs e)
         {
@@ -249,6 +262,7 @@ namespace MGTV.Pages
         {
             this.player.Play();
             isPlaying = true;
+            viewModel.IsPlayButtonInPauseStatus = isPlaying;
         }
 
         private void Stop()
@@ -269,6 +283,7 @@ namespace MGTV.Pages
         {
             this.player.Pause();
             isPlaying = false;
+            viewModel.IsPlayButtonInPauseStatus = isPlaying;
         }
 
         private void SetWindowFull(bool isFull)

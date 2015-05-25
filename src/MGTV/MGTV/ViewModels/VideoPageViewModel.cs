@@ -41,12 +41,22 @@ namespace MGTV.ViewModels
             set { SetProperty<bool>(ref isFullScreen, value); }
         }
 
+        private bool isPlayButtonInPauseStatus;
+
+        public bool IsPlayButtonInPauseStatus
+        {
+            get { return isPlayButtonInPauseStatus; }
+            set { SetProperty<bool>(ref isPlayButtonInPauseStatus, value); }
+        }
+
+
         public VideoPlayerPageViewModel()
         {
             VideoSources = new ObservableCollection<VideoDefinationSource>();
             PlayList = new ObservableCollection<PlayListItem>();
             title = string.Empty;
             isFullScreen = false;
+            isPlayButtonInPauseStatus = false;
         }
     }
 

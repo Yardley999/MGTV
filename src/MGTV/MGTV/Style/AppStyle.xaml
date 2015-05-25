@@ -105,6 +105,7 @@
                         <Storyboard>
                             <ObjectAnimationUsingKeyFrames Storyboard.TargetName="TextBlock"
 									Storyboard.TargetProperty="Foreground">
+                                <DiscreteObjectKeyFrame KeyTime="0" Value="Gray" />
                             </ObjectAnimationUsingKeyFrames>
                         </Storyboard>
                     </VisualState>

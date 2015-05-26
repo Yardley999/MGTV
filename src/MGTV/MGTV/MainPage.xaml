@@ -67,7 +67,9 @@
                 ScrollViewer.ZoomMode="Disabled">
             <StackPanel Orientation="Horizontal" Margin="200, 0" VerticalAlignment="Top">
                 <controls:HotRecommendation HorizontalAlignment="Left" VerticalAlignment="Top"
-                                            Margin="-110, 0, 0, 0" Data="{Binding Recommendation.Videos}"/>
+                                            Margin="-110, 0, 0, 0" x:Name="recommendataion"
+                                            FlashData="{Binding Recommendation.FlashVideos}"
+                                            NonFlashData="{Binding Recommendation.Videos}"/>
 
                 <ItemsControl ItemsSource="{Binding Categories}" VerticalAlignment="Top" HorizontalAlignment="Left">
                     <ItemsControl.ItemsPanel>

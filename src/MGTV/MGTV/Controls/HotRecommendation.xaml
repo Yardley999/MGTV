@@ -22,15 +22,36 @@
                 <RowDefinition Height="*"/>
             </Grid.RowDefinitions>
 
-            <local:ItemTile Grid.Row="0" Margin="5" Data="{Binding Data[0]}" Width="450" Height="260"/>
+            <FlipView x:Name="flipView" ItemsSource="{Binding FlashData}" Grid.Row="0" Width="450" Height="260" 
+                      SelectionChanged="flipView_SelectionChanged">
+                <FlipView.ItemTemplate>
+                    <DataTemplate>
+                        <local:ItemTile Data="{Binding}" Width="450" Height="260"/>
+                    </DataTemplate>
+                </FlipView.ItemTemplate> 
+            </FlipView>
+
+            <ItemsControl x:Name="indicatorBar" Grid.Row="0" ItemsSource="{Binding FlashData}"  
+                          VerticalAlignment="Bottom" HorizontalAlignment="Right" Margin="0, 0, 50, 32">
+                <ItemsControl.ItemsPanel>
+                    <ItemsPanelTemplate>
+                        <StackPanel Orientation="Horizontal"/>
+                    </ItemsPanelTemplate>
+                </ItemsControl.ItemsPanel>
+                <ItemsControl.ItemTemplate>
+                    <DataTemplate>
+                        <Border CornerRadius="180" Height="9" Width="9" Margin="7, 0" Background="#bbbbbb"/>
+                    </DataTemplate>
+                </ItemsControl.ItemTemplate>
+            </ItemsControl>
 
             <Grid Grid.Row="1">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="*"/>
                     <ColumnDefinition Width="*"/>
                 </Grid.ColumnDefinitions>
-                <local:ItemTile Grid.Column="0" Margin="5" Data="{Binding Data[1]}"/>
-                <local:ItemTile Grid.Column="1" Margin="5" Data="{Binding Data[2]}"/>
+                <local:ItemTile Grid.Column="0" Margin="5" Data="{Binding NonFlashData[0]}"/>
+                <local:ItemTile Grid.Column="1" Margin="5" Data="{Binding NonFlashData[1]}"/>
             </Grid>
 
             <Grid Grid.Row="2">
@@ -38,8 +59,8 @@
                     <ColumnDefinition Width="*"/>
                     <ColumnDefinition Width="*"/>
                 </Grid.ColumnDefinitions>
-                <local:ItemTile Grid.Column="0" Margin="5" Data="{Binding Data[3]}"/>
-                <local:ItemTile Grid.Column="1" Margin="5" Data="{Binding Data[4]}"/>
+                <local:ItemTile Grid.Column="0" Margin="5" Data="{Binding NonFlashData[2]}"/>
+                <local:ItemTile Grid.Column="1" Margin="5" Data="{Binding NonFlashData[3]}"/>
             </Grid>
         </Grid>
     </Grid>

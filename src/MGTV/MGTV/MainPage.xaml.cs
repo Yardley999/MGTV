@@ -46,12 +46,19 @@ namespace MGTV
 
             if (e.NavigationMode == NavigationMode.Back)
             {
+                this.recommendataion.StartScrollAnimation();
                 this.FindName("contentScrollViewer");
                 return;
             }
 
             LoadDataAysnc();
             navigationBar.LoadTopAppBarItemsAsync();
+        }
+
+        protected override void OnNavigatingFrom(NavigatingCancelEventArgs e)
+        {
+            base.OnNavigatingFrom(e);
+            this.recommendataion.StopScrollAnimation();
         }
 
         #endregion
@@ -71,24 +78,14 @@ namespace MGTV
 
                 if(channels.Recommendation != null)
                 {
-                    viewModel.Recommendation.ChannelId = channels.Recommendation.Id;
-                    viewModel.Recommendation.Name = channels.Recommendation.Name;
-                    if(channels.Recommendation.Children != null)
+                    foreach (var item in channels.Recommendation.Children.FlashItems)
                     {
-                        if(channels.Recommendation.Children.FlashItems != null
-                            &&channels.Recommendation.Children.FlashItems.Length > 0)
-                        {
-                            var videoData = channels.Recommendation.Children.FlashItems[0];
-                            viewModel.Recommendation.Videos.Add(CopyVideoData(videoData));
-                        }
+                        viewModel.Recommendation.FlashVideos.Add(CopyVideoData(item));
+                    }
 
-                        if(channels.Recommendation.Children.Recommendations != null)
-                        {
-                            foreach (var item in channels.Recommendation.Children.Recommendations)
-                            {
-                                viewModel.Recommendation.Videos.Add(CopyVideoData(item));
-                            }
-                        }
+                    foreach (var item in channels.Recommendation.Children.Recommendations)
+                    {
+                        viewModel.Recommendation.Videos.Add(CopyVideoData(item));
                     }
                 }
 
@@ -111,13 +108,18 @@ namespace MGTV
                         viewModel.Categories.Add(category);
                     }
                 }
-                
+                // lazy init
+                //
+                this.FindName("contentScrollViewer");
+                indicator.IsActive = false;
+                this.recommendataion.StartScrollAnimation();
+
                 // update live tile
                 //
-                if(viewModel.Recommendation != null
-                    && viewModel.Recommendation.Videos.Count > 0)
+                if (viewModel.Recommendation != null
+                    && viewModel.Recommendation.FlashVideos.Count > 0)
                 {
-                    var video = viewModel.Recommendation.Videos[0];
+                    var video = viewModel.Recommendation.FlashVideos[(new Random()).Next(0, viewModel.Recommendation.FlashVideos.Count)];
                     ImageHelper imageHelper = new ImageHelper();
                     string fileName = MD5Core.GetHashString(video.ImageUrl) + ".jpg";
                     imageHelper.Download(video.ImageUrl, "Images", fileName, localFile =>
@@ -130,11 +132,6 @@ namespace MGTV
                             "ms-appdata:///local/Images/" + fileName);
                     });
                 }
-
-                // lazy init
-                //
-                this.FindName("contentScrollViewer");
-                indicator.IsActive = false;
 
             }, error => {
                 //indicator.IsActive = false;
@@ -258,7 +255,5 @@ namespace MGTV
             await LiveTileHelper.PinSecondaryTileAsync(Constants.TileId, Constants.TileDisplayName, string.Empty, TileSize.Wide310x150);
         }
         #endregion
-
-       
     }
 }

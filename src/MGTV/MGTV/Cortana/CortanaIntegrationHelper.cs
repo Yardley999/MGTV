@@ -14,13 +14,19 @@ namespace MGTV.Cortana
         {
             Uri voiceCommandsDefiniationXml = new Uri("ms-appx:///Cortana/VoiceCommands.xml");
             var vhdFile = await StorageFile.GetFileFromApplicationUriAsync(voiceCommandsDefiniationXml);
-            if(vhdFile != null)
+            if (vhdFile != null)
             {
-                await VoiceCommandDefinitionManager.InstallCommandDefinitionsFromStorageFileAsync(vhdFile);
+                try
+                {
+                    await VoiceCommandDefinitionManager.InstallCommandDefinitionsFromStorageFileAsync(vhdFile);
+                }
+                catch
+                {
+                }
             }
         }
 
-        public  static void HandleCommands(VoiceCommandActivatedEventArgs argus)
+        public static void HandleCommands(VoiceCommandActivatedEventArgs argus)
         {
             SpeechRecognitionResult speechRecognitionResult = argus.Result;
 

@@ -21,6 +21,8 @@ namespace MGTV.ViewModels
             set { SetProperty<string>(ref name, value); }
         }
 
+        public ObservableCollection<Video> FlashVideos { get; set; }
+
         public ObservableCollection<Video> Videos { get; set; }
 
         public Category()
@@ -28,6 +30,7 @@ namespace MGTV.ViewModels
             channelId = -1;
             Name = string.Empty;
             Videos = new ObservableCollection<Video>();
+            FlashVideos = new ObservableCollection<Video>();
         }
     }
 }

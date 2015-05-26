@@ -10,6 +10,7 @@
     <shadredFXData:AnythingToVisibilityConverter x:Key="AnythingToVisibilityConverter"/>
     <shadredFXData:AnythingToBooleanConverter x:Key="AnythingToBooleanConverter"/>
     <shadredFXData:BooleanSwitchToSymbolIconConverter x:Key="BoolSwitchToSymbolIconConverter"/>
+    <shadredFXData:BooleanSwitchToStringConverter x:Key="boolSwitchConverter"/>
     <common:BufferProgressPercentageConverter x:Key="BufferProgressPercentageConverter"/>
     <common:BufferProgressToVisiblityConverter x:Key="BufferProgressToVisibilityConverter"/>
     <common:BufferProgressToBooleanConverter x:Key="BufferProgressToBooleanConverter"/>

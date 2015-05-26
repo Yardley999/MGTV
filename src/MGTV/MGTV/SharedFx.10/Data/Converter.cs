@@ -114,6 +114,33 @@ namespace SharedFx.Data
         }
     }
 
+    public sealed class BooleanSwitchToStringConverter : IValueConverter
+    {
+        /// <param name="parameter">Format is [SymbolIconForTrue]_[SymbolIconForFlase]</param> 
+        public object Convert(object value, Type targetType, object parameter, string language)
+        {
+            if (value == null
+                || parameter == null)
+            {
+                return null;
+            }
+
+            string[] temp = parameter.ToString().Split(new char[] { '_' }, StringSplitOptions.RemoveEmptyEntries);
+
+            if(temp.Length < 2)
+            {
+                return null;
+            }
+
+            bool isTure = bool.Parse(value.ToString());
+            return isTure ? temp[0] : temp[1];
+        }
+
+        public object ConvertBack(object value, Type targetType, object parameter, string language)
+        {
+            throw new NotImplementedException();
+        }
+    }
     public sealed class StringFromatConverter : IValueConverter
     {
         public object Convert(object value, Type targetType, object parameter, string language)

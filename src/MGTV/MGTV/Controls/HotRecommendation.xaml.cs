@@ -40,6 +40,12 @@ namespace MGTV.Controls
         {
             this.InitializeComponent();
             this.root.DataContext = this;
+            this.Loaded += HotRecommendation_Loaded;
+        }
+
+        private void HotRecommendation_Loaded(object sender, RoutedEventArgs e)
+        {
+            UpdateIndicatorBar();
         }
 
         #endregion
@@ -50,6 +56,18 @@ namespace MGTV.Controls
         {
             StopScrollAnimation();
             StartScrollAnimation();
+            foreach (var item in FlashData)
+            {
+                item.IsFlashSelected = (item == flipView.SelectedItem);
+            }
+        }
+
+        private void UpdateIndicatorBar()
+        {
+            foreach (var item in this.indicatorBar.Items)
+            {
+                var container = this.indicatorBar;
+            }
         }
 
         DispatcherTimer scrollTimer;

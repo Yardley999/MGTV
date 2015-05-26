@@ -44,12 +44,22 @@ namespace MGTV.ViewModels
             set { SetProperty<string>(ref playCount, value); }
         }
 
+        private bool isFlashSelected;
+
+        public bool IsFlashSelected 
+        {
+            get { return isFlashSelected; }
+            set { SetProperty<bool>(ref isFlashSelected, value); }
+        }
+
+
         public Video()
         {
             name = string.Empty;
             imgUrl = string.Empty;
             intro = string.Empty;
             videoId = -1;
+            isFlashSelected = false;
             playCount = string.Empty;
         }
     }

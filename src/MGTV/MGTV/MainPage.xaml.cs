@@ -126,7 +126,7 @@ namespace MGTV
                             Constants.TileId, 
                             video.Name, 
                             video.Intro, 
-                            TimeSpan.FromMinutes(1), 
+                            TimeSpan.FromHours(1), 
                             "ms-appdata:///local/Images/" + fileName);
                     });
                 }

@@ -60,6 +60,37 @@ namespace MGTV
 #endif
         }
 
+        protected override void OnActivated(IActivatedEventArgs args)
+        {
+            Frame rootFrame = Window.Current.Content as Frame;
+            Frame = rootFrame;
+
+            // Do not repeat app initialization when the Window already has content,
+            // just ensure that the window is active
+            if (rootFrame == null)
+            {
+                // Create a Frame to act as the navigation context and navigate to the first page
+                rootFrame = new Frame();
+
+                rootFrame.NavigationFailed += OnNavigationFailed;
+
+                if (args.PreviousExecutionState == ApplicationExecutionState.Terminated)
+                {
+                    //TODO: Load state from previously suspended application
+                }
+
+                // Place the frame in the current Window
+                Window.Current.Content = rootFrame;
+            }
+
+            // Ensure the current window is active
+            Window.Current.Activate();
+
+            if (args.Kind == ActivationKind.VoiceCommand)
+            {
+                Cortana.CortanaIntegrationHelper.HandleCommands(args as VoiceCommandActivatedEventArgs);
+            }
+        }
 
         /// <summary>
         /// Invoked when the application is launched normally by the end user.  Other entry points
@@ -111,6 +142,8 @@ namespace MGTV
             //appView.SetPreferredMinSize(new Windows.Foundation.Size(1024, 778));
             //appView.VisibleBoundsChanged += AppView_VisibleBoundsChanged;
 
+            Cortana.CortanaIntegrationHelper.CreateOrUpdateVoiceCommands();
+           
             // Ensure the current window is active
             Window.Current.Activate();
         }

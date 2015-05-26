@@ -1,0 +1,42 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<VoiceCommands xmlns="http://schemas.microsoft.com/voicecommands/1.2">
+  <CommandSet xml:lang="zh-cn" Name="MGTV_CMDS_ZH-CN">
+    <CommandPrefix>芒果, </CommandPrefix>
+    <Example>哈罗啊!</Example>
+
+    <Command Name="OpenGroup">
+      <Example>我想看电影</Example>
+      <ListenFor>我想看{GROUPNAME}</ListenFor>
+      <ListenFor>想看{GROUPNAME}</ListenFor>
+      <ListenFor>打开{GROUPNAME}</ListenFor>
+      <Feedback>正在打开</Feedback>
+      <Navigate/>
+    </Command>
+
+    <PhraseList Label="GROUPNAME">
+      <Item>连续剧</Item>
+      <Item>电影</Item>
+      <Item>MV</Item>
+    </PhraseList>
+  </CommandSet>
+
+  <CommandSet xml:lang="en-us" Name="MGTV_CMDS_EN-US">
+    <CommandPrefix>x, </CommandPrefix>
+    <Example>hello</Example>
+
+    <Command Name="OpenGroup">
+      <Example>I want to watch movie</Example>
+      <ListenFor>I wanto to watch {GROUPNAME}</ListenFor>
+      <ListenFor>watch {GROUPNAME}</ListenFor>
+      <ListenFor>see {GROUPNAME}</ListenFor>
+      <Feedback>search for you..</Feedback>
+      <Navigate/>
+    </Command>
+
+    <PhraseList Label="GROUPNAME">
+      <Item>Movie</Item>
+      <Item>Video</Item>
+      <Item>MV</Item>
+    </PhraseList>
+  </CommandSet>
+</VoiceCommands>

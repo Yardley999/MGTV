@@ -110,6 +110,7 @@
     </Compile>
     <Compile Include="Controls\ProgressSilder.cs" />
     <Compile Include="Controls\UniversalWrapPanel.cs" />
+    <Compile Include="Cortana\CortanaIntegrationHelper.cs" />
     <Compile Include="LiveTile\BadgeContent.cs" />
     <Compile Include="LiveTile\Common.cs" />
     <Compile Include="LiveTile\ContentInterfaces.cs" />
@@ -222,6 +223,10 @@
     <Content Include="Assets\tvlogo.png" />
     <Content Include="Assets\search.png" />
     <Content Include="Assets\WideLogo.scale-100.jpg" />
+    <Content Include="Cortana\VoiceCommands.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      <SubType>Designer</SubType>
+    </Content>
     <Content Include="Properties\Default.rd.xml" />
     <Content Include="Assets\StoreLogo.scale-100.png" />
   </ItemGroup>

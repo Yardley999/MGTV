@@ -16,7 +16,7 @@ namespace MGTV.Cortana
             var vhdFile = await StorageFile.GetFileFromApplicationUriAsync(voiceCommandsDefiniationXml);
             if (vhdFile != null)
             {
-                await VoiceCommandDefinitionManager.InstallCommandDefinitionsFromStorageFileAsync(vhdFile);
+                //await VoiceCommandDefinitionManager.InstallCommandDefinitionsFromStorageFileAsync(vhdFile);
                 try
                 {
                     //await VoiceCommandDefinitionManager.InstallCommandDefinitionsFromStorageFileAsync(vhdFile);

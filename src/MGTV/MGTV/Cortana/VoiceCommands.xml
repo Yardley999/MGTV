@@ -1,42 +1,67 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <VoiceCommands xmlns="http://schemas.microsoft.com/voicecommands/1.2">
-  <CommandSet xml:lang="zh-cn" Name="MGTV_CMDS_ZH-CN">
-    <CommandPrefix>芒果, </CommandPrefix>
+
+  <CommandSet xml:lang="en-us" Name="MGTV_CMDSET_EN-US">
+    <CommandPrefix>MGTV</CommandPrefix>
+    <Example>MGTV, Open App</Example>
+
+    <Command Name="OpenVideo">
+      <Example>I want to watch abc</Example>
+      <ListenFor>I want to watch {KEYWORDS}</ListenFor>
+      <Feedback>Opening...</Feedback>
+      <Navigate/>
+    </Command>
+
+    <Command Name="OpenApp">
+      <Example>Open App</Example>
+      <ListenFor>Open</ListenFor>
+      <ListenFor>Open App</ListenFor>
+      <Feedback>Opening...</Feedback>
+      <Navigate/>
+    </Command>
+
+    <Command Name="CloseApp">
+      <Example>Close App</Example>
+      <ListenFor>Close</ListenFor>
+      <ListenFor>Close</ListenFor>
+      <Feedback>Closing...</Feedback>
+      <Navigate/>
+    </Command>
+
+    <PhraseTopic Label="KEYWORDS">
+      <Subject>MGTV</Subject>
+    </PhraseTopic>
+  </CommandSet>
+
+  <CommandSet xml:lang="zh-tw" Name="MGTV_CMDSET_ZH-CN">
+    <CommandPrefix>芒果 TV</CommandPrefix>
     <Example>哈罗啊!</Example>
 
-    <Command Name="OpenGroup">
-      <Example>我想看电影</Example>
-      <ListenFor>我想看{GROUPNAME}</ListenFor>
-      <ListenFor>想看{GROUPNAME}</ListenFor>
-      <ListenFor>打开{GROUPNAME}</ListenFor>
-      <Feedback>正在打开</Feedback>
+    <Command Name="OpenVideo">
+      <Example>我想看电影爸爸去哪儿</Example>
+      <ListenFor>我想看{KEYWORDS}</ListenFor>
+      <Feedback>正在打开...</Feedback>
       <Navigate/>
     </Command>
 
-    <PhraseList Label="GROUPNAME">
-      <Item>连续剧</Item>
-      <Item>电影</Item>
-      <Item>MV</Item>
-    </PhraseList>
-  </CommandSet>
-
-  <CommandSet xml:lang="en-us" Name="MGTV_CMDS_EN-US">
-    <CommandPrefix>x, </CommandPrefix>
-    <Example>hello</Example>
-
-    <Command Name="OpenGroup">
-      <Example>I want to watch movie</Example>
-      <ListenFor>I wanto to watch {GROUPNAME}</ListenFor>
-      <ListenFor>watch {GROUPNAME}</ListenFor>
-      <ListenFor>see {GROUPNAME}</ListenFor>
-      <Feedback>search for you..</Feedback>
+    <Command Name="OpenApp">
+      <Example>打开应用</Example>
+      <ListenFor>打开应用</ListenFor>
+      <Feedback>正在打开...</Feedback>
       <Navigate/>
     </Command>
 
-    <PhraseList Label="GROUPNAME">
-      <Item>Movie</Item>
-      <Item>Video</Item>
-      <Item>MV</Item>
-    </PhraseList>
+    <Command Name="CloseApp">
+      <Example>关闭应用</Example>
+      <ListenFor>关闭应用</ListenFor>
+      <ListenFor>关闭</ListenFor>
+      <Feedback>正在关闭...</Feedback>
+      <Navigate/>
+    </Command>
+
+    <PhraseTopic Label="KEYWORDS">
+      <Subject>Movies</Subject>
+    </PhraseTopic>
   </CommandSet>
+
 </VoiceCommands>

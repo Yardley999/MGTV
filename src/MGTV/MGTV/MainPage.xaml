@@ -79,7 +79,7 @@
                     </ItemsControl.ItemsPanel>
                     <ItemsControl.ItemTemplate>
                         <DataTemplate>
-                            <controls:Category CategoryName="{Binding Name}" VideoData="{Binding Videos}" Margin="60, 0, 0 ,0"/>
+                            <controls:Category CategoryName="{Binding Name}" CategoryId="{Binding ChannelId}" VideoData="{Binding Videos}" Margin="60, 0, 0 ,0"/>
                         </DataTemplate>
                     </ItemsControl.ItemTemplate>
                 </ItemsControl>

@@ -43,7 +43,7 @@
                 ScrollViewer.HorizontalScrollMode="Enabled"
                 ScrollViewer.VerticalScrollMode="Disabled"
                 ScrollViewer.ZoomMode="Disabled">
-            <StackPanel Orientation="Horizontal" Margin="100, 0, 460, 0">
+            <StackPanel Orientation="Horizontal" Margin="100, 0, 100, 0">
                 <ItemsControl ItemsSource="{Binding GroupList}">
                     <ItemsControl.ItemsPanel>
                         <ItemsPanelTemplate>

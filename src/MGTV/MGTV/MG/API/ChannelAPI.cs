@@ -55,8 +55,8 @@ namespace MGTV.MG.API
 
             MGDataLoader<LibraryList> loader = new MGDataLoader<LibraryList>(CATEGORY, methodName);
             loader.AddParameter("channelId", channelId.ToString());
-            loader.AddParameter("pagecount", pageCount.ToString());
-            loader.AddParameter("pagesize", pageSize.ToString());
+            loader.AddParameter("pageCount", pageCount.ToString());
+            loader.AddParameter("pageSize", pageSize.ToString());
             loader.AddParameter("orderType", orderType.ToString());
            
             if(filters != null)

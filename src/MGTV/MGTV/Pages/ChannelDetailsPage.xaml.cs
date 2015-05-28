@@ -236,6 +236,11 @@ namespace MGTV.Pages
 
         private async void loadMore_Loaded(object sender, RoutedEventArgs e)
         {
+            if(indicator.IsActive)
+            {
+                return;
+            }
+
             indicator.IsActive = true;
             await ChannelAPI.GetLibraryList(data => {
 

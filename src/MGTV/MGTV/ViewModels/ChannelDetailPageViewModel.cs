@@ -1,5 +1,7 @@
 ﻿using SharedFx.Data;
+using SharedFx.UI;
 using System.Collections.ObjectModel;
+using System;
 
 namespace MGTV.ViewModels
 {
@@ -43,13 +45,16 @@ namespace MGTV.ViewModels
         }
     }
 
-    public class VideoGroup : BindableBase
+    public class VideoGroup : BindableBase, ILoadMoreItem
     {
         public ObservableCollection<Video> Group { get; set; }
+
+        public bool IsLoadMore { get; set; }
 
         public VideoGroup()
         {
             Group = new ObservableCollection<Video>();
+            IsLoadMore = false;
         }
     }
 

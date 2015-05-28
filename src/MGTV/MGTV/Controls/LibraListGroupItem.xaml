@@ -28,14 +28,14 @@
         </Grid.ColumnDefinitions>
 
         <local:LibraryItemTile Grid.Row="0" Grid.Column="0"  Data="{Binding DataList[0]}" Style="{StaticResource LibraryItemTileStyle}"/>
-        <local:LibraryItemTile Grid.Row="0" Grid.Column="1"  Data="{Binding DataList[1]}" Style="{StaticResource LibraryItemTileStyle}"/>
-        <local:LibraryItemTile Grid.Row="1" Grid.Column="0"  Data="{Binding DataList[2]}" Style="{StaticResource LibraryItemTileStyle}"/>
-        <local:LibraryItemTile Grid.Row="1" Grid.Column="1"  Data="{Binding DataList[3]}" Style="{StaticResource LibraryItemTileStyle}"/>
-        <local:LibraryItemTile Grid.Row="2" Grid.Column="0"  Data="{Binding DataList[4]}" Style="{StaticResource LibraryItemTileStyle}"/>
-        <local:LibraryItemTile Grid.Row="2" Grid.Column="1"  Data="{Binding DataList[5]}" Style="{StaticResource LibraryItemTileStyle}"/>
-        <local:LibraryItemTile Grid.Row="3" Grid.Column="0"  Data="{Binding DataList[6]}" Style="{StaticResource LibraryItemTileStyle}"/>
-        <local:LibraryItemTile Grid.Row="3" Grid.Column="1"  Data="{Binding DataList[7]}" Style="{StaticResource LibraryItemTileStyle}"/>
-        <local:LibraryItemTile Grid.Row="4" Grid.Column="0"  Data="{Binding DataList[8]}" Style="{StaticResource LibraryItemTileStyle}"/>
+        <local:LibraryItemTile Grid.Row="0" Grid.Column="1"  Data="{Binding DataList[5]}" Style="{StaticResource LibraryItemTileStyle}"/>
+        <local:LibraryItemTile Grid.Row="1" Grid.Column="0"  Data="{Binding DataList[1]}" Style="{StaticResource LibraryItemTileStyle}"/>
+        <local:LibraryItemTile Grid.Row="1" Grid.Column="1"  Data="{Binding DataList[6]}" Style="{StaticResource LibraryItemTileStyle}"/>
+        <local:LibraryItemTile Grid.Row="2" Grid.Column="0"  Data="{Binding DataList[2]}" Style="{StaticResource LibraryItemTileStyle}"/>
+        <local:LibraryItemTile Grid.Row="2" Grid.Column="1"  Data="{Binding DataList[7]}" Style="{StaticResource LibraryItemTileStyle}"/>
+        <local:LibraryItemTile Grid.Row="3" Grid.Column="0"  Data="{Binding DataList[3]}" Style="{StaticResource LibraryItemTileStyle}"/>
+        <local:LibraryItemTile Grid.Row="3" Grid.Column="1"  Data="{Binding DataList[8]}" Style="{StaticResource LibraryItemTileStyle}"/>
+        <local:LibraryItemTile Grid.Row="4" Grid.Column="0"  Data="{Binding DataList[4]}" Style="{StaticResource LibraryItemTileStyle}"/>
         <local:LibraryItemTile Grid.Row="4" Grid.Column="1"  Data="{Binding DataList[9]}" Style="{StaticResource LibraryItemTileStyle}"/>
 
     </Grid>

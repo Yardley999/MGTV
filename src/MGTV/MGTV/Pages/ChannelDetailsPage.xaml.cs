@@ -94,6 +94,7 @@ namespace MGTV.Pages
             }
 
             indicator.IsActive = true;
+            page = 1;
 
             await ChannelAPI.GetLibraryList(data =>
             {
@@ -102,6 +103,7 @@ namespace MGTV.Pages
 
                 if (data.Videos != null)
                 {
+                    RemoveLoadMoreControl();
                     for (int i = 0; i < data.Videos.Length; i++)
                     {
                         int groupIndex = i / 10;
@@ -117,12 +119,18 @@ namespace MGTV.Pages
                             viewModel.GroupList.Add(group);
                         }
                     }
+
+                    if(data.Videos.Length == limit)
+                    {
+                        EnusureLoadMoreControl();
+                    }
                 }
 
                 // lazy init
                 //
                 this.FindName("contentScrollViwer");
                 this.FindName("videoCountText");
+                page++;
 
                 indicator.IsActive = false;
 
@@ -133,8 +141,8 @@ namespace MGTV.Pages
             pageParams.ChannelId,
             orderType,
             filterDicts,
-            1,
-            40);
+            page,
+            limit);
         }
 
         private Video CopyVideoData(MG.DataModels.Video data)
@@ -202,6 +210,78 @@ namespace MGTV.Pages
 
         #endregion
 
+
+        #region Load More
+
+        int page = 1;
+        int limit = 40;
+
+        private VideoGroup loadMoreControlDataContext = new VideoGroup() { IsLoadMore = true };
+
+        public void EnusureLoadMoreControl()
+        {
+            if (viewModel.GroupList != null && !viewModel.GroupList.Contains(loadMoreControlDataContext))
+            {
+                viewModel.GroupList.Add(loadMoreControlDataContext);
+            }
+        }
+
+        public void RemoveLoadMoreControl()
+        {
+            if (viewModel.GroupList != null && viewModel.GroupList.Contains(loadMoreControlDataContext))
+            {
+                viewModel.GroupList.Remove(loadMoreControlDataContext);
+            }
+        }
+
+        private async void loadMore_Loaded(object sender, RoutedEventArgs e)
+        {
+            indicator.IsActive = true;
+            await ChannelAPI.GetLibraryList(data => {
+
+                if (data.Videos != null)
+                {
+                    RemoveLoadMoreControl();
+                    int baseIndex = viewModel.GroupList.Count;
+
+                    for (int i = 0; i < data.Videos.Length; i++)
+                    {
+                        int groupIndex = baseIndex + (i / 10);
+                        if (viewModel.GroupList.Count > groupIndex)
+                        {
+                            var group = viewModel.GroupList[groupIndex];
+                            group.Group.Add(CopyVideoData(data.Videos[i]));
+                        }
+                        else
+                        {
+                            VideoGroup group = new VideoGroup();
+                            group.Group.Add(CopyVideoData(data.Videos[i]));
+                            viewModel.GroupList.Add(group);
+                        }
+                    }
+
+                    if (data.Videos.Length == limit)
+                    {
+                        EnusureLoadMoreControl();
+                        page++;
+                    }
+
+                    indicator.IsActive = false;
+                }
+
+            }, error => {
+                indicator.IsActive = false;
+            },
+            pageParams.ChannelId,
+            GetOrderType(),
+            GetFilters(),
+            page,
+            limit);
+        }
+
+        #endregion
+
+
         #region Event
 
         private void BackButton_Click(object sender, RoutedEventArgs e)
@@ -263,29 +343,39 @@ namespace MGTV.Pages
 
         private async void ChangeFilter_Click(object sender, RoutedEventArgs e)
         {
+            await LoadLibraryDataAsync(GetFilters(), GetOrderType());
+        }
+
+        private Dictionary<string, string> GetFilters()
+        {
+            Dictionary<string, string> filters = new Dictionary<string, string>();
+            foreach (var FilterGroup in viewModel.Filters)
+            {
+                string key = FilterGroup.Type;
+                var filterValue = FilterGroup.Values.FirstOrDefault(v => v.IsChecked);
+                if (filterValue == null)
+                {
+                    continue;
+                }
+
+                if (!filters.ContainsKey(key))
+                {
+                    filters.Add(key, filterValue.Id);
+                }
+            }
+
+            return filters;
+        }
+
+        private OrderType GetOrderType()
+        {
             OrderType orderType = OrderType.LASTEST;
             if (this.lastestRadioBtn.IsChecked == true)
             {
                 orderType = OrderType.HOT;
             }
 
-            Dictionary<string, string> filters = new Dictionary<string, string>();
-            foreach (var FilterGroup in viewModel.Filters)
-            {
-                string key = FilterGroup.Type;
-                var filterValue = FilterGroup.Values.FirstOrDefault(v => v.IsChecked);
-                if(filterValue == null)
-                {
-                    continue;
-                }
-
-                if(!filters.ContainsKey(key))
-                {
-                    filters.Add(key, filterValue.Id);
-                }
-            }
-
-            await LoadLibraryDataAsync(filters, orderType);
+            return orderType;
         }
 
         #endregion

@@ -165,6 +165,7 @@
     <Compile Include="SharedFx.10\UI\Animations\AnimationBase.cs" />
     <Compile Include="SharedFx.10\UI\Animations\FadeAnimation.cs" />
     <Compile Include="SharedFx.10\UI\Animations\MoveAnimation.cs" />
+    <Compile Include="SharedFx.10\UI\DataTemplateSelector.cs" />
     <Compile Include="ViewModels\Category.cs" />
     <Compile Include="ViewModels\Channel.cs" />
     <Compile Include="ViewModels\ChannelDetailPageViewModel.cs" />

@@ -7,7 +7,7 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     mc:Ignorable="d" 
     Height="125"
-    Width="440">
+    Width="450">
 
     <Grid Name="root" Background="#2c2c2c" Visibility="{Binding Data, Converter={StaticResource AnythingToVisibilityConverter}}">
         <Grid.ColumnDefinitions>

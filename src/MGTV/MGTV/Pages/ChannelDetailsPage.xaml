@@ -5,6 +5,7 @@
     xmlns:local="using:MGTV.Pages"
     Background="Black"
     xmlns:controls="using:MGTV.Controls"
+    xmlns:SharedFx="using:SharedFx.UI"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     mc:Ignorable="d">
@@ -52,7 +53,18 @@
                     </ItemsControl.ItemsPanel>
                     <ItemsControl.ItemTemplate>
                         <DataTemplate>
-                            <controls:LibraListGroupItem DataList="{Binding Group}" Margin="0, 0, 50, 0"/>
+                            <SharedFx:LoadMoreDataTemplateSelector Content="{Binding}">
+                                <SharedFx:LoadMoreDataTemplateSelector.ItemTemplate>
+                                    <DataTemplate>
+                                        <controls:LibraListGroupItem DataList="{Binding Group}" Margin="0, 0, 50, 0"/>
+                                    </DataTemplate>
+                                </SharedFx:LoadMoreDataTemplateSelector.ItemTemplate>
+                                <SharedFx:LoadMoreDataTemplateSelector.LoadMoreTemplate>
+                                    <DataTemplate>
+                                        <Button Height="655" Width="80" Background="#2c2c2c" Click="loadMore_Loaded"/>
+                                    </DataTemplate>
+                                </SharedFx:LoadMoreDataTemplateSelector.LoadMoreTemplate>
+                            </SharedFx:LoadMoreDataTemplateSelector>
                         </DataTemplate>
                     </ItemsControl.ItemTemplate>
                 </ItemsControl>

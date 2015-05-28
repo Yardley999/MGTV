@@ -203,11 +203,6 @@
         <Setter Property="Background" Value="#ee000000"/>
         <Setter Property="BorderBrush" Value="Transparent"/>
         <Setter Property="BorderThickness" Value="0"/>
-        <Setter Property="Padding" Value="5"/>
-        <Setter Property="MinWidth" Value="{ThemeResource FlyoutThemeMinWidth}"/>
-        <Setter Property="MaxWidth" Value="{ThemeResource FlyoutThemeMaxWidth}"/>
-        <Setter Property="MinHeight" Value="{ThemeResource FlyoutThemeMinHeight}"/>
-        <Setter Property="MaxHeight" Value="{ThemeResource FlyoutThemeMaxHeight}"/>
         <Setter Property="ScrollViewer.HorizontalScrollMode" Value="Auto"/>
         <Setter Property="ScrollViewer.HorizontalScrollBarVisibility" Value="Auto"/>
         <Setter Property="ScrollViewer.VerticalScrollMode" Value="Auto"/>
@@ -230,17 +225,20 @@
         <Setter Property="VerticalAlignment" Value="Center"/>
         <Setter Property="Foreground" Value="#f06000"/>
         <Setter Property="Background" Value="#60a2a2a2"/>
-        <Setter Property="Height" Value="36"/>
-        <Setter Property="Margin" Value="15, 0"/>
+        <Setter Property="Height" Value="64"/>
+        <Setter Property="Margin" Value="-15, 0, -15, 2"/>
     </Style>
 
     <Style x:Key="VolumeSlider_Style" TargetType="Slider">
         <Setter Property="Maximum" Value="100"/>
         <Setter Property="Minimum" Value="0"/>
-        <Setter Property="VerticalAlignment" Value="Center"/>
-        <Setter Property="Margin"  Value="8, 0"/>
-        <Setter Property="Foreground"  Value="White"/>
+        <Setter Property="VerticalAlignment" Value="Bottom"/>
+        <Setter Property="Foreground"  Value="#f06000"/>
         <Setter Property="Background" Value="White"/>
+        <Setter Property="Orientation" Value="Vertical"/>
+        <Setter Property="Height" Value="160"/>
+        <Setter Property="Margin" Value="0"/>
+        <Setter Property="HorizontalAlignment" Value="Center"/>
     </Style>
 
     <ControlTemplate x:Key="NoPressEffectSlider" TargetType="Slider">
@@ -248,14 +246,16 @@
             <Grid.Resources>
                 <Style TargetType="Thumb" x:Key="SliderThumbStyle">
                     <Setter Property="BorderThickness" Value="0" />
-                    <Setter Property="Background" Value="{ThemeResource SystemControlForegroundAccentBrush}" />
+                    <Setter Property="Background" Value="Transparent" />
                     <Setter Property="Template">
                         <Setter.Value>
                             <ControlTemplate TargetType="Thumb">
-                                <Border Background="{TemplateBinding Background}"
-    									BorderBrush="{TemplateBinding BorderBrush}"
-    									BorderThickness="{TemplateBinding BorderThickness}"
-    									CornerRadius="4" />
+                                <Border BorderBrush="{TemplateBinding BorderBrush}"
+    									BorderThickness="{TemplateBinding BorderThickness}">
+                                    <Border.Background>
+                                        <ImageBrush ImageSource="../Assets/play-ctrl-04.png" AlignmentX="Center" AlignmentY="Center" Stretch="Uniform"/>
+                                    </Border.Background>
+                                </Border>
                             </ControlTemplate>
                         </Setter.Value>
                     </Setter>
@@ -342,16 +342,16 @@
                     <Rectangle x:Name="HorizontalTrackRect"
     						Fill="{TemplateBinding Background}"
     						Height="{ThemeResource SliderTrackThemeHeight}"
-    						Grid.Row="1"
+    						Grid.Row="1" Margin="32, 0"
     						Grid.ColumnSpan="3" />
                     <Rectangle x:Name="ProgressTrackRect"
     						Fill="Gray"
     						Height="{ThemeResource SliderTrackThemeHeight}"
     						Grid.Row="1" HorizontalAlignment="Left"
-    						Grid.ColumnSpan="3" />
+    						Grid.ColumnSpan="3" Margin="32, 0" />
                     <Rectangle x:Name="HorizontalDecreaseRect"
     						Fill="{TemplateBinding Foreground}"
-    						Grid.Row="1" />
+    						Grid.Row="1" Grid.Column="1" Margin="32, 0, 0, 0" />
                     <TickBar x:Name="TopTickBar"
     						Visibility="Collapsed"
     						Fill="{ThemeResource SystemControlForegroundBaseMediumLowBrush}"
@@ -377,14 +377,15 @@
     						Background="{ThemeResource SystemControlForegroundAccentBrush}"
     						Style="{StaticResource SliderThumbStyle}"
     						DataContext="{TemplateBinding Value}"
-    						Height="8"
-    						Width="24"
+    						Height="64"
+    						Width="64"
     						Grid.Row="0"
     						Grid.RowSpan="3"
     						Grid.Column="1"
+                            Margin="-32, 0, 0, 0"
     						AutomationProperties.AccessibilityView="Raw" />
                 </Grid>
-                <Grid x:Name="VerticalTemplate" MinWidth="44" Visibility="Collapsed">
+                <Grid x:Name="VerticalTemplate" Visibility="Collapsed">
                     <Grid.RowDefinitions>
                         <RowDefinition Height="*" />
                         <RowDefinition Height="Auto" />
@@ -399,11 +400,11 @@
     						Fill="{TemplateBinding Background}"
     						Width="{ThemeResource SliderTrackThemeHeight}"
     						Grid.Column="1"
-    						Grid.RowSpan="3" />
+    						Grid.RowSpan="3" Margin="0, 18" />
                     <Rectangle x:Name="VerticalDecreaseRect"
     						Fill="{TemplateBinding Foreground}"
     						Grid.Column="1"
-    						Grid.Row="2" />
+    						Grid.Row="1" Margin="0, 0, 0, 18"/>
                     <TickBar x:Name="LeftTickBar"
     						Visibility="Collapsed"
     						Fill="{ThemeResource SystemControlForegroundBaseMediumLowBrush}"
@@ -429,9 +430,10 @@
     						Background="{ThemeResource SystemControlForegroundAccentBrush}"
     						Style="{StaticResource SliderThumbStyle}"
     						DataContext="{TemplateBinding Value}"
-    						Width="8"
-    						Height="24"
+    						Width="36"
+    						Height="36"
     						Grid.Row="1"
+                            Margin="0, 0, 0, -18"
     						Grid.Column="0"
     						Grid.ColumnSpan="3"
     						AutomationProperties.AccessibilityView="Raw"/>

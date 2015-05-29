@@ -151,6 +151,8 @@
         </Grid>
         
         <ProgressRing x:Name="indicator" IsActive="False" VerticalAlignment="Center" HorizontalAlignment="Center" Width="100" Height="100"/>
+        
+        <Border Background="Transparent" IsHitTestVisible="{Binding IsOpen, ElementName=topAppBar}" Tapped="TopAppBar_Tapped"/>
 
     </Grid>
 </Page>

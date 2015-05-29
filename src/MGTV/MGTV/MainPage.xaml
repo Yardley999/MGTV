@@ -87,5 +87,7 @@
         </ScrollViewer>
 
         <ProgressRing x:Name="indicator" Grid.Row="0" Grid.RowSpan="2" Width="100" Height="100" IsActive="False"/>
+
+        <Border Background="Transparent" Grid.RowSpan="2" IsHitTestVisible="{Binding IsOpen, ElementName=topAppBar}" Tapped="TopAppBar_Tapped" />
     </Grid>
 </Page>

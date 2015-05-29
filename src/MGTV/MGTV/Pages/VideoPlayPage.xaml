@@ -62,7 +62,7 @@
             <ProgressRing IsActive="True" Width="100" Height="100"/>
         </Grid>
 
-        <Grid Opacity="0" Background="Transparent" x:Name="controlPanel" PointerMoved="controlPanel_PointerMoved">
+        <Grid Background="Transparent" x:Name="controlPanel" PointerMoved="controlPanel_PointerMoved">
             <StackPanel Orientation="Horizontal" Background="Black" VerticalAlignment="Top" Tapped="NavigationBar_Tapped" Margin="0, 0, 0, 15">
                 <AppBarButton Margin="30, 0, 30, 0"  
                               Style="{StaticResource NoEffectAppBarButtonStyle}" VerticalAlignment="Center"

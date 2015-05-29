@@ -157,7 +157,6 @@
     <Compile Include="SharedFx.10\Data\JsonSerializer.cs" />
     <Compile Include="SharedFx.10\Data\MD5.cs" />
     <Compile Include="SharedFx.10\Extensions\DataContextExtensions.cs" />
-    <Compile Include="SharedFx.10\Extensions\DateTimeExtension.cs" />
     <Compile Include="SharedFx.10\Extensions\ImageHelper.cs" />
     <Compile Include="SharedFx.10\Network\HttpExecuter.cs" />
     <Compile Include="SharedFx.10\Network\HttpExtensions.cs" />

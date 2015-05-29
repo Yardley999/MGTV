@@ -17,8 +17,8 @@
                 <EasingDoubleKeyFrame KeyTime="0:0:3" Value="0"/>
             </DoubleAnimationUsingKeyFrames>
         </Storyboard>
-    </Page.Resources>
 
+    </Page.Resources>
     <Page.TopAppBar>
         <AppBar x:Name="topAppBar" Background="Black" IsSticky="True" Tapped="topAppBar_Tapped" Style="{StaticResource NoTopAppBarStyle}">
             <ItemsControl x:Name="playlistBox" Background="Transparent" Height="80">

@@ -116,7 +116,7 @@ namespace SharedFx.Data
 
     public sealed class BooleanSwitchToStringConverter : IValueConverter
     {
-        /// <param name="parameter">Format is [SymbolIconForTrue]_[SymbolIconForFlase]</param> 
+        /// <param name="parameter">Format is [StringForTrue]_[StringForFlase]</param> 
         public object Convert(object value, Type targetType, object parameter, string language)
         {
             if (value == null

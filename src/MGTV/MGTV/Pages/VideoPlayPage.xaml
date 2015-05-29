@@ -11,7 +11,7 @@
 
     <Page.TopAppBar>
         <AppBar x:Name="topAppBar" Background="Black" IsSticky="True" Tapped="topAppBar_Tapped">
-            <ItemsControl x:Name="playlistBox" Background="Transparent" Height="80" Margin="15, 0, 0, 0">
+            <ItemsControl x:Name="playlistBox" Background="Transparent" Height="80">
                 <ItemsControl.ItemsPanel>
                     <ItemsPanelTemplate>
                         <StackPanel Orientation="Horizontal"/>

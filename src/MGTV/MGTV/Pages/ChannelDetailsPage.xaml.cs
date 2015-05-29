@@ -71,6 +71,13 @@ namespace MGTV.Pages
             }
         }
 
+        protected override void OnNavigatingFrom(NavigatingCancelEventArgs e)
+        {
+            base.OnNavigatingFrom(e);
+            UnExpandFilter();
+            hideFilterPanel.IsHitTestVisible = false;
+        }
+
         #endregion
 
         #region Init
@@ -210,7 +217,6 @@ namespace MGTV.Pages
 
         #endregion
 
-
         #region Load More
 
         int page = 1;
@@ -286,7 +292,6 @@ namespace MGTV.Pages
 
         #endregion
 
-
         #region Event
 
         private void BackButton_Click(object sender, RoutedEventArgs e)
@@ -297,6 +302,7 @@ namespace MGTV.Pages
         #region Filters
 
         private bool isFilterAniRuning = false;
+        private bool isExpanded = false;
         private TimeSpan filterAnimationDuration = TimeSpan.FromSeconds(0.167);
 
         private void FilterPanelReset()
@@ -308,7 +314,7 @@ namespace MGTV.Pages
 
         private void ExpandFilter()
         {
-            if (isFilterAniRuning)
+            if (isFilterAniRuning || isExpanded)
             {
                 return;
             }
@@ -316,14 +322,15 @@ namespace MGTV.Pages
             
             MoveAnimation.MoveBy(this.filterPanel, -filterPanel.Width, 0, filterAnimationDuration, fe => {
                 isFilterAniRuning = false;
+                isExpanded = true;
+                hideFilterPanel.IsHitTestVisible = true;
             });
-
-            FadeAnimation.Fade(this.showFilterText, this.showFilterText.Opacity, 0, filterAnimationDuration, null);
         }
 
         private void UnExpandFilter()
         {
-            if (isFilterAniRuning)
+            if (isFilterAniRuning
+                || !isExpanded)
             {
                 return;
             }
@@ -331,9 +338,9 @@ namespace MGTV.Pages
             
             MoveAnimation.MoveBy(this.filterPanel, filterPanel.ActualWidth, 0, filterAnimationDuration, fe => {
                 isFilterAniRuning = false;
+                isExpanded = false;
+                hideFilterPanel.IsHitTestVisible = false;
             });
-
-            FadeAnimation.Fade(this.showFilterText, this.showFilterText.Opacity, 1, filterAnimationDuration, null);
         }
 
         private void ShowFilter_Tapped(object sender, Windows.UI.Xaml.Input.TappedRoutedEventArgs e)

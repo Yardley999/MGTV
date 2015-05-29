@@ -9,7 +9,7 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     mc:Ignorable="d">
-    
+
     <Page.TopAppBar>
         <AppBar x:Name="topAppBar" IsSticky="True" Style="{StaticResource NoTopAppBarStyle}" Background="#393939" Tapped="TopAppBar_Tapped" >
             <controls:NavigationBar x:Name="navigationBar"/>
@@ -20,7 +20,7 @@
         <Grid.Background>
             <ImageBrush ImageSource="{Binding Background}" Stretch="UniformToFill" AlignmentX="Center" AlignmentY="Center"/>
         </Grid.Background>
-        
+
         <Border Background="#80000000"/>
 
         <StackPanel Orientation="Horizontal" Background="Transparent" VerticalAlignment="Top" Margin="0, 56, 0, 46">
@@ -74,75 +74,82 @@
         <TextBlock Name="showFilterText" Text="筛选" Margin="0, 66, 80, 0" FontSize="24" Foreground="#ffffff" 
                    HorizontalAlignment="Right" VerticalAlignment="Top"
                    Tapped="ShowFilter_Tapped"/>
-        
-        <Grid Name="filterPanel" Width="360" Background="#f2000000" HorizontalAlignment="Right">
-            <Grid.RowDefinitions>
-                <RowDefinition Height="84"/>
-                <RowDefinition Height="*"/>
-            </Grid.RowDefinitions>
 
-            <StackPanel Grid.Row="0" Background="#313131" Orientation="Horizontal">
-                <Image Source="../assets/ico-back-a.png" Stretch="None" Margin="34, 0, 0, 0" VerticalAlignment="Center" Tapped="HideFilter_Tapped"/>
-                <TextBlock Text="分类选择" Foreground="White" VerticalAlignment="Center" Margin="16, 0, 0, 0" FontSize="24"/>
-            </StackPanel>
-            <StackPanel Grid.Row="1">
-                <StackPanel Name="orderType" Orientation="Horizontal"  HorizontalAlignment="Left" Margin="30, 30, 0, 0" Grid.Row="1" VerticalAlignment="Top">
-                    <RadioButton Style="{StaticResource orderTypeStyle}" GroupName="OrderType" IsChecked="True" Click="ChangeFilter_Click">
-                        <RadioButton.Content>
-                            <StackPanel Orientation="Horizontal">
-                                <Image Source="../assets/ico-filter-new01.png" Stretch="None"/>
-                                <TextBlock Text="最新" Margin="10, 0, 0, 0" FontSize="18" Foreground="#fff"/>
-                            </StackPanel>
-                        </RadioButton.Content>
-                    </RadioButton>
-                    <RadioButton x:Name="lastestRadioBtn" GroupName="OrderType" Style="{StaticResource orderTypeStyle}" Margin="46, 0, 0, 0" Click="ChangeFilter_Click">
-                        <RadioButton.Content>
-                            <StackPanel Orientation="Horizontal">
-                                <Image Source="../assets/ico-filter-hot02.png" Stretch="None"/>
-                                <TextBlock Text="热门" Margin="10, 0, 0, 0" FontSize="18" Foreground="#fff"/>
-                            </StackPanel>
-                        </RadioButton.Content>
-                    </RadioButton>
+        <Grid>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="Auto"/>
+            </Grid.ColumnDefinitions>
+            <Border x:Name="hideFilterPanel" IsHitTestVisible="False" Grid.Column="0" Background="Transparent" Tapped="HideFilter_Tapped"/>
+            <Grid Name="filterPanel" Grid.Column="1" Width="360" Background="#f2000000" HorizontalAlignment="Right">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="84"/>
+                    <RowDefinition Height="*"/>
+                </Grid.RowDefinitions>
+
+                <StackPanel Grid.Row="0" Background="#313131" Orientation="Horizontal">
+                    <Image Source="../assets/ico-back-a.png" Stretch="None" Margin="34, 0, 0, 0" VerticalAlignment="Center" Tapped="HideFilter_Tapped"/>
+                    <TextBlock Text="分类选择" Foreground="White" VerticalAlignment="Center" Margin="16, 0, 0, 0" FontSize="24"/>
                 </StackPanel>
+                <StackPanel Grid.Row="1">
+                    <StackPanel Name="orderType" Orientation="Horizontal"  HorizontalAlignment="Left" Margin="30, 30, 0, 0" Grid.Row="1" VerticalAlignment="Top">
+                        <RadioButton Style="{StaticResource orderTypeStyle}" GroupName="OrderType" IsChecked="True" Click="ChangeFilter_Click">
+                            <RadioButton.Content>
+                                <StackPanel Orientation="Horizontal">
+                                    <Image Source="../assets/ico-filter-new01.png" Stretch="None"/>
+                                    <TextBlock Text="最新" Margin="10, 0, 0, 0" FontSize="18" Foreground="#fff"/>
+                                </StackPanel>
+                            </RadioButton.Content>
+                        </RadioButton>
+                        <RadioButton x:Name="lastestRadioBtn" GroupName="OrderType" Style="{StaticResource orderTypeStyle}" Margin="46, 0, 0, 0" Click="ChangeFilter_Click">
+                            <RadioButton.Content>
+                                <StackPanel Orientation="Horizontal">
+                                    <Image Source="../assets/ico-filter-hot02.png" Stretch="None"/>
+                                    <TextBlock Text="热门" Margin="10, 0, 0, 0" FontSize="18" Foreground="#fff"/>
+                                </StackPanel>
+                            </RadioButton.Content>
+                        </RadioButton>
+                    </StackPanel>
 
 
-                <ItemsControl Margin="30, 36, 0, 30" ItemsSource="{Binding Filters}">
-                    <ItemsControl.ItemsPanel>
-                        <ItemsPanelTemplate>
-                            <StackPanel Orientation="Vertical"/>
-                        </ItemsPanelTemplate>
-                    </ItemsControl.ItemsPanel>
-                    <ItemsControl.ItemTemplate>
-                        <DataTemplate>
-                            <Grid>
-                                <Grid.RowDefinitions>
-                                    <RowDefinition Height="32"/>
-                                    <RowDefinition Height="*"/>
-                                </Grid.RowDefinitions>
+                    <ItemsControl Margin="30, 36, 0, 30" ItemsSource="{Binding Filters}">
+                        <ItemsControl.ItemsPanel>
+                            <ItemsPanelTemplate>
+                                <StackPanel Orientation="Vertical"/>
+                            </ItemsPanelTemplate>
+                        </ItemsControl.ItemsPanel>
+                        <ItemsControl.ItemTemplate>
+                            <DataTemplate>
+                                <Grid>
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition Height="32"/>
+                                        <RowDefinition Height="*"/>
+                                    </Grid.RowDefinitions>
 
-                                <TextBlock Name="groupText" Text="{Binding Name}" Foreground="White" VerticalAlignment="Bottom" Grid.Row="0"/>
+                                    <TextBlock Name="groupText" Text="{Binding Name}" Foreground="White" VerticalAlignment="Bottom" Grid.Row="0"/>
 
-                                <ItemsControl ItemsSource="{Binding Values}" Grid.Row="1" Margin="-15, 10, 0, 0">
-                                    <ItemsControl.ItemsPanel>
-                                        <ItemsPanelTemplate>
-                                            <controls:UniversalWrapPanel Orientation="Horizontal"/>
-                                        </ItemsPanelTemplate>
-                                    </ItemsControl.ItemsPanel>
-                                    <ItemsControl.ItemTemplate>
-                                        <DataTemplate>
-                                            <RadioButton Foreground="#b0b0b0" Content="{Binding ValueOfFilter}" FontSize="14" GroupName="{Binding Text, ElementName=groupText}"
+                                    <ItemsControl ItemsSource="{Binding Values}" Grid.Row="1" Margin="-15, 10, 0, 0">
+                                        <ItemsControl.ItemsPanel>
+                                            <ItemsPanelTemplate>
+                                                <controls:UniversalWrapPanel Orientation="Horizontal"/>
+                                            </ItemsPanelTemplate>
+                                        </ItemsControl.ItemsPanel>
+                                        <ItemsControl.ItemTemplate>
+                                            <DataTemplate>
+                                                <RadioButton Foreground="#b0b0b0" Content="{Binding ValueOfFilter}" FontSize="14" GroupName="{Binding Text, ElementName=groupText}"
                                                       IsChecked="{Binding IsChecked, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"
                                                       Style="{StaticResource filterItemRadioButton}" Margin="5, 5, 5, 5" Click="ChangeFilter_Click"/>
-                                        </DataTemplate>
-                                    </ItemsControl.ItemTemplate>
-                                </ItemsControl>
-                            </Grid>
-                        </DataTemplate>
-                    </ItemsControl.ItemTemplate>
-                </ItemsControl>
-            </StackPanel>
+                                            </DataTemplate>
+                                        </ItemsControl.ItemTemplate>
+                                    </ItemsControl>
+                                </Grid>
+                            </DataTemplate>
+                        </ItemsControl.ItemTemplate>
+                    </ItemsControl>
+                </StackPanel>
+            </Grid>
         </Grid>
-
+        
         <ProgressRing x:Name="indicator" IsActive="False" VerticalAlignment="Center" HorizontalAlignment="Center" Width="100" Height="100"/>
 
     </Grid>

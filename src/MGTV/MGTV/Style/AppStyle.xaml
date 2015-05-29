@@ -545,7 +545,7 @@
                                 <VisualState x:Name="PointerOver"/>
                                 <VisualState x:Name="Pressed">
                                     <Storyboard>
-                                        <ColorAnimation Storyboard.TargetProperty="Color" Duration="0" To="#f0b000" Storyboard.TargetName="highLightBorderColor"/>
+                                        <ColorAnimation Storyboard.TargetProperty="Color" Duration="0" To="#ef5e01" Storyboard.TargetName="highLightBorderColor"/>
                                     </Storyboard>
                                 </VisualState>
                                 <VisualState x:Name="Disabled"/>
@@ -553,7 +553,7 @@
                             <VisualStateGroup x:Name="CheckStates">
                                 <VisualState x:Name="Checked">
                                     <Storyboard>
-                                        <ColorAnimation Storyboard.TargetProperty="Color" Duration="0" To="#f0b000" Storyboard.TargetName="highLightBorderColor"/>
+                                        <ColorAnimation Storyboard.TargetProperty="Color" Duration="0" To="#ef5e01" Storyboard.TargetName="highLightBorderColor"/>
                                     </Storyboard>
                                 </VisualState>
                                 <VisualState x:Name="Unchecked">

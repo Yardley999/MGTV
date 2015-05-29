@@ -53,7 +53,7 @@
         <Grid Opacity="0" Background="Transparent" Tapped="controlPanel_Tapped" x:Name="controlPanel">
             <StackPanel Orientation="Horizontal" Background="Black" VerticalAlignment="Top" Tapped="NavigationBar_Tapped" Margin="0, 0, 0, 10">
                 <AppBarButton Margin="30, 0, 30, 0"  
-                              Style="{StaticResource AppBarButtonStyle}" VerticalAlignment="Center"
+                              Style="{StaticResource NoEffectAppBarButtonStyle}" VerticalAlignment="Center"
                               Click="BackButton_Click">
                     <AppBarButton.Icon>
                         <BitmapIcon UriSource="ms-appx:///Assets/back-btn.png" Margin="5"/>

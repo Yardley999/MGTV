@@ -59,6 +59,7 @@ namespace MGTV.Pages
             if(pageParams != null)
             {
                 LoadVideoDataAsync(pageParams.VideoId);
+                HideControlPanelAnimation();
             }
         }
 

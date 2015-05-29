@@ -74,8 +74,7 @@ namespace MGTV.Pages
         protected override void OnNavigatingFrom(NavigatingCancelEventArgs e)
         {
             base.OnNavigatingFrom(e);
-            UnExpandFilter();
-            hideFilterPanel.IsHitTestVisible = false;
+            FilterPanelReset();
         }
 
         #endregion
@@ -308,6 +307,9 @@ namespace MGTV.Pages
         private void FilterPanelReset()
         {
             isFilterAniRuning = false;
+            hideFilterPanel.IsHitTestVisible = false;
+            isExpanded = false;
+            filterPanel.RenderTransform = null;
             MoveAnimation.MoveBy(this.filterPanel, filterPanel.Width, 0, TimeSpan.FromSeconds(0), null);
             this.showFilterText.Opacity = 1;
         }
@@ -318,6 +320,7 @@ namespace MGTV.Pages
             {
                 return;
             }
+
             isFilterAniRuning = true;
             
             MoveAnimation.MoveBy(this.filterPanel, -filterPanel.Width, 0, filterAnimationDuration, fe => {

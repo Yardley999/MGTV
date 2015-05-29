@@ -11,6 +11,7 @@ using Windows.UI.Xaml.Input;
 using Windows.UI.Xaml.Navigation;
 using SharedFx.Extensions;
 using System.Collections.Generic;
+using Windows.UI.Xaml.Media.Animation;
 
 namespace MGTV.Pages
 {
@@ -129,6 +130,8 @@ namespace MGTV.Pages
             this.player.MediaOpened += Player_MediaOpened;
             this.progress.ThumbToolTipValueConverter = new PlayerTimeSliderTooltipValueConverter();
             this.volumeSlider.ThumbToolTipValueConverter = new VolumePercentageConverter();
+
+            GetControlPanelStoryBoard();
         }
 
         #endregion
@@ -393,6 +396,27 @@ namespace MGTV.Pages
 
         #region Control Panel
 
+        Storyboard hideControlPanel;
+
+        private void GetControlPanelStoryBoard()
+        {
+            hideControlPanel = this.Resources["HideControlPanel"] as Storyboard;
+        }
+
+        private void HideControlPanelAnimation()
+        {
+            if(hideControlPanel != null)
+            {
+                hideControlPanel.Stop();
+                hideControlPanel.Begin();
+            }
+        }
+
+        private void controlPanel_PointerMoved(object sender, PointerRoutedEventArgs e)
+        {
+            HideControlPanelAnimation();
+        }
+
         private void StatusBar_Tapped(object sender, TappedRoutedEventArgs e)
         {
             e.Handled = true;
@@ -401,18 +425,6 @@ namespace MGTV.Pages
         private void NavigationBar_Tapped(object sender, TappedRoutedEventArgs e)
         {
             e.Handled = true;
-        }
-
-        private void controlPanel_Tapped(object sender, TappedRoutedEventArgs e)
-        {
-            if(this.controlPanel.Opacity == 0)
-            {
-                this.controlPanel.Opacity = 1;
-            }
-            else
-            {
-                this.controlPanel.Opacity = 0;
-            }
         }
 
         private void BackButton_Click(object sender, RoutedEventArgs e)
@@ -426,7 +438,11 @@ namespace MGTV.Pages
             SetWindowFull(viewModel.IsFullScreen);
         }
 
+
+
+
         #endregion
 
+        
     }
 }

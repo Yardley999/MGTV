@@ -10,7 +10,7 @@
     mc:Ignorable="d">
 
     <Page.TopAppBar>
-        <AppBar x:Name="topAppBar" Background="Black" IsSticky="True" Tapped="topAppBar_Tapped">
+        <AppBar x:Name="topAppBar" Background="Black" IsSticky="True" Tapped="topAppBar_Tapped" Style="{StaticResource NoTopAppBarStyle}">
             <ItemsControl x:Name="playlistBox" Background="Transparent" Height="80">
                 <ItemsControl.ItemsPanel>
                     <ItemsPanelTemplate>
@@ -19,10 +19,12 @@
                 </ItemsControl.ItemsPanel>
                 <ItemsControl.Template>
                     <ControlTemplate>
-                        <ScrollViewer ScrollViewer.HorizontalScrollMode="Enabled"
-                                     ScrollViewer.VerticalScrollBarVisibility="Hidden"
-                                     ScrollViewer.HorizontalScrollBarVisibility="Auto"
-                                     ScrollViewer.ZoomMode="Disabled">
+                        <ScrollViewer ScrollViewer.IsScrollInertiaEnabled="True" 
+                      ScrollViewer.HorizontalScrollBarVisibility="Auto"
+                      ScrollViewer.VerticalScrollBarVisibility="Hidden"
+                      ScrollViewer.HorizontalScrollMode="Enabled"
+                      ScrollViewer.VerticalScrollMode="Disabled"
+                      ScrollViewer.ZoomMode="Disabled">
                             <ItemsPresenter/>
                         </ScrollViewer>
                     </ControlTemplate>

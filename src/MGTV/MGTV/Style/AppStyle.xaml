@@ -1154,8 +1154,9 @@
                                     <ColumnDefinition Width="*"/>
                                     <ColumnDefinition Width="Auto"/>
                                 </Grid.ColumnDefinitions>
-                                <ContentControl x:Name="ContentControl" ContentTemplate="{TemplateBinding ContentTemplate}" ContentTransitions="{TemplateBinding ContentTransitions}" Content="{TemplateBinding Content}" HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}" IsTabStop="False" VerticalAlignment="{TemplateBinding VerticalContentAlignment}"/>
-                                <Button x:Name="ExpandButton" Grid.Column="1" MinHeight="{ThemeResource AppBarThemeCompactHeight}" Padding="16,23,16,0" Style="{StaticResource EllipsisButton}" VerticalAlignment="Top">
+                                <ContentControl x:Name="ContentControl" Grid.ColumnSpan="2" ContentTemplate="{TemplateBinding ContentTemplate}" ContentTransitions="{TemplateBinding ContentTransitions}" Content="{TemplateBinding Content}" HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}" IsTabStop="False" VerticalAlignment="{TemplateBinding VerticalContentAlignment}"/>
+                                <Button x:Name="ExpandButton" Grid.Column="1" Opacity="0" IsHitTestVisible="False"
+                                        MinHeight="{ThemeResource AppBarThemeCompactHeight}" Padding="16,23,16,0" Style="{StaticResource EllipsisButton}" VerticalAlignment="Top">
                                     <FontIcon x:Name="EllipsisIcon" Foreground="{ThemeResource SystemControlForegroundBaseHighBrush}" 
                                                   FontSize="16" FontFamily="{ThemeResource SymbolThemeFontFamily}" 
                                                   Height="{ThemeResource AppBarExpandButtonCircleDiameter}" VerticalAlignment="Center">

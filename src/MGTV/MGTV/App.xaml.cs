@@ -1,6 +1,7 @@
 ﻿using System;
 using Windows.ApplicationModel;
 using Windows.ApplicationModel.Activation;
+using Windows.Media.SpeechRecognition;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Navigation;
@@ -62,34 +63,23 @@ namespace MGTV
 
         protected override void OnActivated(IActivatedEventArgs args)
         {
-            Frame rootFrame = Window.Current.Content as Frame;
-            Frame = rootFrame;
+            base.OnActivated(args);
 
-            // Do not repeat app initialization when the Window already has content,
-            // just ensure that the window is active
+            if (args.Kind != ActivationKind.VoiceCommand)
+            {
+                return;
+            }
+            Frame rootFrame = Window.Current.Content as Frame;
+
             if (rootFrame == null)
             {
-                // Create a Frame to act as the navigation context and navigate to the first page
                 rootFrame = new Frame();
-
                 rootFrame.NavigationFailed += OnNavigationFailed;
-
-                if (args.PreviousExecutionState == ApplicationExecutionState.Terminated)
-                {
-                    //TODO: Load state from previously suspended application
-                }
-
-                // Place the frame in the current Window
                 Window.Current.Content = rootFrame;
             }
 
-            // Ensure the current window is active
-            Window.Current.Activate();
-
-            if (args.Kind == ActivationKind.VoiceCommand)
-            {
-                Cortana.CortanaIntegrationHelper.HandleCommands(args as VoiceCommandActivatedEventArgs);
-            }
+            Frame = rootFrame;
+            Cortana.CortanaIntegrationHelper.HandleCommands(args as VoiceCommandActivatedEventArgs);
         }
 
         /// <summary>

@@ -1,67 +1,23 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <VoiceCommands xmlns="http://schemas.microsoft.com/voicecommands/1.2">
-
-  <!--<CommandSet xml:lang="en-us" Name="MGTV_CMDSET_EN-US">
-    <CommandPrefix>MGTV</CommandPrefix>
-    <Example>MGTV, Open App</Example>
-
-    <Command Name="OpenVideo">
-      <Example>I want to watch abc</Example>
-      <ListenFor>I want to watch {KEYWORDS}</ListenFor>
-      <Feedback>Opening...</Feedback>
-      <Navigate/>
-    </Command>
+  <CommandSet xml:lang="en-us" Name="MGTVCommandSet_en-us">
+    <CommandPrefix> TV </CommandPrefix>
+    <Example> Open </Example>
 
     <Command Name="OpenApp">
-      <Example>Open App</Example>
-      <ListenFor>Open</ListenFor>
-      <ListenFor>Open App</ListenFor>
-      <Feedback>Opening...</Feedback>
-      <Navigate/>
+      <Example> Open </Example>
+      <ListenFor> Open [app] </ListenFor>
+      <Feedback> Opening </Feedback>
+      <Navigate />
     </Command>
 
     <Command Name="CloseApp">
-      <Example>Close App</Example>
-      <ListenFor>Close</ListenFor>
-      <ListenFor>Close</ListenFor>
-      <Feedback>Closing...</Feedback>
+      <Example> close </Example>
+      <ListenFor> Close [app] </ListenFor>
+      <Feedback> Trying </Feedback>
       <Navigate/>
     </Command>
 
-    <PhraseTopic Label="KEYWORDS">
-      <Subject>MGTV</Subject>
-    </PhraseTopic>
-  </CommandSet>-->
-
-  <CommandSet xml:lang="zh-cn" Name="MGTV_CMDSET_ZH-CN">
-    <!--<CommandPrefix>芒果 TV</CommandPrefix>-->
-    <AppName>芒果TV</AppName>
-    <Example>打开应用</Example>
-
-    <Command Name="OpenVideo">
-      <Example>我想看电影爸爸去哪儿</Example>
-      <ListenFor RequireAppName="ExplicitlySpecified">{builtin:AppName}我想看{KEYWORDS}</ListenFor>
-      <Feedback>正在打开...</Feedback>
-      <Navigate/>
-    </Command>
-
-    <Command Name="OpenApp">
-      <Example>打开应用</Example>
-      <ListenFor RequireAppName="ExplicitlySpecified">打开{builtin:AppName}</ListenFor>
-      <Feedback>正在打开...</Feedback>
-      <Navigate/>
-    </Command>
-
-    <Command Name="CloseApp">
-      <Example>关闭应用</Example>
-      <ListenFor RequireAppName="ExplicitlySpecified">关闭{builtin:AppName}</ListenFor>
-      <Feedback>正在关闭...</Feedback>
-      <Navigate/>
-    </Command>
-
-    <PhraseTopic Label="KEYWORDS">
-      <Subject>Movies</Subject>
-    </PhraseTopic>
   </CommandSet>
 
 </VoiceCommands>

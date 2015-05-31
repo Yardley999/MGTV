@@ -15,6 +15,7 @@ using MGTV.Common;
 using MGTV.LiveTile;
 using SharedFx.Extensions;
 using SharedFx.Data;
+using Windows.UI.ViewManagement;
 
 namespace MGTV
 {
@@ -35,7 +36,6 @@ namespace MGTV
             this.NavigationCacheMode = NavigationCacheMode.Required;
             BackgroundInit();
             CreateTile();
-
         }
 
         protected override void OnNavigatedTo(NavigationEventArgs e)

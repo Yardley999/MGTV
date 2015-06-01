@@ -269,6 +269,7 @@ namespace MGTV.Pages
             this.player.Stop();
             this.player.Position = TimeSpan.Zero;
             playingPosition = TimeSpan.Zero;
+            progress.Value = 0;
 
             if (progressTimer != null)
             {

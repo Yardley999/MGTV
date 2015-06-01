@@ -189,7 +189,6 @@
     <Content Include="Assets\Background\2.jpg" />
     <Content Include="Assets\Background\3.jpg" />
     <Content Include="Assets\Background\4.jpg" />
-    <Content Include="Assets\history.png" />
     <Content Include="Assets\defaultTileImage.png" />
     <Content Include="Assets\ico-back-a.png" />
     <Content Include="Assets\ico-filter-hot02.png" />
@@ -215,9 +214,6 @@
     <Content Include="Assets\play-ctrl-04.png" />
     <Content Include="Assets\SmallLogo.scale-100.png" />
     <Content Include="Assets\SplashScreen.scale-100.jpg" />
-    <Content Include="Assets\test.jpg" />
-    <Content Include="Assets\tvlogo.png" />
-    <Content Include="Assets\search.png" />
     <Content Include="Assets\WideLogo.scale-100.jpg" />
     <Content Include="Cortana\VoiceCommands.xml">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>

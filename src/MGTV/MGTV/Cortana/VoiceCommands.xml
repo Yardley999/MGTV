@@ -18,6 +18,27 @@
       <Navigate/>
     </Command>
 
+    <Command Name="PlayVideo">
+      <Example> Play </Example>
+      <ListenFor> Play [Video]</ListenFor>
+      <Feedback> Trying </Feedback>
+      <Navigate/>
+    </Command>
+
+    <Command Name="PauseVideo">
+      <Example> Pause </Example>
+      <ListenFor> Pause [Video]</ListenFor>
+      <Feedback> Trying </Feedback>
+      <Navigate/>
+    </Command>
+
+    <Command Name="StopVideo">
+      <Example> Stop </Example>
+      <ListenFor> Stop [Video]</ListenFor>
+      <Feedback> Trying </Feedback>
+      <Navigate/>
+    </Command>
+
   </CommandSet>
 
 </VoiceCommands>

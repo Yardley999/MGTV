@@ -200,6 +200,7 @@
     <Content Include="Assets\ico-title-arrow.png" />
     <Content Include="Assets\livTileBackground.jpg" />
     <Content Include="Assets\Logo.scale-100.jpg" />
+    <Content Include="Assets\more.png" />
     <Content Include="Assets\NavListIcon\ico-nav-01.png" />
     <Content Include="Assets\NavListIcon\ico-nav-02.png" />
     <Content Include="Assets\NavListIcon\ico-nav-03.png" />

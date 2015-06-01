@@ -257,14 +257,14 @@ namespace MGTV.Pages
             }
         }
 
-        private void Play()
+        public void Play()
         {
             this.player.Play();
             isPlaying = true;
             viewModel.IsPlayButtonInPauseStatus = isPlaying;
         }
 
-        private void Stop()
+        public void Stop()
         {
             this.player.Stop();
             this.player.Position = TimeSpan.Zero;
@@ -278,7 +278,7 @@ namespace MGTV.Pages
             ResetVideoText();
         }
 
-        private void Pause()
+        public void Pause()
         {
             this.player.Pause();
             isPlaying = false;

@@ -15,7 +15,7 @@ using MGTV.Common;
 using MGTV.LiveTile;
 using SharedFx.Extensions;
 using SharedFx.Data;
-using Windows.UI.ViewManagement;
+using Windows.UI.Popups;
 
 namespace MGTV
 {
@@ -68,7 +68,8 @@ namespace MGTV
         private async Task LoadDataAysnc()
         {
             indicator.IsActive = true;
-            await ChannelAPI.GetList(12, channels => {
+            await ChannelAPI.GetList(12, channels =>
+            {
                 if (channels == null)
                 {
                     return;
@@ -76,7 +77,7 @@ namespace MGTV
 
                 viewModel.Categories.Clear();
 
-                if(channels.Recommendation != null)
+                if (channels.Recommendation != null)
                 {
                     foreach (var item in channels.Recommendation.Children.FlashItems)
                     {
@@ -89,7 +90,7 @@ namespace MGTV
                     }
                 }
 
-                if(channels.Channels != null)
+                if (channels.Channels != null)
                 {
                     foreach (var channel in channels.Channels)
                     {
@@ -97,7 +98,7 @@ namespace MGTV
                         category.ChannelId = channel.Id;
                         category.Name = channel.Name;
 
-                        if(channel.Children != null)
+                        if (channel.Children != null)
                         {
                             foreach (var videoItem in channel.Children)
                             {
@@ -114,27 +115,35 @@ namespace MGTV
                 indicator.IsActive = false;
                 this.recommendataion.StartScrollAnimation();
 
-                // update live tile
-                //
-                if (viewModel.Recommendation != null
-                    && viewModel.Recommendation.FlashVideos.Count > 0)
+                try
                 {
-                    var video = viewModel.Recommendation.FlashVideos[(new Random()).Next(0, viewModel.Recommendation.FlashVideos.Count)];
-                    ImageHelper imageHelper = new ImageHelper();
-                    string fileName = MD5Core.GetHashString(video.ImageUrl) + ".jpg";
-                    imageHelper.Download(video.ImageUrl, "Images", fileName, localFile =>
+                    // update live tile
+                    //
+                    if (viewModel.Recommendation != null
+                        && viewModel.Recommendation.FlashVideos.Count > 0)
                     {
-                        LiveTileHelper.UpdateSecondaryTileAsync(
-                            Constants.TileId, 
-                            video.Name, 
-                            video.Intro, 
-                            TimeSpan.FromHours(1), 
-                            "ms-appdata:///local/Images/" + fileName);
-                    });
+                        var video = viewModel.Recommendation.FlashVideos[(new Random()).Next(0, viewModel.Recommendation.FlashVideos.Count)];
+                        ImageHelper imageHelper = new ImageHelper();
+                        string fileName = MD5Core.GetHashString(video.ImageUrl) + ".jpg";
+                        imageHelper.Download(video.ImageUrl, "Images", fileName, localFile =>
+                        {
+                            LiveTileHelper.UpdateSecondaryTileAsync(
+                                Constants.TileId,
+                                video.Name,
+                                video.Intro,
+                                TimeSpan.FromHours(1),
+                                "ms-appdata:///local/Images/" + fileName);
+                        });
+                    }
                 }
+                catch
+                { }
 
-            }, error => {
+            }, error =>
+            {
                 //indicator.IsActive = false;
+                var dialog = new MessageDialog(error.Message);
+                dialog.ShowAsync();
             });
         }
 
@@ -188,7 +197,8 @@ namespace MGTV
             App.Instance.BackgroundImage = backgourndImages.FirstOrDefault();
             background1.Opacity = 1;
             background1.Visibility = Visibility.Visible;
-            background1.Background = new ImageBrush() {
+            background1.Background = new ImageBrush()
+            {
                 ImageSource = new BitmapImage(new Uri(App.Instance.BackgroundImage)),
                 AlignmentX = AlignmentX.Center,
                 AlignmentY = AlignmentY.Center,
@@ -215,7 +225,7 @@ namespace MGTV
             Border borderToShow;
             Border borderToHide;
 
-            if(background1.Visibility == Visibility.Collapsed)
+            if (background1.Visibility == Visibility.Collapsed)
             {
                 borderToShow = background1;
                 borderToHide = background2;
@@ -230,7 +240,8 @@ namespace MGTV
             TimeSpan duration = TimeSpan.FromSeconds(2.8);
             borderToShow.Visibility = Visibility.Visible;
             string imageToShow = RandomSelectBackground();
-            borderToShow.Background = new ImageBrush() {
+            borderToShow.Background = new ImageBrush()
+            {
                 ImageSource = new BitmapImage(new Uri(imageToShow, UriKind.RelativeOrAbsolute)),
                 AlignmentX = AlignmentX.Center,
                 AlignmentY = AlignmentY.Center,

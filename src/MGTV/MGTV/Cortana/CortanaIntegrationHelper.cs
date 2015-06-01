@@ -28,23 +28,20 @@ namespace MGTV.Cortana
             var vhdFile = await StorageFile.GetFileFromApplicationUriAsync(voiceCommandsDefiniationXml);
             if (vhdFile != null)
             {
-
-#if !DEBUG
                 try
                 {
-#endif
                     await VoiceCommandDefinitionManager.InstallCommandDefinitionsFromStorageFileAsync(vhdFile);
+#if DEBUG
                     foreach (var item in VoiceCommandDefinitionManager.InstalledCommandDefinitions.Values)
                     {
                         Debug.WriteLine(item.Language);
                         Debug.WriteLine(item.Name);
                     }
-#if !DEBUG
+#endif
                 }
                 catch
                 {
                 }
-#endif
             }
         }
 
@@ -69,11 +66,43 @@ namespace MGTV.Cortana
                     }
                     Window.Current.Activate();
                     break;
+                case "playvideo":
+                    if(IsInVideoPlayerPage())
+                    {
+                        var videoPlayer = App.Instance.Frame.Content as VideoPlayPage;
+                        videoPlayer.Play();
+                    }
+                    break;
+                case "pausevideo":
+                    if(IsInVideoPlayerPage())
+                    {
+                        var videoPlayer = App.Instance.Frame.Content as VideoPlayPage;
+                        videoPlayer.Pause();
+                    }
+                    break;
+                case "stopvideo":
+                    if(IsInVideoPlayerPage())
+                    {
+                        var videoPlayer = App.Instance.Frame.Content as VideoPlayPage;
+                        videoPlayer.Stop();
+                    }
+                    break;
                 default:
                     App.Instance.Frame.Navigate(typeof(MainPage), voiceCommand);
                     Window.Current.Activate();
                     break;
             }
+        }
+
+        private static bool IsInVideoPlayerPage()
+        {
+            var content = App.Instance.Frame.Content;
+            if(content == null)
+            {
+                return false;
+            }
+
+            return content is VideoPlayPage;
         }
 
         private static string SemanticInterpretation(string key, SpeechRecognitionResult speechRecognitionResult)

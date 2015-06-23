@@ -1,4 +1,5 @@
-﻿using System;
+﻿using MGTV.Pages;
+using System;
 using Windows.ApplicationModel;
 using Windows.ApplicationModel.Activation;
 using Windows.Media.SpeechRecognition;
@@ -16,12 +17,14 @@ namespace MGTV
     sealed partial class App : Application
     {
 
-        public Frame Frame {
+        public Frame Frame
+        {
             get;
             private set;
         }
 
-        public static App Instance {
+        public static App Instance
+        {
             get;
             private set;
         }
@@ -45,7 +48,7 @@ namespace MGTV
             this.Suspending += OnSuspending;
             this.UnhandledException += App_UnhandledException;
 
-            if(Instance == null)
+            if (Instance == null)
             {
                 Instance = this;
             }
@@ -124,7 +127,18 @@ namespace MGTV
                 // When the navigation stack isn't restored navigate to the first page,
                 // configuring the new page by passing required information as a navigation
                 // parameter
-                rootFrame.Navigate(typeof(MainPage), e.Arguments);
+                if (string.IsNullOrEmpty(e.Arguments) || e.Arguments.StartsWith("MGTV://"))
+                {
+                    rootFrame.Navigate(typeof(MainPage), e.Arguments);
+                }
+                else
+                {
+                    VideoPlayPage.PageParams paras = new VideoPlayPage.PageParams();
+                    paras.VideoId = int.Parse(e.Arguments);
+                    paras.IsLanuchFromSerivice = true;
+
+                    rootFrame.Navigate(typeof(VideoPlayPage), paras);
+                }
             }
 
             //var appView = Windows.UI.ViewManagement.ApplicationView.GetForCurrentView();
@@ -133,7 +147,7 @@ namespace MGTV
             //appView.VisibleBoundsChanged += AppView_VisibleBoundsChanged;
 
             Cortana.CortanaIntegrationHelper.CreateOrUpdateVoiceCommands();
-           
+
             // Ensure the current window is active
             Window.Current.Activate();
         }
@@ -144,7 +158,7 @@ namespace MGTV
             double minHeight = 778;
             double minWidth = 1024;
 
-            double toWidth = Math.Max(minWidth, appView.VisibleBounds.Width) ;
+            double toWidth = Math.Max(minWidth, appView.VisibleBounds.Width);
             double toHeight = Math.Max(minHeight, appView.VisibleBounds.Height);
 
             appView.TryResizeView(new Windows.Foundation.Size(toWidth, toHeight));

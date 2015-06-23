@@ -23,9 +23,12 @@ namespace MGTV.Pages
         {
             public int VideoId { get; set; }
 
+            public bool IsLanuchFromSerivice { get; set; }
+
             public PageParams()
             {
                 VideoId = -1;
+                IsLanuchFromSerivice = false;
             }
         }
 
@@ -322,9 +325,17 @@ namespace MGTV.Pages
 
         public void BackToLastPage()
         {
-            Frame.GoBack();
             viewModel.IsFullScreen = false;
             SetWindowFull(viewModel.IsFullScreen);
+
+            if(pageParams != null && pageParams.IsLanuchFromSerivice)
+            {
+                Frame.Navigate(typeof(MainPage));
+            }
+            else
+            {
+                Frame.GoBack(); 
+            }
         }
 
         #endregion

@@ -5,15 +5,15 @@
     <Example> Open </Example>
 
     <Command Name="OpenApp">
-      <Example> Open </Example>
-      <ListenFor> Open [app] </ListenFor>
+      <Example> Open my media player</Example>
+      <ListenFor> Open [my] media player </ListenFor>
       <Feedback> Opening </Feedback>
       <Navigate />
     </Command>
 
     <Command Name="CloseApp">
-      <Example> close </Example>
-      <ListenFor> Close [app] </ListenFor>
+      <Example> close my media player </Example>
+      <ListenFor> close [my] media player </ListenFor>
       <Feedback> Trying </Feedback>
       <Navigate/>
     </Command>
@@ -39,6 +39,19 @@
       <Navigate/>
     </Command>
 
+
+    <Command Name="ShowSomeMovices">
+      <Example>Show me some movies</Example>
+      <ListenFor> show me some {content}</ListenFor>
+      <Feedback> Trying to get recommendation </Feedback>
+      <VoiceCommandService Target="MGTVVoiceCommandService"/>
+    </Command>
+
+    <PhraseList Label="content">
+      <Item>movies</Item>
+      <Item>television program</Item>
+    </PhraseList>
+    
   </CommandSet>
 
 </VoiceCommands>

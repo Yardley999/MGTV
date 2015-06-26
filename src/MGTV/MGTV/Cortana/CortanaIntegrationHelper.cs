@@ -1,4 +1,5 @@
-﻿using MGTV.Pages;
+﻿using MGTV.Common;
+using MGTV.Pages;
 using System;
 using System.Diagnostics;
 using System.Linq;
@@ -65,6 +66,26 @@ namespace MGTV.Cortana
                         App.Instance.Frame.Navigate(NavigationPageType, voiceCommand);
                     }
                     Window.Current.Activate();
+                    break;
+                case "continuevideo":
+
+                    var settings = ApplicationData.Current.LocalSettings.Values;
+                    object videoInfo = string.Empty;
+                    if(settings.TryGetValue(Constants.CurrentPlayingVideoInfo, out videoInfo))
+                    {
+                        string[] temp = videoInfo.ToString().Split(new char[] { '_' }, StringSplitOptions.RemoveEmptyEntries);
+                        if(temp.Length == 2)
+                        {
+                            VideoPlayPage.PageParams paras = new VideoPlayPage.PageParams();
+                            paras.VideoId = Int32.Parse(temp[0]);
+                            paras.StartPosition = TimeSpan.Parse(temp[1]);
+                            paras.IsLanuchFromSerivice = true;
+
+                            App.Instance.Frame.Navigate(typeof(VideoPlayPage), paras);
+                            Window.Current.Activate();
+                        }
+                    }
+
                     break;
                 case "playvideo":
                     if(IsInVideoPlayerPage())

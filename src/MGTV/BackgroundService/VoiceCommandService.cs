@@ -1,11 +1,15 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
+using System.IO;
+using System.Net.Http;
+using System.Runtime.Serialization;
+using System.Runtime.Serialization.Json;
 using System.Text;
 using System.Threading.Tasks;
 using Windows.ApplicationModel.AppService;
 using Windows.ApplicationModel.Background;
 using Windows.ApplicationModel.VoiceCommands;
+using Windows.Data.Json;
 
 namespace BackgroundService
 {
@@ -13,11 +17,13 @@ namespace BackgroundService
     {
         private BackgroundTaskDeferral serviceDeferral;
         VoiceCommandServiceConnection voiceServiceConnection;
+        List<Video> data;
 
         public async void Run(IBackgroundTaskInstance taskInstance)
         {
             //Take a service deferral so the service isn't terminated
             this.serviceDeferral = taskInstance.GetDeferral();
+            data = await GetRecommendation();
 
             taskInstance.Canceled += OnTaskCanceled;
 
@@ -34,9 +40,9 @@ namespace BackgroundService
 
                     switch (voiceCommand.CommandName)
                     {
-                        case "ShowSomeMovices":
+                        case "ShowSomeMovies":
                             string content = string.Empty;
-                            if(voiceCommand.Properties.ContainsKey("content"))
+                            if (voiceCommand.Properties.ContainsKey("content"))
                             {
                                 content = voiceCommand.Properties["content"][0];
                             }
@@ -76,46 +82,70 @@ namespace BackgroundService
             userMessage.DisplayMessage = "Which one do you wanna see?";
             userMessage.SpokenMessage = "Which one do you wanna see?";
 
-            var destinationsContentTiles = new List<VoiceCommandContentTile>();
+            var contentItemTiles = new List<VoiceCommandContentTile>();
+
+            List<Video> itemData = new List<Video>();
 
             if (content.Equals("movies"))
             {
-                var destinationTile1 = new VoiceCommandContentTile();
-                destinationTile1.ContentTileType = VoiceCommandContentTileType.TitleWith68x68IconAndText;
-                destinationTile1.Title = "洛杉矶之战";
-                destinationTile1.AppLaunchArgument = "1708618";
-                destinationTile1.TextLine1 = "别辜负你的肾上腺";
-                destinationsContentTiles.Add(destinationTile1);
-
-                var destinationTile2 = new VoiceCommandContentTile();
-                destinationTile2.ContentTileType = VoiceCommandContentTileType.TitleWith68x68IconAndText;
-                destinationTile2.Title = "绝地战警";
-                destinationTile2.AppLaunchArgument = "1708599";
-                destinationTile2.TextLine1 = "好莱坞的坏男孩";
-                destinationsContentTiles.Add(destinationTile2);
+                // 电影为 Recommendations 的第 3、4 条
+                //
+                itemData.Add(data[2]);
+                itemData.Add(data[3]);
             }
             else
             {
-                var destinationTile1 = new VoiceCommandContentTile();
-                destinationTile1.ContentTileType = VoiceCommandContentTileType.TitleWith68x68IconAndText;
-                destinationTile1.Title = "茗天闪亮";
-                destinationTile1.AppLaunchArgument = "1711175";
-                destinationTile1.TextLine1 = "正浩与成峰同床共枕";
-                destinationsContentTiles.Add(destinationTile1);
-
-                var destinationTile2 = new VoiceCommandContentTile();
-                destinationTile2.ContentTileType = VoiceCommandContentTileType.TitleWith68x68IconAndText;
-                destinationTile2.Title = "花千骨"; 
-                destinationTile2.AppLaunchArgument = "1710137";
-                destinationTile2.TextLine1 = "糖宝爆料画骨师徒八卦";
-                destinationsContentTiles.Add(destinationTile2);
+                // 电视剧为 Recommendations 的第 1、2 条
+                //
+                itemData.Add(data[0]);
+                itemData.Add(data[1]);
             }
 
-            var response = VoiceCommandResponse.CreateResponse(userMessage, destinationsContentTiles);
+            if (data != null)
+            {
+                foreach (var item in itemData)
+                {
+                    contentItemTiles.Add(new VoiceCommandContentTile()
+                    {
+                        ContentTileType = VoiceCommandContentTileType.TitleWith68x68IconAndText,
+                        AppLaunchArgument = item.Id.ToString(),
+                        Title = item.Title,
+                        TextLine1 = item.Desc
+                    });
+                }
+            }
+
+            var response = VoiceCommandResponse.CreateResponse(userMessage, contentItemTiles);
             response.AppLaunchArgument = "";
 
             await voiceServiceConnection.ReportSuccessAsync(response);
         }
+
+        private async Task<List<Video>> GetRecommendation()
+        {
+            HttpClient client = new HttpClient();
+            var response = await client.GetAsync(GetListURL);
+            string content = await response.Content.ReadAsStringAsync();
+            JsonObject json = JsonObject.Parse(content);
+            string recommendationData = json["data"].GetArray()[0].Stringify();
+            Recommendation data = Deserialize(recommendationData, typeof(Recommendation));
+
+            List<Video> result = new List<Video>();
+
+            if (data != null
+                && data.Children.Recommendations.Length >= 4)
+            {
+                
+                result.Add(data.Children.Recommendations[0]);
+                result.Add(data.Children.Recommendations[1]);
+                result.Add(data.Children.Recommendations[2]);
+                result.Add(data.Children.Recommendations[3]);
+            }
+
+            return result;
+        }
+
+        private const string GetListURL = "http://win.api.hunantv.com/v1/channel/getList";
 
         private async void LaunchAppInForeground()
         {
@@ -131,13 +161,6 @@ namespace BackgroundService
             await voiceServiceConnection.RequestAppLaunchAsync(response);
         }
 
-        /// <summary>
-        /// When the background task is cancelled, clean up/cancel any ongoing long-running operations.
-        /// This cancellation notice may not be due to Cortana directly. The voice command connection will
-        /// typically already be destroyed by this point and should not be expected to be active.
-        /// </summary>
-        /// <param name="sender">This background task instance</param>
-        /// <param name="reason">Contains an enumeration with the reason for task cancellation</param>
         private void OnTaskCanceled(IBackgroundTaskInstance sender, BackgroundTaskCancellationReason reason)
         {
             System.Diagnostics.Debug.WriteLine("Task cancelled, clean up");
@@ -146,6 +169,81 @@ namespace BackgroundService
                 //Complete the service deferral
                 this.serviceDeferral.Complete();
             }
+        }
+
+        private Recommendation Deserialize(string json, Type type)
+        {
+            try
+            {
+                if (string.IsNullOrEmpty(json)) return null;
+
+                using (MemoryStream ms = new MemoryStream(Encoding.UTF8.GetBytes(json)))
+                {
+                    DataContractJsonSerializer serializer = new DataContractJsonSerializer(type);
+                    Recommendation value = serializer.ReadObject(ms) as Recommendation;
+                    return value;
+                }
+            }
+            catch
+            {
+                return null;
+            }
+        }
+    }
+
+    [DataContract]
+    public sealed class Video
+    {
+        [DataMember(Name = "videoId")]
+        public int Id { get; set; }
+
+        [DataMember(Name = "title")]
+        public string Title { get; set; }
+
+        [DataMember(Name = "desc")]
+        public string Desc { get; set; }
+
+        public Video()
+        {
+            Id = -1;
+            Title = string.Empty;
+            Desc = string.Empty;
+        }
+    }
+
+    [DataContract]
+    public sealed class Recommendation
+    {
+        [DataMember(Name = "channelId")]
+        public int Id { get; set; }
+
+        [DataMember(Name = "channelName")]
+        public string Name { get; set; }
+
+        [DataMember(Name = "iconUrl")]
+        public string IconUrl { get; set; }
+
+        [DataMember(Name = "children")]
+        public RecommendationDetail Children { get; set; }
+
+        public Recommendation()
+        {
+            Id = -1;
+            Name = string.Empty;
+            IconUrl = string.Empty;
+            Children = new RecommendationDetail();
+        }
+    }
+
+    [DataContract]
+    public sealed class RecommendationDetail
+    {
+        [DataMember(Name = "recommend")]
+        public Video[] Recommendations { get; set; }
+
+        public RecommendationDetail()
+        {
+
         }
     }
 }

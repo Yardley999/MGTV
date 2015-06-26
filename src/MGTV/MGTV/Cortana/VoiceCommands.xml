@@ -1,19 +1,19 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <VoiceCommands xmlns="http://schemas.microsoft.com/voicecommands/1.2">
   <CommandSet xml:lang="en-us" Name="MGTVCommandSet_en-us">
-    <CommandPrefix> TV </CommandPrefix>
-    <Example> Open </Example>
+    <CommandPrefix> Mango TV </CommandPrefix>
+    <Example> Mango TV open my media player</Example>
 
     <Command Name="OpenApp">
-      <Example> Open my media player</Example>
-      <ListenFor> Open [my] media player </ListenFor>
+      <Example> Open </Example>
+      <ListenFor> Open [my media player]</ListenFor>
       <Feedback> Opening </Feedback>
       <Navigate />
     </Command>
 
     <Command Name="CloseApp">
       <Example> close my media player </Example>
-      <ListenFor> close [my] media player </ListenFor>
+      <ListenFor> close [my media player] </ListenFor>
       <Feedback> Trying </Feedback>
       <Navigate/>
     </Command>
@@ -39,8 +39,15 @@
       <Navigate/>
     </Command>
 
+    <Command Name="ContinueVideo">
+      <Example> Continue </Example>
+      <ListenFor> Continue [Video] </ListenFor>
+      <Feedback> Trying </Feedback>
+      <Navigate/>
+    </Command>
 
-    <Command Name="ShowSomeMovices">
+
+    <Command Name="ShowSomeMovies">
       <Example>Show me some movies</Example>
       <ListenFor> show me some {content}</ListenFor>
       <Feedback> Trying to get recommendation </Feedback>

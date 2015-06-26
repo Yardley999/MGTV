@@ -12,6 +12,7 @@ using Windows.UI.Xaml.Navigation;
 using SharedFx.Extensions;
 using System.Collections.Generic;
 using Windows.UI.Xaml.Media.Animation;
+using Windows.Storage;
 
 namespace MGTV.Pages
 {
@@ -25,10 +26,13 @@ namespace MGTV.Pages
 
             public bool IsLanuchFromSerivice { get; set; }
 
+            public TimeSpan StartPosition { get; set; }
+
             public PageParams()
             {
                 VideoId = -1;
                 IsLanuchFromSerivice = false;
+                StartPosition = TimeSpan.Zero;
             }
         }
 
@@ -72,7 +76,13 @@ namespace MGTV.Pages
 
         private async Task LoadVideoDataAsync(int videoId)
         {
-            playingPosition = TimeSpan.Zero;
+            if(pageParams == null)
+            {
+                return;
+            }
+
+            playingPosition = pageParams.StartPosition;
+
             await VideoAPI.GetById(videoId, videoInfo => {
 
                 viewModel.Title = videoInfo.Title;
@@ -161,9 +171,9 @@ namespace MGTV.Pages
 
         private void Player_MediaOpened(object sender, RoutedEventArgs e)
         {
+            this.player.Position = playingPosition;
             StatusbarSetup();
             progressTimer.Start();
-            this.player.Position = playingPosition;
         }
 
         private void StatusbarSetup()
@@ -200,6 +210,8 @@ namespace MGTV.Pages
             {
                 viewModel.IsPlayButtonInPauseStatus = false;
             }
+
+            SavePlayingInfo();
         }
 
         #endregion
@@ -307,6 +319,31 @@ namespace MGTV.Pages
             }
         }
 
+        private void SavePlayingInfo()
+        {
+            try
+            {
+                if (pageParams == null)
+                {
+                    return;
+                }
+
+                var settings = ApplicationData.Current.LocalSettings.Values;
+                string infoData = string.Format("{0}_{1}", pageParams.VideoId, player.Position);
+
+                if (!settings.ContainsKey(Constants.CurrentPlayingVideoInfo))
+                {
+                    settings.Add(Constants.CurrentPlayingVideoInfo, infoData);
+                }
+                else
+                {
+                    settings[Constants.CurrentPlayingVideoInfo] = infoData;
+                }
+            }
+            catch
+            { }
+        }
+
         #endregion
 
         #region Play List
@@ -327,6 +364,7 @@ namespace MGTV.Pages
         {
             viewModel.IsFullScreen = false;
             SetWindowFull(viewModel.IsFullScreen);
+            progressTimer.Stop();
 
             if(pageParams != null && pageParams.IsLanuchFromSerivice)
             {

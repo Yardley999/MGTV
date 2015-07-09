@@ -99,17 +99,26 @@
     <Compile Include="Common\BufferProgressConverter.cs" />
     <Compile Include="Common\Constants.cs" />
     <Compile Include="Common\Extensions.cs" />
+    <Compile Include="Controls\ChannelZone.xaml.cs">
+      <DependentUpon>ChannelZone.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Controls\LibraListGroupItem.xaml.cs">
       <DependentUpon>LibraListGroupItem.xaml</DependentUpon>
     </Compile>
     <Compile Include="Controls\LibraryItemTile.xaml.cs">
       <DependentUpon>LibraryItemTile.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Controls\LocalTile.xaml.cs">
+      <DependentUpon>LocalTile.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Controls\NavigationBar.xaml.cs">
       <DependentUpon>NavigationBar.xaml</DependentUpon>
     </Compile>
     <Compile Include="Controls\ProgressSilder.cs" />
     <Compile Include="Controls\UniversalWrapPanel.cs" />
+    <Compile Include="Controls\UserCenter.xaml.cs">
+      <DependentUpon>UserCenter.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Cortana\CortanaIntegrationHelper.cs" />
     <Compile Include="LiveTile\BadgeContent.cs" />
     <Compile Include="LiveTile\Common.cs" />
@@ -232,6 +241,10 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="Controls\ChannelZone.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
     <Page Include="Controls\HotRecommendation.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -248,9 +261,17 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="Controls\LocalTile.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
     <Page Include="Controls\NavigationBar.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Controls\UserCenter.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
     </Page>
     <Page Include="MainPage.xaml">
       <Generator>MSBuild:Compile</Generator>

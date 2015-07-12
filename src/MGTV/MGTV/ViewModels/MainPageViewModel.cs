@@ -3,7 +3,7 @@ using System.Collections.ObjectModel;
 
 namespace MGTV.ViewModels
 {
-    public class MainPageViewModel : BindableBase
+    public class MainPageViewModel : MGBindableBase
     {
         private Category recommendation;
 

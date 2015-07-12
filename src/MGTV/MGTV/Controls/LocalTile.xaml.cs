@@ -20,20 +20,23 @@ namespace MGTV.Controls
 {
     public sealed partial class LocalTile : UserControl
     {
+        public static readonly DependencyProperty TitleProperty = DependencyProperty.Register("Title", typeof(string), typeof(LocalTile), new PropertyMetadata(""));
+        public static readonly DependencyProperty CenterImageUriProperty = DependencyProperty.Register("CenterImageUri", typeof(Uri), typeof(LocalTile), new PropertyMetadata(new Uri("ms-appx:///Assets/NavListIcon/ico-nav-10.png")));
+
         #region Properties 
 
         public string Title
         {
-            set
-            {
-                this.TitleBlock.Text = value;
-            }
+            get { return (string)GetValue(TitleProperty); }
+            set { SetValue(TitleProperty, value); }
         }
 
         public Uri CenterImageUri
         {
+            get { return (Uri)GetValue(CenterImageUriProperty); }
             set
             {
+                SetValue(CenterImageUriProperty, value);
                 BitmapImage bmp = new BitmapImage();
                 bmp.UriSource = value;
                 CenterImage.Source = bmp;
@@ -45,6 +48,7 @@ namespace MGTV.Controls
         public LocalTile()
         {
             this.InitializeComponent();
+            this.root.DataContext = this;
         }
     }
 }

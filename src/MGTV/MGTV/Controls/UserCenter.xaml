@@ -11,17 +11,17 @@
     d:DesignWidth="480"
     Width="330">
 
-    <Grid Name="root" Background="Black">
+    <Grid Name="root">
         <Grid.RowDefinitions>
             <RowDefinition Height="22*"/>
             <RowDefinition Height="125*"/>
         </Grid.RowDefinitions>
         <TextBlock Text="个人中心" Grid.Row="0" Style="{StaticResource MainPage_Header_Text}" VerticalAlignment="Bottom" Margin="5, 0, 0, 20"/>
         <GridView Grid.Row="1" IsHitTestVisible="False">
-            <controls:LocalTile Title="播放记录" CenterImageUri="ms-appx:///Assets/NavListIcon/ico-nav-10.png" />
-            <controls:LocalTile Title="本地播放" CenterImageUri="ms-appx:///Assets/NavListIcon/ico-nav-10.png" />
-            <controls:LocalTile Title="下载" CenterImageUri="ms-appx:///Assets/NavListIcon/ico-nav-10.png" />
-            <controls:LocalTile Title="收藏" CenterImageUri="ms-appx:///Assets/NavListIcon/ico-nav-10.png" />
+            <controls:LocalTile Title="播放记录" CenterImageUri="ms-appx:///Assets/NavListIcon/ico-nav-01.png" />
+            <controls:LocalTile Title="本地播放" CenterImageUri="ms-appx:///Assets/NavListIcon/ico-nav-02.png" />
+            <controls:LocalTile Title="下载" CenterImageUri="ms-appx:///Assets/NavListIcon/ico-nav-03.png" />
+            <controls:LocalTile Title="收藏" CenterImageUri="ms-appx:///Assets/NavListIcon/ico-nav-04.png" />
         </GridView>
     </Grid>
 </UserControl>

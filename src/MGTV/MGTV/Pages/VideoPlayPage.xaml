@@ -8,19 +8,25 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     mc:Ignorable="d">
-    
+
     <Page.Resources>
         <Storyboard x:Key="HideControlPanel">
-            <DoubleAnimationUsingKeyFrames Storyboard.TargetName="controlPanel" Storyboard.TargetProperty="Opacity">
+            <DoubleAnimationUsingKeyFrames Storyboard.TargetName="StatusBar" Storyboard.TargetProperty="Opacity">
                 <EasingDoubleKeyFrame KeyTime="0:0:0" Value="1"/>
                 <EasingDoubleKeyFrame KeyTime="0:0:2.8333" Value="1"/>
                 <EasingDoubleKeyFrame KeyTime="0:0:3" Value="0"/>
             </DoubleAnimationUsingKeyFrames>
         </Storyboard>
-
+        <Storyboard x:Key="HideTitlePanel">
+            <DoubleAnimationUsingKeyFrames Storyboard.TargetName="topNavigationBar" Storyboard.TargetProperty="Opacity">
+                <EasingDoubleKeyFrame KeyTime="0:0:0" Value="1"/>
+                <EasingDoubleKeyFrame KeyTime="0:0:2.8333" Value="1"/>
+                <EasingDoubleKeyFrame KeyTime="0:0:3" Value="0"/>
+            </DoubleAnimationUsingKeyFrames>
+        </Storyboard>
     </Page.Resources>
-    <Page.TopAppBar>
-        <AppBar x:Name="topAppBar" Background="Black" IsSticky="True" Tapped="topAppBar_Tapped" Style="{StaticResource NoTopAppBarStyle}">
+    <!--<Page.TopAppBar>
+        <AppBar x:Name="topAppBar" Background="Black" IsSticky="True" Tapped="topAppBar_Tapped" >
             <ItemsControl x:Name="playlistBox" Background="Transparent" Height="80">
                 <ItemsControl.ItemsPanel>
                     <ItemsPanelTemplate>
@@ -53,18 +59,83 @@
                 </ItemsControl.ItemTemplate>
             </ItemsControl>
         </AppBar>
-    </Page.TopAppBar>
+    </Page.TopAppBar>-->
 
-    <Grid x:Name="root" Background="Black" Margin="0, 0, 0, 0">
-        <MediaElement x:Name="player"/>
+    <Grid x:Name="root" Margin="0, 0, 0, 0">
+        <Grid.Background>
+            <ImageBrush ImageSource="{Binding Background}" Stretch="UniformToFill" AlignmentX="Center" AlignmentY="Center"/>
+        </Grid.Background>
+        <Grid x:Name="contentGrid" Margin="50,20,30,100" VerticalAlignment="Stretch" HorizontalAlignment="Stretch">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="1*" />
+                <RowDefinition Height="4*" />
+                <RowDefinition Height="1*" />
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="3*" MinWidth="400"/>
+                <ColumnDefinition Width="2*"/>
+            </Grid.ColumnDefinitions>
+            <Grid x:Name="videoPlayArea" Background="Transparent" Grid.Row="1" Grid.Column="0" PointerMoved="controlPanel_PointerMoved">
+                <MediaElement HorizontalAlignment="Stretch" VerticalAlignment="Bottom" x:Name="player"/>
+                <Grid x:Name="bufferingGrid" Visibility="{Binding BufferingProgress, ElementName=player, Converter={StaticResource BufferProgressToVisibilityConverter}}">
+                    <ProgressRing IsActive="True" Width="100" Height="100"/>
+                </Grid>
+                <Grid x:Name="StatusBar" Height="50" Opacity="0" VerticalAlignment="Bottom" Tapped="StatusBar_Tapped">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="auto"/>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="auto"/>
+                    </Grid.ColumnDefinitions>
+                    <Grid.Background>
+                        <SolidColorBrush Color="#ee090806" Opacity="0.8"/>
+                    </Grid.Background>
+                    <StackPanel Orientation="Horizontal" Grid.Column="0" HorizontalAlignment="Right" VerticalAlignment="Center">
+                        <AppBarButton x:Name="PlayPauseButton" Icon="{Binding IsPlayButtonInPauseStatus, Converter={StaticResource BoolSwitchToSymbolIconConverter}, ConverterParameter=Pause_Play}"
+                                    Style="{StaticResource AppBarButtonStyle}" VerticalAlignment="Center" Click="PlayPauseButton_Click"/>
 
-        <Grid x:Name="bufferingGrid" Visibility="{Binding BufferingProgress, ElementName=player, Converter={StaticResource BufferProgressToVisibilityConverter}}">
-            <ProgressRing IsActive="True" Width="100" Height="100"/>
-        </Grid>
+                        <AppBarButton x:Name="next" Icon="Next" Visibility="{Binding IsFullScreen ,Converter={StaticResource BoolToVisibilityConverter}}" Style="{StaticResource AppBarButtonStyle}" VerticalAlignment="Center" Click="next_Click"/>
 
-        <Grid Background="Transparent" x:Name="controlPanel" PointerMoved="controlPanel_PointerMoved">
-            <StackPanel Orientation="Horizontal" Background="Black" VerticalAlignment="Top" Tapped="NavigationBar_Tapped" Margin="0, 0, 0, 15">
-                <AppBarButton Margin="30, 0, 30, 0"  
+                        <Button x:Name="videoRateButton" Content="高清" Foreground="White" Margin="5, 0" Style="{StaticResource NoPressEffectButtonStyle}">
+                            <Button.Flyout>
+                                <MenuFlyout x:Name="videoRateFlyoutMenu">
+                                    <MenuFlyoutItem Text="超清" Tag="3" Style="{StaticResource MenuFlayoutItem_Text}" Tapped="videoRateTypeFlayoutMentu_Tapped"/>
+                                    <MenuFlyoutItem Text="高清" Tag="2" Style="{StaticResource MenuFlayoutItem_Text}" Tapped="videoRateTypeFlayoutMentu_Tapped"/>
+                                    <MenuFlyoutItem Text="标清" Tag="1" Style="{StaticResource MenuFlayoutItem_Text}" Tapped="videoRateTypeFlayoutMentu_Tapped"/>
+                                    <MenuFlyoutItem Text="流畅" Tag="0" Style="{StaticResource MenuFlayoutItem_Text}" Tapped="videoRateTypeFlayoutMentu_Tapped"/>
+                                </MenuFlyout>
+                            </Button.Flyout>
+                        </Button>
+
+                        <TextBlock x:Name="currentPosition" Text="00:00" FontSize="14" Foreground="#aaa" Width="40" TextAlignment="Right" Margin="5, 0, 5, 0" VerticalAlignment="Center"/>
+                    </StackPanel>
+
+                    <controls:ProgressSilder x:Name="progress" Grid.Column="1" Template="{StaticResource NoPressEffectSlider}"
+                    Style="{StaticResource VideoPositionSlider_Style}" PointerCaptureLost="Progress_PointerCaptureLost"/>
+
+                    <StackPanel Orientation="Horizontal" Grid.Column="2" VerticalAlignment="Center" HorizontalAlignment="Left" Margin="10, 0, 0, 0">
+                        <TextBlock x:Name="duration" Text="00:00" FontSize="14" Foreground="#aaa" VerticalAlignment="Center" Width="40" TextAlignment="Left"/>
+
+                        <AppBarButton Style="{StaticResource AppBarButtonStyle}" Icon="Volume" VerticalAlignment="Center" Margin="3, 0, 0, 0">
+                            <AppBarButton.Flyout>
+                                <Flyout FlyoutPresenterStyle="{StaticResource balckFlyoutStyle}">
+                                    <Flyout.Content>
+                                        <Slider x:Name="volumeSlider" Style="{StaticResource VolumeSlider_Style}"  ValueChanged="volumeSliderValue_Changed" Template="{StaticResource NoPressEffectSlider}" />
+                                    </Flyout.Content>
+                                </Flyout>
+                            </AppBarButton.Flyout>
+                        </AppBarButton>
+
+                        <AppBarButton Style="{StaticResource AppBarButtonStyle}"
+                                  Icon="{Binding IsFullScreen, Converter={StaticResource BoolSwitchToSymbolIconConverter}, ConverterParameter=BackToWindow_FullScreen}"
+                                  VerticalAlignment="Center" Click="FullScreen_Click"/>
+                    </StackPanel>
+                </Grid>
+            </Grid>
+            <StackPanel x:Name="topNavigationBar" Grid.Row="0" Grid.ColumnSpan="2" Grid.Column="0" Orientation="Horizontal" VerticalAlignment="Top" Tapped="NavigationBar_Tapped" Margin="0, 0, 0, 15">
+                <StackPanel.Background>
+                    <SolidColorBrush Color="Black" Opacity="0.5" />
+                </StackPanel.Background>
+                <AppBarButton Margin="0, 0, 30, 0"  
                               Style="{StaticResource NoEffectAppBarButtonStyle}" VerticalAlignment="Center"
                               Click="BackButton_Click">
                     <AppBarButton.Icon>
@@ -74,56 +145,63 @@
                 <TextBlock Text="{Binding Title}" FontSize="30" VerticalAlignment="Center" Foreground="White"/>
             </StackPanel>
 
-            <Grid x:Name="StatusBar" Height="64" VerticalAlignment="Bottom" Background="#ee090806" Tapped="StatusBar_Tapped">
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="258"/>
-                    <ColumnDefinition Width="*"/>
-                    <ColumnDefinition Width="189"/>
-                </Grid.ColumnDefinitions>
-
-                <StackPanel Orientation="Horizontal" Grid.Column="0" HorizontalAlignment="Right" VerticalAlignment="Center">
-                    <AppBarButton x:Name="PlayPauseButton" Icon="{Binding IsPlayButtonInPauseStatus, Converter={StaticResource BoolSwitchToSymbolIconConverter}, ConverterParameter=Pause_Play}"
-                                    Style="{StaticResource AppBarButtonStyle}" VerticalAlignment="Center" Click="PlayPauseButton_Click"/>
-
-                    <AppBarButton x:Name="next" Icon="Next" Style="{StaticResource AppBarButtonStyle}" VerticalAlignment="Center" Click="next_Click"/>
-
-                    <Button x:Name="videoRateButton" Content="高清" Foreground="White" Margin="5, 0" Style="{StaticResource NoPressEffectButtonStyle}">
-                        <Button.Flyout>
-                            <MenuFlyout x:Name="videoRateFlyoutMenu">
-                                <MenuFlyoutItem Text="超清" Tag="3" Style="{StaticResource MenuFlayoutItem_Text}" Tapped="videoRateTypeFlayoutMentu_Tapped"/>
-                                <MenuFlyoutItem Text="高清" Tag="2" Style="{StaticResource MenuFlayoutItem_Text}" Tapped="videoRateTypeFlayoutMentu_Tapped"/>
-                                <MenuFlyoutItem Text="标清" Tag="1" Style="{StaticResource MenuFlayoutItem_Text}" Tapped="videoRateTypeFlayoutMentu_Tapped"/>
-                                <MenuFlyoutItem Text="流畅" Tag="0" Style="{StaticResource MenuFlayoutItem_Text}" Tapped="videoRateTypeFlayoutMentu_Tapped"/>
-                            </MenuFlyout>
-                        </Button.Flyout>
-                    </Button>
-
-                    <TextBlock x:Name="currentPosition" Text="00:00" FontSize="14" Foreground="#aaa" Width="40" TextAlignment="Right" Margin="5, 0, 5, 0" VerticalAlignment="Center"/>
-                </StackPanel>
-
-                <controls:ProgressSilder x:Name="progress" Grid.Column="1" Template="{StaticResource NoPressEffectSlider}"
-                    Style="{StaticResource VideoPositionSlider_Style}" PointerCaptureLost="Progress_PointerCaptureLost"/>
-
-                <StackPanel Orientation="Horizontal" Grid.Column="2" VerticalAlignment="Center" HorizontalAlignment="Left" Margin="10, 0, 0, 0">
-                    <TextBlock x:Name="duration" Text="00:00" FontSize="14" Foreground="#aaa" VerticalAlignment="Center" Width="40" TextAlignment="Left"/>
-
-                    <AppBarButton Style="{StaticResource AppBarButtonStyle}" Icon="Volume" VerticalAlignment="Center" Margin="3, 0, 0, 0">
-                        <AppBarButton.Flyout>
-                            <Flyout FlyoutPresenterStyle="{StaticResource balckFlyoutStyle}">
-                                <Flyout.Content>
-                                    <Slider x:Name="volumeSlider" Style="{StaticResource VolumeSlider_Style}"  ValueChanged="volumeSliderValue_Changed" Template="{StaticResource NoPressEffectSlider}" />
-                                </Flyout.Content>
-                            </Flyout>
-                        </AppBarButton.Flyout>
-                    </AppBarButton>
-
-                    <AppBarButton Style="{StaticResource AppBarButtonStyle}"
-                                  Icon="{Binding IsFullScreen, Converter={StaticResource BoolSwitchToSymbolIconConverter}, ConverterParameter=BackToWindow_FullScreen}"
-                                  VerticalAlignment="Center" Click="FullScreen_Click"/>
-                </StackPanel>
+            <Grid x:Name="seriesZone" Grid.Row="2" Grid.Column="0" VerticalAlignment="Top">
+                <ItemsControl x:Name="playlistBox" Background="Transparent" Height="80">
+                    <ItemsControl.ItemsPanel>
+                        <ItemsPanelTemplate>
+                            <StackPanel Orientation="Horizontal"/>
+                        </ItemsPanelTemplate>
+                    </ItemsControl.ItemsPanel>
+                    <ItemsControl.Template>
+                        <ControlTemplate>
+                            <ScrollViewer ScrollViewer.IsScrollInertiaEnabled="True" 
+                      ScrollViewer.HorizontalScrollBarVisibility="Auto"
+                      ScrollViewer.VerticalScrollBarVisibility="Hidden"
+                      ScrollViewer.HorizontalScrollMode="Enabled"
+                      ScrollViewer.VerticalScrollMode="Disabled"
+                      ScrollViewer.ZoomMode="Disabled">
+                                <ItemsPresenter/>
+                            </ScrollViewer>
+                        </ControlTemplate>
+                    </ItemsControl.Template>
+                    <ItemsControl.ItemTemplate>
+                        <DataTemplate>
+                            <Grid MinWidth="80" Background="Transparent" Tapped="PlayListItem_Tapped" VerticalAlignment="Center" Margin="0, 10, 10, 10">
+                                <Border Height="40"  Background="#313131" CornerRadius="5" Visibility="{Binding IsPlaying, Converter={StaticResource AnythingToVisibilityConverter}, ConverterParameter=neg}">
+                                    <TextBlock VerticalAlignment="Center" Text="{Binding Name}" Style="{StaticResource PlayListItem_Name_Text}"/>
+                                </Border>
+                                <Border Height="40"  Background="#f06000" CornerRadius="5" Visibility="{Binding IsPlaying, Converter={StaticResource AnythingToVisibilityConverter}}">
+                                    <TextBlock VerticalAlignment="Center" Text="{Binding Name}" Style="{StaticResource PlayListItem_Name_Text}"/>
+                                </Border>
+                            </Grid>
+                        </DataTemplate>
+                    </ItemsControl.ItemTemplate>
+                </ItemsControl>
             </Grid>
+            <StackPanel Background="Transparent" x:Name="descZoen" Orientation="Vertical" Margin="100,0,0,0" Grid.Row="1" Grid.RowSpan="2" Grid.Column="1">
+                <TextBlock Text="剧情介绍" FontSize="25" Foreground="White" />
+                <StackPanel Visibility="Collapsed" Orientation="Vertical" Margin="0,20,0,0">
+                    <ItemsControl>
+                        <ItemsControl.ItemsPanel>
+                            <ItemsPanelTemplate>
+                                <StackPanel Orientation="Vertical" />
+                            </ItemsPanelTemplate>
+                        </ItemsControl.ItemsPanel>
+                        <ItemsControl.ItemTemplate>
+                            <DataTemplate>
+                                <StackPanel Orientation="Horizontal">
+                                    <TextBlock Text="" FontSize="16"/>
+                                    <TextBlock Text="" FontSize="16" FontWeight="Bold"/>
+                                </StackPanel>
+                            </DataTemplate>
+                        </ItemsControl.ItemTemplate>
+                    </ItemsControl>
+                    <TextBlock FontSize="16" Foreground="White" Text="" />
+                </StackPanel>
+                <TextBlock FontSize="16" Margin="0,20,0,0" Foreground="White" Text="暂无介绍" />
+            </StackPanel>
         </Grid>
 
-        <Border Background="Transparent" IsHitTestVisible="{Binding IsOpen, ElementName=topAppBar}" Tapped="topAppBar_Tapped"/>
+        <!--<Border Background="Transparent" IsHitTestVisible="{Binding IsOpen, ElementName=topAppBar}" Tapped="topAppBar_Tapped"/>-->
     </Grid>
 </Page>

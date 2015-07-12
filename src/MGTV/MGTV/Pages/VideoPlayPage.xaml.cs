@@ -312,10 +312,25 @@ namespace MGTV.Pages
             if(isFull)
             {
                 appView.TryEnterFullScreenMode();
+                this.contentGrid.Margin = new Thickness(0);
+                this.contentGrid.ColumnDefinitions.Last().MaxWidth = 0;
+                this.contentGrid.RowDefinitions.First().MaxHeight = 0;
+                this.contentGrid.RowDefinitions.Last().MaxHeight = 0;
+                this.topNavigationBar.SetValue(Grid.RowProperty, 1);
             }
             else
             {
                 appView.ExitFullScreenMode();
+                this.contentGrid.Margin = new Thickness(50,20,30,100);
+                this.contentGrid.ColumnDefinitions.Last().MaxWidth = double.MaxValue;
+                this.contentGrid.RowDefinitions.First().MaxHeight = double.MaxValue;
+                this.contentGrid.RowDefinitions.Last().MaxHeight = double.MaxValue;
+                this.topNavigationBar.SetValue(Grid.RowProperty, 0);
+                if(hideTitlePanel != null)
+                {
+                    hideTitlePanel.Stop();
+                    this.topNavigationBar.Opacity = 1;
+                }
             }
         }
 
@@ -350,10 +365,10 @@ namespace MGTV.Pages
 
         private void topAppBar_Tapped(object sender, TappedRoutedEventArgs e)
         {
-            if(topAppBar.IsOpen)
-            {
-                topAppBar.IsOpen = false;
-            }
+            //if(topAppBar.IsOpen)
+            //{
+            //    topAppBar.IsOpen = false;
+            //}
         }
 
         #endregion
@@ -448,10 +463,12 @@ namespace MGTV.Pages
         #region Control Panel
 
         Storyboard hideControlPanel;
+        Storyboard hideTitlePanel;
 
         private void GetControlPanelStoryBoard()
         {
             hideControlPanel = this.Resources["HideControlPanel"] as Storyboard;
+            hideTitlePanel = this.Resources["HideTitlePanel"] as Storyboard;
         }
 
         private void HideControlPanelAnimation()
@@ -460,6 +477,11 @@ namespace MGTV.Pages
             {
                 hideControlPanel.Stop();
                 hideControlPanel.Begin();
+            }
+            if(viewModel.IsFullScreen && hideTitlePanel != null)
+            {
+                hideTitlePanel.Stop();
+                hideTitlePanel.Begin();
             }
         }
 
@@ -488,10 +510,7 @@ namespace MGTV.Pages
             viewModel.IsFullScreen = !viewModel.IsFullScreen;
             SetWindowFull(viewModel.IsFullScreen);
         }
-
-
-
-
+        
         #endregion
         
     }

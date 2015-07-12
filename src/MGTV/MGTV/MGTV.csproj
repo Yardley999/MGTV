@@ -96,6 +96,7 @@
     <Compile Include="App.xaml.cs">
       <DependentUpon>App.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Common\BoolToVisibility.cs" />
     <Compile Include="Common\BufferProgressConverter.cs" />
     <Compile Include="Common\Constants.cs" />
     <Compile Include="Common\Extensions.cs" />
@@ -179,6 +180,7 @@
     <Compile Include="ViewModels\ChannelDetailPageViewModel.cs" />
     <Compile Include="ViewModels\Filters.cs" />
     <Compile Include="ViewModels\MainPageViewModel.cs" />
+    <Compile Include="ViewModels\MGBindableBase.cs" />
     <Compile Include="ViewModels\PlayListItem.cs" />
     <Compile Include="ViewModels\Video.cs" />
     <Compile Include="ViewModels\VideoPageViewModel.cs" />

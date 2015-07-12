@@ -3,9 +3,20 @@ using System.Collections.ObjectModel;
 
 namespace MGTV.ViewModels
 {
-    public class VideoPlayerPageViewModel : BindableBase
+    public class VideoPlayerPageViewModel : MGBindableBase
     {
-        public ObservableCollection<PlayListItem> PlayList { get; set; }
+        private ObservableCollection<PlayListItem> playList;
+        public ObservableCollection<PlayListItem> PlayList
+        {
+            get
+            {
+                return playList;
+            }
+            set
+            {
+                SetProperty<ObservableCollection<PlayListItem>>(ref playList, value);
+            }
+        }
 
         private bool isPlaying;
 

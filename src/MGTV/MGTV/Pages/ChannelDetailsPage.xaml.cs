@@ -64,9 +64,9 @@ namespace MGTV.Pages
             if (pageParams != null)
             {
                 Init();
-                viewModel.Background = App.Instance.BackgroundImage;
-                viewModel.Title = pageParams.ChannelName;
-                LoadFilterDataAsync();
+                //viewModel.Background = App.Instance.BackgroundImage;
+                viewModel.Title = pageParams.ChannelName; 
+                LoadFilterDataAsync(); 
                 LoadLibraryDataAsync(null);
             }
         }

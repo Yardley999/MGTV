@@ -21,11 +21,11 @@
         </Style>
     </Page.Resources>
     
-    <Page.TopAppBar>
-        <AppBar x:Name="topAppBar" IsSticky="True" Style="{StaticResource NoTopAppBarStyle}" Background="#393939" Tapped="TopAppBar_Tapped" >
+    <!--<Page.TopAppBar>
+        <AppBar x:Name="topAppBar" IsSticky="True" Background="#393939" Tapped="TopAppBar_Tapped" >
             <controls:NavigationBar x:Name="navigationBar"/>
         </AppBar>
-    </Page.TopAppBar>
+    </Page.TopAppBar>-->
 
     <Grid x:Name="root" Margin="0, -32, 0, 0">
         <Grid.RowDefinitions>
@@ -58,7 +58,7 @@
         </Grid>
 
         <ScrollViewer Name="contentScrollViewer" Margin="0, 30, 0, 0"
-                x:DeferLoadStrategy="Lazy" IsHitTestVisible="True" Grid.Row="1"
+                 IsHitTestVisible="True" Grid.Row="1"
                 ScrollViewer.IsScrollInertiaEnabled="True" 
                 ScrollViewer.HorizontalScrollBarVisibility="Auto"
                 ScrollViewer.VerticalScrollBarVisibility="Hidden"
@@ -79,7 +79,7 @@
                     </ItemsControl.ItemsPanel>
                     <ItemsControl.ItemTemplate>
                         <DataTemplate>
-                            <controls:Category CategoryName="{Binding Name}" CategoryId="{Binding ChannelId}" VideoData="{Binding Videos}" Margin="60, 0, 0 ,0"/>
+                           <controls:Category CategoryName="{Binding Name}" CategoryId="{Binding ChannelId}" VideoData="{Binding Videos}" Margin="60, 0, 0 ,0"/>
                         </DataTemplate>
                     </ItemsControl.ItemTemplate>
                 </ItemsControl>
@@ -89,6 +89,6 @@
 
         <ProgressRing x:Name="indicator" Grid.Row="0" Grid.RowSpan="2" Width="100" Height="100" IsActive="False"/>
 
-        <Border Background="Transparent" Grid.RowSpan="2" IsHitTestVisible="{Binding IsOpen, ElementName=topAppBar}" Tapped="TopAppBar_Tapped" />
+        <!--<Border Background="Transparent" Grid.RowSpan="2" IsHitTestVisible="{Binding IsOpen, ElementName=topAppBar}" Tapped="TopAppBar_Tapped" />-->
     </Grid>
 </Page>

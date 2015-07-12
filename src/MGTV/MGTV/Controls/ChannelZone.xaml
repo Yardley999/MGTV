@@ -17,16 +17,29 @@
             <RowDefinition Height="125*"/>
         </Grid.RowDefinitions>
         <TextBlock Text="频道" Grid.Row="0" Style="{StaticResource MainPage_Header_Text}" VerticalAlignment="Bottom" Margin="5, 0, 0, 20"/>
-        <GridView Grid.Row="1" IsHitTestVisible="False">
-            <controls:LocalTile Title="综艺" CenterImageUri="ms-appx:///Assets/NavListIcon/ico-nav-10.png" />
-            <controls:LocalTile Title="电视剧" CenterImageUri="ms-appx:///Assets/NavListIcon/ico-nav-10.png" />
-            <controls:LocalTile Title="电影" CenterImageUri="ms-appx:///Assets/NavListIcon/ico-nav-10.png" />
-            <controls:LocalTile Title="动漫" CenterImageUri="ms-appx:///Assets/NavListIcon/ico-nav-10.png" />
-            <controls:LocalTile Title="音乐" CenterImageUri="ms-appx:///Assets/NavListIcon/ico-nav-10.png" />
-            <controls:LocalTile Title="记录片" CenterImageUri="ms-appx:///Assets/NavListIcon/ico-nav-10.png" />
-            <controls:LocalTile Title="生活" CenterImageUri="ms-appx:///Assets/NavListIcon/ico-nav-10.png" />
-            <controls:LocalTile Title="新闻" CenterImageUri="ms-appx:///Assets/NavListIcon/ico-nav-10.png" />
-            <controls:LocalTile Title="直播" CenterImageUri="ms-appx:///Assets/NavListIcon/ico-nav-10.png" />
-        </GridView>
+        <ItemsControl x:Name="chanelZoneItemList" Grid.Row="1">
+            <ItemsControl.ItemsPanel>
+                <ItemsPanelTemplate>
+                    <WrapGrid Orientation="Horizontal" Width="700" />
+                </ItemsPanelTemplate>
+            </ItemsControl.ItemsPanel>
+            <ItemsControl.Template>
+                <ControlTemplate>
+                    <ScrollViewer ScrollViewer.IsScrollInertiaEnabled="True" 
+                      ScrollViewer.HorizontalScrollBarVisibility="Auto"
+                      ScrollViewer.VerticalScrollBarVisibility="Hidden"
+                      ScrollViewer.HorizontalScrollMode="Enabled"
+                      ScrollViewer.VerticalScrollMode="Disabled"
+                      ScrollViewer.ZoomMode="Disabled">
+                        <ItemsPresenter/>
+                    </ScrollViewer>
+                </ControlTemplate>
+            </ItemsControl.Template>
+            <ItemsControl.ItemTemplate>
+                <DataTemplate>
+                    <controls:LocalTile CenterImageUri="{Binding IconUrl}" Title="{Binding Name}" Tapped="ChannelZoneItem_Tapped"/>
+                </DataTemplate>
+            </ItemsControl.ItemTemplate>
+        </ItemsControl>
     </Grid>
 </UserControl>

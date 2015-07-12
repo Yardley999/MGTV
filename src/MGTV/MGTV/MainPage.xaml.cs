@@ -42,7 +42,7 @@ namespace MGTV
         {
             base.OnNavigatedTo(e);
 
-            topAppBar.IsOpen = false;
+            //topAppBar.IsOpen = false;
 
             if (e.NavigationMode == NavigationMode.Back)
             {
@@ -52,7 +52,8 @@ namespace MGTV
             }
 
             LoadDataAysnc();
-            navigationBar.LoadTopAppBarItemsAsync();
+            //navigationBar.LoadTopAppBarItemsAsync();
+            channelzone.LoadTopAppBarItemsAsync();
         }
 
         protected override void OnNavigatingFrom(NavigatingCancelEventArgs e)
@@ -166,10 +167,10 @@ namespace MGTV
         {
             e.Handled = true;
 
-            if (this.topAppBar.IsOpen)
-            {
-                this.topAppBar.IsOpen = false;
-            }
+            //if (this.topAppBar.IsOpen)
+            //{
+            //    this.topAppBar.IsOpen = false;
+            //}
         }
 
         #endregion
@@ -194,12 +195,13 @@ namespace MGTV
 
         private void BackgroundInit()
         {
-            App.Instance.BackgroundImage = backgourndImages.FirstOrDefault();
+            //App.Instance.BackgroundImage = backgourndImages.FirstOrDefault();
+            viewModel.Background = backgourndImages.FirstOrDefault();
             background1.Opacity = 1;
             background1.Visibility = Visibility.Visible;
             background1.Background = new ImageBrush()
             {
-                ImageSource = new BitmapImage(new Uri(App.Instance.BackgroundImage)),
+                ImageSource = new BitmapImage(new Uri(viewModel.Background)),
                 AlignmentX = AlignmentX.Center,
                 AlignmentY = AlignmentY.Center,
                 Stretch = Stretch.UniformToFill
@@ -211,7 +213,7 @@ namespace MGTV
 
         private string RandomSelectBackground()
         {
-            var list = backgourndImages.Where(img => !img.Equals(App.Instance.BackgroundImage, StringComparison.OrdinalIgnoreCase)).ToList();
+            var list = backgourndImages.Where(img => !img.Equals(viewModel.Background, StringComparison.OrdinalIgnoreCase)).ToList();
             return list[(new Random()).Next(0, list.Count())];
         }
 
@@ -253,7 +255,7 @@ namespace MGTV
             {
                 borderToHide.Visibility = Visibility.Collapsed;
                 isBackgroundInChanging = false;
-                App.Instance.BackgroundImage = imageToShow;
+                viewModel.Background = imageToShow;
             });
         }
 

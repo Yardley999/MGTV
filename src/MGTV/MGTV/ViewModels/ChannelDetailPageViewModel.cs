@@ -5,16 +5,8 @@ using System;
 
 namespace MGTV.ViewModels
 {
-    public class ChannelDetailsPageViewModel : BindableBase
+    public class ChannelDetailsPageViewModel : MGBindableBase
     {
-        private string background;
-
-        public string Background
-        {
-            get { return background; }
-            set { SetProperty<string>(ref background, value); }
-        }
-
         private string title;
 
         public string Title
@@ -37,7 +29,6 @@ namespace MGTV.ViewModels
 
         public ChannelDetailsPageViewModel()
         {
-            background = string.Empty;
             title = string.Empty;
             videoCount = 0;
             Filters = new ObservableCollection<Filter>();

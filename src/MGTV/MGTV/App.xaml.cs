@@ -29,7 +29,7 @@ namespace MGTV
             private set;
         }
 
-        public string BackgroundImage { get; set; }
+        //public string BackgroundImage { get; set; }
 
         /// <summary>
         /// Allows tracking page views, exceptions and other telemetry through the Microsoft Application Insights service.

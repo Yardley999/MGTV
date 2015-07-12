@@ -35,6 +35,13 @@ namespace MGTV.ViewModels
             Id = 0
         };
 
+        public static readonly Channel Live = new Channel()
+        {
+            iconUrl = "",
+            name= "直播",
+            Id = 99
+        };
+
         public Channel()
         {
             id = -1;
